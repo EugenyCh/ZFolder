@@ -9,7 +9,7 @@
 #include <ctime>
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define MIN(a, b) ((a) < (b) ? (b) : (a))
-#define SIDE_MAX 1000
+#define SIDE_MAX 1200
 
 __device__ int side1;
 __device__ int side2;

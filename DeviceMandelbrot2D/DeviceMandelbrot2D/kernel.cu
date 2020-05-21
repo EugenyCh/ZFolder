@@ -19,6 +19,8 @@ static Mandelbrot2D mandelbrot;
 unsigned systemList = 0; // display list to draw system
 float zoom = 1.0f;
 int winWidth, winHeight;
+int windowedWidth, windowedHeight;
+bool fullscreen = false;
 bool saving = false;
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -190,6 +192,24 @@ void processKey(unsigned char key, int x, int y)
         break;
     case '6':
         camRotH += 2.0f;
+        break;
+    case 'F':
+    case 'f':
+        if (!fullscreen)
+        {
+            windowedWidth = winWidth;
+            windowedHeight = winHeight;
+            fullscreen = true;
+            glutFullScreen();
+        }
+        break;
+    case 'W':
+    case 'w':
+        if (fullscreen)
+        {
+            glutReshapeWindow(windowedWidth, windowedHeight);
+            fullscreen = false;
+        }
         break;
     }
 
