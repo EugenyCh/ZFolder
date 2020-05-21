@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mandelbulb3Dv2", "Mandelbulb3Dv2\Mandelbulb3Dv2.vcxproj", "{A735D9FE-D7CD-40DF-A5EF-B6273A67226E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A735D9FE-D7CD-40DF-A5EF-B6273A67226E}.Debug|x64.ActiveCfg = Debug|x64
+		{A735D9FE-D7CD-40DF-A5EF-B6273A67226E}.Debug|x64.Build.0 = Debug|x64
+		{A735D9FE-D7CD-40DF-A5EF-B6273A67226E}.Release|x64.ActiveCfg = Release|x64
+		{A735D9FE-D7CD-40DF-A5EF-B6273A67226E}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BC807141-CB31-4CDC-A011-958A66150C4E}
+	EndGlobalSection
+EndGlobal
