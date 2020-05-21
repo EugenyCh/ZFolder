@@ -10,7 +10,7 @@
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 float rotX = 0;
-float rotY = -90;
+float rotY = 90;
 float rotZ = 90;
 float camRotH, camRotV;
 float camShH, camShV; // camera shift
