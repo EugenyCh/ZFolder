@@ -58,7 +58,7 @@ void display()
 
         glNewList(systemList, GL_COMPILE);
         julia.initColorSpectrum();
-        julia.compute(1000, 1000, 500, 1.0);
+        julia.compute(1000, 1000, 500, 4.0);
         julia.draw();
         glEndList();
     }
