@@ -188,7 +188,7 @@ int main(int argc, char* argv[])
     // initialize glut
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(100, 100);
+    glutInitWindowSize(300, 300);
 
     // create window
     glutCreateWindow("Mandelbulb demo");
