@@ -50,7 +50,7 @@ void display()
         systemList = glGenLists(1);
 
         glNewList(systemList, GL_COMPILE);
-        mandelbrot.compute(winWidth, winHeight, 200, 2.0);
+        mandelbrot.compute(2000, 2000, 200, 2.0);
         mandelbrot.draw();
         glEndList();
     }
