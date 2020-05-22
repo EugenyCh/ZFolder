@@ -58,7 +58,7 @@ void display()
 
         glNewList(systemList, GL_COMPILE);
         mandelbrot.initColorSpectrum();
-        mandelbrot.compute(1000, 1000, 500, 1.0);
+        mandelbrot.compute(1000, 1000, 500, 4.0);
         mandelbrot.draw();
         glEndList();
     }
