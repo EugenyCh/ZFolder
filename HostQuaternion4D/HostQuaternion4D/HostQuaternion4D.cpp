@@ -7,7 +7,7 @@
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 float rotX = 0;
-float rotY = -90;
+float rotY = 90;
 float rotZ = 90;
 float camRotH, camRotV;
 float camShH, camShV; // camera shift
@@ -188,7 +188,7 @@ int main(int argc, char* argv[])
     // initialize glut
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(150, 150);
+    glutInitWindowSize(400, 400);
 
     // create window
     glutCreateWindow("Quaternion fractal demo");
