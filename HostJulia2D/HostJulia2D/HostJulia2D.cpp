@@ -50,7 +50,7 @@ void display()
         systemList = glGenLists(1);
 
         glNewList(systemList, GL_COMPILE);
-        julia.compute(2000, 2000, 200, 2.0);
+        julia.compute(4000, 4000, 200, 1.0);
         julia.draw();
         glEndList();
     }
