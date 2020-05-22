@@ -186,7 +186,7 @@ int main(int argc, char* argv[])
     // initialize glut
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(750, 750);
+    glutInitWindowSize(1000, 1000);
 
     // create window
     glutCreateWindow("Mandelbrot2D demo");
