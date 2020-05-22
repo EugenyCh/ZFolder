@@ -58,7 +58,7 @@ void display()
 
         glNewList(systemList, GL_COMPILE);
         julia.initColorSpectrum();
-        julia.compute(winWidth, winHeight, 500, 2.0);
+        julia.compute(winWidth, winHeight, 200, 2.0);
         julia.draw();
         glEndList();
     }
@@ -247,7 +247,7 @@ int main(int argc, char* argv[])
     // initialize glut
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(960, 640);
+    glutInitWindowSize(500, 500);
 
     // create window
     glutCreateWindow("Julia2D demo");
