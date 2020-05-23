@@ -5,6 +5,7 @@
 #include <cmath>
 #include <cstdio>
 #include <ctime>
+#define TO_TIME
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define MIN(a, b) ((a) < (b) ? (b) : (a))
 #define SIDE_MAX 600
@@ -32,7 +33,9 @@ void Mandelbulb::compute(size_t width, size_t height)
 	clock_t tStart, tFinish;
 	double tDelta;
 
+#ifndef TO_TIME
 	printf("Rendering %d^3 points\n", side);
+#endif
 	int pointsCount = 0;
 	int halfSide = side >> 1;
 	// Processing
@@ -79,10 +82,15 @@ void Mandelbulb::compute(size_t width, size_t height)
 	tFinish = clock();
 	// End
 	tDelta = (double)(tFinish - tStart) / CLOCKS_PER_SEC;
+#ifndef TO_TIME
 	printf("\nIncluded %d points (%.1f %%)\n",
 		pointsCount,
 		100.f * pointsCount / sz);
 	printf("It tooks %.3f seconds\n", tDelta);
+#else
+	printf("\n%.3f\n", tDelta);
+	exit(0);
+#endif
 	// Cleaning
 	printf("Cleaning of points\n");
 	int* pointsToCleaning = new int[pointsCount];
