@@ -52,8 +52,8 @@ void display()
 
         glNewList(systemList, GL_COMPILE);
         mandelbulb.initColorSpectrum();
-        mandelbulb.compute(winWidth, winHeight);
-        mandelbulb.draw(winWidth, winHeight);
+        mandelbulb.compute(200, 200);
+        mandelbulb.draw();
         glEndList();
     }
 

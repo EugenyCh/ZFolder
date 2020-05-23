@@ -51,9 +51,9 @@ void display()
         systemList = glGenLists(1);
 
         glNewList(systemList, GL_COMPILE);
-        qfractal.compute(winWidth, winHeight);
         qfractal.initColorSpectrum();
-        qfractal.draw(winWidth, winHeight);
+        qfractal.compute(winWidth, winHeight);
+        qfractal.draw();
         glEndList();
     }
 

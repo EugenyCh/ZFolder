@@ -47,6 +47,8 @@ void QFractal::compute(size_t width, size_t height)
 {
 	if (points)
 		delete[] points;
+	this->width = width;
+	this->height = height;
 	side = MIN(width, height);
 	if (side > SIDE_MAX)
 		side = SIDE_MAX;
@@ -169,7 +171,7 @@ void QFractal::compute(size_t width, size_t height)
 	printf("\nIt tooks %.3f seconds\n\n", tDelta);
 }
 
-void QFractal::draw(size_t width, size_t height)
+void QFractal::draw()
 {
 	if (points)
 	{

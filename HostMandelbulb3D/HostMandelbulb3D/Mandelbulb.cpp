@@ -21,6 +21,8 @@ void Mandelbulb::compute(size_t width, size_t height)
 {
 	if (points)
 		delete[] points;
+	this->width = width;
+	this->height = height;
 	side = MIN(width, height);
 	if (side > SIDE_MAX)
 		side = SIDE_MAX;
@@ -138,7 +140,7 @@ void Mandelbulb::compute(size_t width, size_t height)
 	printf("\nIt tooks %.3f seconds\n\n", tDelta);
 }
 
-void Mandelbulb::draw(size_t width, size_t height)
+void Mandelbulb::draw()
 {
 	if (points)
 	{
