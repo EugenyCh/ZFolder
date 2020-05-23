@@ -13,7 +13,7 @@ float camRotH, camRotV;
 float camShH, camShV; // camera shift
 int mouseOldX = 0;
 int mouseOldY = 0;
-static Mandelbulb mandelbulb(8.0, 5);
+static Mandelbulb mandelbulb(8.0, 10);
 unsigned systemList = 0; // display list to draw system
 float zoom = 1.0f;
 int winWidth, winHeight;
@@ -52,7 +52,7 @@ void display()
 
         glNewList(systemList, GL_COMPILE);
         mandelbulb.initColorSpectrum();
-        mandelbulb.compute(200, 200);
+        mandelbulb.compute(300, 300);
         mandelbulb.draw();
         glEndList();
     }
