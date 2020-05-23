@@ -109,6 +109,8 @@ bool QFractal::compute(size_t width, size_t height)
 {
 	if (points)
 		delete[] points;
+	this->width = width;
+	this->height = height;
 	side = MIN(width, height);
 	if (side > SIDE_MAX)
 		side = SIDE_MAX;
@@ -215,7 +217,7 @@ bool QFractal::compute(size_t width, size_t height)
 	return true;
 }
 
-void QFractal::draw(size_t width, size_t height)
+void QFractal::draw()
 {
 	if (points)
 	{

@@ -11,11 +11,13 @@ private:
 	byte* points = nullptr;
 	size_t side = 0;
 	byte colorSpectrum[256][3];
+	int width = 0;
+	int height = 0;
 
 public:
 	Mandelbulb(float power, int maxIter);
 	bool compute(size_t width, size_t height);
-	void draw(size_t width, size_t height);
+	void draw();
 	void initColorSpectrum();
 };
 

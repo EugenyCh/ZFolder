@@ -79,6 +79,8 @@ bool Mandelbulb::compute(size_t width, size_t height)
 {
 	if (points)
 		delete[] points;
+	this->width = width;
+	this->height = height;
 	side = MIN(width, height);
 	if (side > SIDE_MAX)
 		side = SIDE_MAX;
@@ -184,7 +186,7 @@ bool Mandelbulb::compute(size_t width, size_t height)
 	return true;
 }
 
-void Mandelbulb::draw(size_t width, size_t height)
+void Mandelbulb::draw()
 {
 	if (points)
 	{
