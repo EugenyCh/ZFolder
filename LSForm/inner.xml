@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+  <fractal name="3D Hilbert Curve">
+    <axiom>X</axiom>
+    <rule char="X">^\XF^\XFX-F^//XFX&amp;F+//XFX-F/X-/</rule>
+  </fractal>
+
+  <fractal name="3D Spring">
+    <axiom>F</axiom>
+    <rule char="F">F-^F</rule>
+    <angle>12</angle>
+  </fractal>
+
+  <fractal name="3D Vine">
+    <axiom>--F</axiom>
+    <rule char="F">/F[++F]-\F[--F]+//F</rule>
+    <angle>18</angle>
+  </fractal>
+
+  <fractal name="2D Hilbert Curve">
+    <axiom>X</axiom>
+    <rule char="X">-YF+XFX+FY-</rule>
+    <rule char="Y">+XF-YFY-FX+</rule>
+  </fractal>
+
+  <fractal name="Triangle">
+    <axiom>F+F+F</axiom>
+    <rule char="F">F-F+F</rule>
+    <angle>120</angle>
+  </fractal>
+
+  <fractal name="Quadratic Gosper">
+    <axiom>-YF</axiom>
+    <rule char="X">XFX-YF-YF+FX+FX-YF-YFFX+YF+FXFXYF-FX+YF+FXFX+YF-FXYF-YF-FX+FX+YFYF-</rule>
+    <rule char="Y">+FXFX-YF-YF+FX+FXYF+FX-YFYF-FX-YF+FXYFYF-FX-YFFX+FX+YF-YF-FX+FX+YFY</rule>
+  </fractal>
+
+  <fractal name="Square Sierpinski">
+    <axiom>F+XF+F+XF</axiom>
+    <rule char="X">XF-F+F-XF+F+XF-F+F-X</rule>
+  </fractal>
+
+  <fractal name="Crystal">
+    <axiom>F+F+F+F</axiom>
+    <rule char="F">FF+F++F+F</rule>
+  </fractal>
+
+  <fractal name="Peano Curve">
+    <axiom>X</axiom>
+    <rule char="X">XFYFX+F+YFXFY-F-XFYFX</rule>
+    <rule char="Y">YFXFY-F-XFYFX+F+YFXFY</rule>
+  </fractal>
+
+  <fractal name="Quadratic Snowflake">
+    <axiom>F</axiom>
+    <rule char="F">F-F+F+F-F</rule>
+  </fractal>
+
+  <fractal name="Quadratic Snowflake (Variation by Hasan Hosam)">
+    <axiom>FF+FF+FF+FF</axiom>
+    <rule char="F">F+F-F-F+F</rule>
+  </fractal>
+
+  <fractal name="Quadratic Koch Island">
+    <axiom>F+F+F+F</axiom>
+    <rule char="F">F+F-F-FFF+F+F-F</rule>
+  </fractal>
+
+  <fractal name="Quadratic Koch Island (Variation by Hasan Hosam)">
+    <axiom>X+X+X+X+X+X+X+X</axiom>
+    <rule char="X">X+YF++YF-FX--FXFX-YF+X</rule>
+    <rule char="Y">-FX+YFYF++YF+FX--FX-YF</rule>
+    <angle>45</angle>
+  </fractal>
+
+  <fractal name="Koch Snowflake">
+    <axiom>F--F--F</axiom>
+    <rule char="F">F+F--F+F</rule>
+    <angle>60</angle>
+  </fractal>
+
+  <fractal name="Board">
+    <axiom>F+F+F+F</axiom>
+    <rule char="F">FF+F+F+F+FF</rule>
+  </fractal>
+
+  <fractal name="Sierpinski Arrowhead">
+    <axiom>YF</axiom>
+    <rule char="X">YF+XF+Y</rule>
+    <rule char="Y">XF-YF-X</rule>
+    <angle>60</angle>
+  </fractal>
+
+  <fractal name="Pentaplexity">
+    <axiom>F++F++F++F++F</axiom>
+    <rule char="F">F++F++F|F-F++F</rule>
+    <angle>36</angle>
+  </fractal>
+
+  <fractal name="Dragon Curve">
+    <axiom>FX</axiom>
+    <rule char="X">X+YF+</rule>
+    <rule char="Y">-FX-Y</rule>
+  </fractal>
+
+  <fractal name="Hexagonal Gosper">
+    <axiom>XF</axiom>
+    <rule char="X">X+YF++YF-FX--FXFX-YF+</rule>
+    <rule char="Y">-FX+YFYF++YF+FX--FX-Y</rule>
+    <angle>60</angle>
+  </fractal>
+
+  <fractal name="Lévy curve">
+    <axiom>F</axiom>
+    <rule char="F">-F++F-</rule>
+    <angle>45</angle>
+  </fractal>
+
+  <fractal name="Classic Sierpinski Curve">
+    <axiom>F--XF--F--XF</axiom>
+    <rule char="X">XF+F+XF--F--XF+F+X</rule>
+    <angle>45</angle>
+  </fractal>
+
+  <fractal name="Krishna Anklets">
+    <axiom>-X--X</axiom>
+    <rule char="X">XFX--XFX</rule>
+    <angle>45</angle>
+  </fractal>
+
+  <fractal name="Mango Leaf">
+    <axiom>Y---Y</axiom>
+    <rule char="X">F-FF-F--[--X]F-FF-F--F-FF-F--</rule>
+    <rule char="Y">f-F+X+F-fY</rule>
+    <angle>60</angle>
+  </fractal>
+
+  <fractal name="Snake Kolam">
+    <axiom>F+XF+F+XF</axiom>
+    <rule char="X">XF-F-F+XF+F+XF-F-F+X</rule>
+  </fractal>
+</templates>
