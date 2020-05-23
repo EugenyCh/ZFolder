@@ -58,7 +58,7 @@ void display()
 
         glNewList(systemList, GL_COMPILE);
         mandelbrot.initColorSpectrum();
-        mandelbrot.compute(1000, 1000, 500, 4.0);
+        mandelbrot.compute(1000, 1000, 500, 3.0);
         mandelbrot.draw();
         glEndList();
     }
@@ -101,8 +101,8 @@ void reshape(int w, int h)
 
 void motion(int x, int y)
 {
-    rotY -= ((mouseOldY - y) * 180.0f) / 200.0f;
-    rotZ -= ((mouseOldX - x) * 180.0f) / 200.0f;
+    rotY -= ((mouseOldY - y) * 180.0f) / 360.0f;
+    rotZ -= ((mouseOldX - x) * 180.0f) / 360.0f;
     rotX = 0;
 
     if (rotZ > 360)

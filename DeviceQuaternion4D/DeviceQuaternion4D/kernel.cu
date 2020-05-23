@@ -102,8 +102,8 @@ void reshape(int w, int h)
 
 void motion(int x, int y)
 {
-    rotY -= ((mouseOldY - y) * 180.0f) / 200.0f;
-    rotZ -= ((mouseOldX - x) * 180.0f) / 200.0f;
+    rotY -= ((mouseOldY - y) * 180.0f) / 360.0f;
+    rotZ -= ((mouseOldX - x) * 180.0f) / 360.0f;
     rotX = 0;
 
     if (rotZ > 360)
