@@ -1,203 +1,43 @@
-1
-Rendering 150^3 points
-100.0 % | 6192 points (0.2 %)
-Included 6192 points (0.2 %)
-It tooks 1.210 seconds
-2
-Rendering 150^3 points
-100.0 % | 6192 points (0.2 %)
-Included 6192 points (0.2 %)
-It tooks 1.207 seconds
-3
-Rendering 150^3 points
-100.0 % | 6192 points (0.2 %)
-Included 6192 points (0.2 %)
-It tooks 1.221 seconds
-4
-Rendering 150^3 points
-100.0 % | 6192 points (0.2 %)
-Included 6192 points (0.2 %)
-It tooks 1.209 seconds
-5
-Rendering 150^3 points
-100.0 % | 6192 points (0.2 %)
-Included 6192 points (0.2 %)
-It tooks 1.211 seconds
-6
-Rendering 150^3 points
-100.0 % | 6192 points (0.2 %)
-Included 6192 points (0.2 %)
-It tooks 1.203 seconds
-7
-Rendering 150^3 points
-100.0 % | 6192 points (0.2 %)
-Included 6192 points (0.2 %)
-It tooks 1.206 seconds
-8
-Rendering 150^3 points
-100.0 % | 6192 points (0.2 %)
-Included 6192 points (0.2 %)
-It tooks 1.210 seconds
-9
-Rendering 150^3 points
-100.0 % | 6192 points (0.2 %)
-Included 6192 points (0.2 %)
-It tooks 1.207 seconds
-10
-Rendering 150^3 points
-100.0 % | 6192 points (0.2 %)
-Included 6192 points (0.2 %)
-It tooks 1.229 seconds
+1.210
+1.207
+1.221
+1.209
+1.211
+1.203
+1.206
+1.210
+1.207
+1.229
 
-1
-Rendering 300^3 points
-100.0 % | 48830 points (0.2 %)
-Included 48830 points (0.2 %)
-It tooks 9.488 seconds
-2
-Rendering 300^3 points
-100.0 % | 48830 points (0.2 %)
-Included 48830 points (0.2 %)
-It tooks 9.460 seconds
-3
-Rendering 300^3 points
-100.0 % | 48830 points (0.2 %)
-Included 48830 points (0.2 %)
-It tooks 9.459 seconds
-4
-Rendering 300^3 points
-100.0 % | 48830 points (0.2 %)
-Included 48830 points (0.2 %)
-It tooks 9.458 seconds
-5
-Rendering 300^3 points
-100.0 % | 48830 points (0.2 %)
-Included 48830 points (0.2 %)
-It tooks 9.460 seconds
-6
-Rendering 300^3 points
-100.0 % | 48830 points (0.2 %)
-Included 48830 points (0.2 %)
-It tooks 9.507 seconds
-7
-Rendering 300^3 points
-100.0 % | 48830 points (0.2 %)
-Included 48830 points (0.2 %)
-It tooks 9.470 seconds
-8
-Rendering 300^3 points
-100.0 % | 48830 points (0.2 %)
-Included 48830 points (0.2 %)
-It tooks 9.453 seconds
-9
-Rendering 300^3 points
-100.0 % | 48830 points (0.2 %)
-Included 48830 points (0.2 %)
-It tooks 9.461 seconds
-10
-Rendering 300^3 points
-100.0 % | 48830 points (0.2 %)
-Included 48830 points (0.2 %)
-It tooks 9.462 seconds
+9.488
+9.460
+9.459
+9.458
+9.460
+9.507
+9.470
+9.453
+9.461
+9.462
 
-1
-Rendering 450^3 points
-100.0 % | 164368 points (0.2 %)
-Included 164368 points (0.2 %)
-It tooks 31.906 seconds
-2
-Rendering 450^3 points
-100.0 % | 164368 points (0.2 %)
-Included 164368 points (0.2 %)
-It tooks 31.746 seconds
-3
-Rendering 450^3 points
-100.0 % | 164368 points (0.2 %)
-Included 164368 points (0.2 %)
-It tooks 31.732 seconds
-4
-Rendering 450^3 points
-100.0 % | 164368 points (0.2 %)
-Included 164368 points (0.2 %)
-It tooks 31.717 seconds
-5
-Rendering 450^3 points
-100.0 % | 164368 points (0.2 %)
-Included 164368 points (0.2 %)
-It tooks 32.954 seconds
-6
-Rendering 450^3 points
-100.0 % | 164368 points (0.2 %)
-Included 164368 points (0.2 %)
-It tooks 31.709 seconds
-7
-Rendering 450^3 points
-100.0 % | 164368 points (0.2 %)
-Included 164368 points (0.2 %)
-It tooks 31.820 seconds
-8
-Rendering 450^3 points
-100.0 % | 164368 points (0.2 %)
-Included 164368 points (0.2 %)
-It tooks 31.825 seconds
-9
-Rendering 450^3 points
-100.0 % | 164368 points (0.2 %)
-Included 164368 points (0.2 %)
-It tooks 31.824 seconds
-10
-Rendering 450^3 points
-100.0 % | 164368 points (0.2 %)
-Included 164368 points (0.2 %)
-It tooks 31.926 seconds
+31.906
+31.746
+31.732
+31.717
+32.954
+31.709
+31.820
+31.825
+31.824
+31.926
 
-1
-Rendering 600^3 points
-100.0 % | 389442 points (0.2 %)
-Included 389442 points (0.2 %)
-It tooks 75.713 seconds
-2
-Rendering 600^3 points
-100.0 % | 389442 points (0.2 %)
-Included 389442 points (0.2 %)
-It tooks 74.959 seconds
-3
-Rendering 600^3 points
-100.0 % | 389442 points (0.2 %)
-Included 389442 points (0.2 %)
-It tooks 75.017 seconds
-4
-Rendering 600^3 points
-100.0 % | 389442 points (0.2 %)
-Included 389442 points (0.2 %)
-It tooks 75.446 seconds
-5
-Rendering 600^3 points
-100.0 % | 389442 points (0.2 %)
-Included 389442 points (0.2 %)
-It tooks 74.968 seconds
-6
-Rendering 600^3 points
-100.0 % | 389442 points (0.2 %)
-Included 389442 points (0.2 %)
-It tooks 75.101 seconds
-7
-Rendering 600^3 points
-100.0 % | 389442 points (0.2 %)
-Included 389442 points (0.2 %)
-It tooks 75.048 seconds
-8
-Rendering 600^3 points
-100.0 % | 389442 points (0.2 %)
-Included 389442 points (0.2 %)
-It tooks 75.027 seconds
-9
-Rendering 600^3 points
-100.0 % | 389442 points (0.2 %)
-Included 389442 points (0.2 %)
-It tooks 75.269 seconds
-10
-Rendering 600^3 points
-100.0 % | 389442 points (0.2 %)
-Included 389442 points (0.2 %)
-It tooks 75.020 seconds
+75.713
+74.959
+75.017
+75.446
+74.968
+75.101
+75.048
+75.027
+75.269
+75.020
