@@ -8,6 +8,7 @@
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define MIN(a, b) ((a) < (b) ? (b) : (a))
 #define SIDE_MAX 600
+#define TO_TIME
 
 QFractal::QFractal(float r, float a, float b, float c, QFractal::ParamToHide h, int maxIter)
 {
@@ -114,6 +115,9 @@ void QFractal::compute(size_t width, size_t height)
 		pointsCount,
 		100.f * pointsCount / sz);
 	printf("It tooks %.3f seconds\n", tDelta);
+#ifdef TO_TIME
+	exit(0);
+#endif // TO_TIME
 	// Cleaning
 	printf("Cleaning of points\n");
 	int* pointsToCleaning = new int[pointsCount];
