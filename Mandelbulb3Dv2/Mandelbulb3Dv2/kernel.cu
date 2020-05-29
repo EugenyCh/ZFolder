@@ -59,7 +59,7 @@ void display()
 
         glNewList(systemList, GL_COMPILE);
         mandelbulb.initColorSpectrum();
-        mandelbulb.compute(400, 400);
+        mandelbulb.compute(600, 600);
         mandelbulb.draw();
         glEndList();
     }

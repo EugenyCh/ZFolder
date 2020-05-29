@@ -1,43 +1,363 @@
-1.210
-1.207
-1.221
-1.209
-1.211
-1.203
-1.206
-1.210
-1.207
-1.229
 
-9.488
-9.460
-9.459
-9.458
-9.460
-9.507
-9.470
-9.453
-9.461
-9.462
+1
+Computing 150^3 points
+Rendering 150^3
+Included 6192 points (0.2 %)
+It tooks 0.059 seconds
+Cleaning of points
+Cleaned 106 points (1.7 %)
+It tooks 0.007 seconds
 
-31.906
-31.746
-31.732
-31.717
-32.954
-31.709
-31.820
-31.825
-31.824
-31.926
+2
+Computing 150^3 points
+Rendering 150^3
+Included 6192 points (0.2 %)
+It tooks 0.058 seconds
+Cleaning of points
+Cleaned 106 points (1.7 %)
+It tooks 0.006 seconds
 
-75.713
-74.959
-75.017
-75.446
-74.968
-75.101
-75.048
-75.027
-75.269
-75.020
+3
+Computing 150^3 points
+Rendering 150^3
+Included 6192 points (0.2 %)
+It tooks 0.058 seconds
+Cleaning of points
+Cleaned 106 points (1.7 %)
+It tooks 0.006 seconds
+
+4
+Computing 150^3 points
+Rendering 150^3
+Included 6192 points (0.2 %)
+It tooks 0.057 seconds
+Cleaning of points
+Cleaned 106 points (1.7 %)
+It tooks 0.007 seconds
+
+5
+Computing 150^3 points
+Rendering 150^3
+Included 6192 points (0.2 %)
+It tooks 0.058 seconds
+Cleaning of points
+Cleaned 106 points (1.7 %)
+It tooks 0.006 seconds
+
+6
+Computing 150^3 points
+Rendering 150^3
+Included 6192 points (0.2 %)
+It tooks 0.058 seconds
+Cleaning of points
+Cleaned 106 points (1.7 %)
+It tooks 0.009 seconds
+
+7
+Computing 150^3 points
+Rendering 150^3
+Included 6192 points (0.2 %)
+It tooks 0.057 seconds
+Cleaning of points
+Cleaned 106 points (1.7 %)
+It tooks 0.009 seconds
+
+8
+Computing 150^3 points
+Rendering 150^3
+Included 6192 points (0.2 %)
+It tooks 0.058 seconds
+Cleaning of points
+Cleaned 106 points (1.7 %)
+It tooks 0.006 seconds
+
+9
+Computing 150^3 points
+Rendering 150^3
+Included 6192 points (0.2 %)
+It tooks 0.058 seconds
+Cleaning of points
+Cleaned 106 points (1.7 %)
+It tooks 0.007 seconds
+
+10
+Computing 150^3 points
+Rendering 150^3
+Included 6192 points (0.2 %)
+It tooks 0.058 seconds
+Cleaning of points
+Cleaned 106 points (1.7 %)
+It tooks 0.006 seconds
+
+
+1
+Computing 300^3 points
+Rendering 300^3
+Included 48830 points (0.2 %)
+It tooks 0.428 seconds
+Cleaning of points
+Cleaned 1642 points (3.4 %)
+It tooks 0.047 seconds
+
+2
+Computing 300^3 points
+Rendering 300^3
+Included 48830 points (0.2 %)
+It tooks 0.427 seconds
+Cleaning of points
+Cleaned 1642 points (3.4 %)
+It tooks 0.048 seconds
+
+3
+Computing 300^3 points
+Rendering 300^3
+Included 48830 points (0.2 %)
+It tooks 0.426 seconds
+Cleaning of points
+Cleaned 1642 points (3.4 %)
+It tooks 0.048 seconds
+
+4
+Computing 300^3 points
+Rendering 300^3
+Included 48830 points (0.2 %)
+It tooks 0.428 seconds
+Cleaning of points
+Cleaned 1642 points (3.4 %)
+It tooks 0.047 seconds
+
+5
+Computing 300^3 points
+Rendering 300^3
+Included 48830 points (0.2 %)
+It tooks 0.427 seconds
+Cleaning of points
+Cleaned 1642 points (3.4 %)
+It tooks 0.050 seconds
+
+6
+Computing 300^3 points
+Rendering 300^3
+Included 48830 points (0.2 %)
+It tooks 0.427 seconds
+Cleaning of points
+Cleaned 1642 points (3.4 %)
+It tooks 0.048 seconds
+
+7
+Computing 300^3 points
+Rendering 300^3
+Included 48830 points (0.2 %)
+It tooks 0.427 seconds
+Cleaning of points
+Cleaned 1642 points (3.4 %)
+It tooks 0.048 seconds
+
+8
+Computing 300^3 points
+Rendering 300^3
+Included 48830 points (0.2 %)
+It tooks 0.428 seconds
+Cleaning of points
+Cleaned 1642 points (3.4 %)
+It tooks 0.048 seconds
+
+9
+Computing 300^3 points
+Rendering 300^3
+Included 48830 points (0.2 %)
+It tooks 0.427 seconds
+Cleaning of points
+Cleaned 1642 points (3.4 %)
+It tooks 0.050 seconds
+
+10
+Computing 300^3 points
+Rendering 300^3
+Included 48830 points (0.2 %)
+It tooks 0.427 seconds
+Cleaning of points
+Cleaned 1642 points (3.4 %)
+It tooks 0.051 seconds
+
+
+1
+Computing 450^3 points
+Rendering 450^3
+Included 164368 points (0.2 %)
+It tooks 1.374 seconds
+Cleaning of points
+Cleaned 9010 points (5.5 %)
+It tooks 0.165 seconds
+
+2
+Computing 450^3 points
+Rendering 450^3
+Included 164368 points (0.2 %)
+It tooks 1.376 seconds
+Cleaning of points
+Cleaned 9010 points (5.5 %)
+It tooks 0.157 seconds
+
+3
+Computing 450^3 points
+Rendering 450^3
+Included 164368 points (0.2 %)
+It tooks 1.376 seconds
+Cleaning of points
+Cleaned 9010 points (5.5 %)
+It tooks 0.158 seconds
+
+4
+Computing 450^3 points
+Rendering 450^3
+Included 164368 points (0.2 %)
+It tooks 1.375 seconds
+Cleaning of points
+Cleaned 9010 points (5.5 %)
+It tooks 0.157 seconds
+
+5
+Computing 450^3 points
+Rendering 450^3
+Included 164368 points (0.2 %)
+It tooks 1.375 seconds
+Cleaning of points
+Cleaned 9010 points (5.5 %)
+It tooks 0.166 seconds
+
+6
+Computing 450^3 points
+Rendering 450^3
+Included 164368 points (0.2 %)
+It tooks 1.376 seconds
+Cleaning of points
+Cleaned 9010 points (5.5 %)
+It tooks 0.158 seconds
+
+7
+Computing 450^3 points
+Rendering 450^3
+Included 164368 points (0.2 %)
+It tooks 1.376 seconds
+Cleaning of points
+Cleaned 9010 points (5.5 %)
+It tooks 0.158 seconds
+
+8
+Computing 450^3 points
+Rendering 450^3
+Included 164368 points (0.2 %)
+It tooks 1.375 seconds
+Cleaning of points
+Cleaned 9010 points (5.5 %)
+It tooks 0.160 seconds
+
+9
+Computing 450^3 points
+Rendering 450^3
+Included 164368 points (0.2 %)
+It tooks 1.374 seconds
+Cleaning of points
+Cleaned 9010 points (5.5 %)
+It tooks 0.226 seconds
+
+10
+Computing 450^3 points
+Rendering 450^3
+Included 164368 points (0.2 %)
+It tooks 1.375 seconds
+Cleaning of points
+Cleaned 9010 points (5.5 %)
+It tooks 0.158 seconds
+
+
+1
+Computing 600^3 points
+Rendering 600^3
+Included 389442 points (0.2 %)
+It tooks 3.223 seconds
+Cleaning of points
+Cleaned 29520 points (7.6 %)
+It tooks 0.416 seconds
+
+2
+Computing 600^3 points
+Rendering 600^3
+Included 389442 points (0.2 %)
+It tooks 3.223 seconds
+Cleaning of points
+Cleaned 29520 points (7.6 %)
+It tooks 0.376 seconds
+
+3
+Computing 600^3 points
+Rendering 600^3
+Included 389442 points (0.2 %)
+It tooks 3.224 seconds
+Cleaning of points
+Cleaned 29520 points (7.6 %)
+It tooks 0.372 seconds
+
+4
+Computing 600^3 points
+Rendering 600^3
+Included 389442 points (0.2 %)
+It tooks 3.224 seconds
+Cleaning of points
+Cleaned 29520 points (7.6 %)
+It tooks 0.401 seconds
+
+5
+Computing 600^3 points
+Rendering 600^3
+Included 389442 points (0.2 %)
+It tooks 3.257 seconds
+Cleaning of points
+Cleaned 29520 points (7.6 %)
+It tooks 0.374 seconds
+
+6
+Computing 600^3 points
+Rendering 600^3
+Included 389442 points (0.2 %)
+It tooks 3.262 seconds
+Cleaning of points
+Cleaned 29520 points (7.6 %)
+It tooks 0.436 seconds
+
+7
+Computing 600^3 points
+Rendering 600^3
+Included 389442 points (0.2 %)
+It tooks 3.263 seconds
+Cleaning of points
+Cleaned 29520 points (7.6 %)
+It tooks 0.371 seconds
+
+8
+Computing 600^3 points
+Rendering 600^3
+Included 389442 points (0.2 %)
+It tooks 3.262 seconds
+Cleaning of points
+Cleaned 29520 points (7.6 %)
+It tooks 0.438 seconds
+
+9
+Computing 600^3 points
+Rendering 600^3
+Included 389442 points (0.2 %)
+It tooks 3.263 seconds
+Cleaning of points
+Cleaned 29520 points (7.6 %)
+It tooks 0.372 seconds
+
+10
+Computing 600^3 points
+Rendering 600^3
+Included 389442 points (0.2 %)
+It tooks 3.265 seconds
+Cleaning of points
+Cleaned 29520 points (7.6 %)
+It tooks 0.376 seconds
