@@ -1,0 +1,34 @@
+﻿<Window x:Class="IFForm.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IFForm"
+        mc:Ignorable="d"
+        Title="Генератор итерированных функций" Height="320" Width="640">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" Margin="8">
+            <ComboBox Name="ComboType" SelectedIndex="0" SelectionChanged="ComboType_SelectionChanged">
+                <TextBlock Text="Комплексный фрактал Мандельброта 2D"></TextBlock>
+                <TextBlock Text="Комплексный фрактал Жюлиа 2D"></TextBlock>
+                <TextBlock Text="Гиперкомплексная оболочка Мандельброта 3D"></TextBlock>
+                <TextBlock Text="Кватернионный фрактал Жюлиа 4D"></TextBlock>
+            </ComboBox>
+            <DockPanel LastChildFill="False" Margin="0 8 0 0">
+                <TextBlock DockPanel.Dock="Left" Text="Размер окна:"></TextBlock>
+                <TextBox DockPanel.Dock="Right" Width="96"></TextBox>
+            </DockPanel>
+            <DockPanel LastChildFill="False" Margin="0 8 0 0">
+                <TextBlock DockPanel.Dock="Left" Text="Размер фрактала:"></TextBlock>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                    <TextBox Width="96"></TextBox>
+                    <TextBlock Text="^ D" Margin="5 0 0 0"></TextBlock>
+                </StackPanel>
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+</Window>
