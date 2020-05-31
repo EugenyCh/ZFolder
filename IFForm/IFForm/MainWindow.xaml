@@ -63,19 +63,28 @@
                 </DockPanel>
                 <StackPanel DockPanel.Dock="Right" Orientation="Vertical">
                     <DockPanel LastChildFill="False" Margin="0 8 0 0">
-                        <TextBlock DockPanel.Dock="Left" Text="r =" Margin="0 0 5 0"></TextBlock>
+                        <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                            <Run Text="r" Foreground="DarkRed"></Run>
+                            <Run Text="="></Run>
+                        </TextBlock>
                         <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQR"></TextBox>
                     </DockPanel>
                     <DockPanel LastChildFill="False" Margin="0 8 0 0">
-                        <TextBlock DockPanel.Dock="Left" Text="a =" Margin="0 0 5 0"></TextBlock>
+                        <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                            <Run Text="a" Foreground="DarkOrange"></Run>
+                            <Run Text="="></Run></TextBlock>
                         <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQA"></TextBox>
                     </DockPanel>
                     <DockPanel LastChildFill="False" Margin="0 8 0 0">
-                        <TextBlock DockPanel.Dock="Left" Text="b =" Margin="0 0 5 0"></TextBlock>
+                        <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                            <Run Text="b" Foreground="DarkBlue"></Run>
+                            <Run Text="="></Run></TextBlock>
                         <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQB"></TextBox>
                     </DockPanel>
                     <DockPanel LastChildFill="False" Margin="0 8 0 0">
-                        <TextBlock DockPanel.Dock="Left" Text="c =" Margin="0 0 5 0"></TextBlock>
+                        <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                            <Run Text="c" Foreground="DarkGreen"></Run>
+                            <Run Text="="></Run></TextBlock>
                         <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQC"></TextBox>
                     </DockPanel>
                 </StackPanel>
