@@ -40,13 +40,14 @@ namespace IFForm
             {
                 case FractalType.Mand2D:
                 case FractalType.Julia2D:
-                    BlockD.Text = "^ 2";
+                    BlockD1.Text = "^ 2";
                     break;
                 case FractalType.Mand3D:
                 case FractalType.Julia4D:
-                    BlockD.Text = "^ 3";
+                    BlockD1.Text = "^ 3";
                     break;
             }
+            BlockD2.Text = BlockD1.Text;
         }
     }
 }
