@@ -12,7 +12,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Vertical" Margin="8">
-            <ComboBox Name="ComboType" SelectedIndex="0" SelectionChanged="ComboType_SelectionChanged">
+            <ComboBox Name="ComboType" SelectionChanged="ComboType_SelectionChanged">
                 <TextBlock Text="Комплексный фрактал Мандельброта 2D"></TextBlock>
                 <TextBlock Text="Комплексный фрактал Жюлиа 2D"></TextBlock>
                 <TextBlock Text="Гиперкомплексная оболочка Мандельброта 3D"></TextBlock>
@@ -26,7 +26,7 @@
                 <TextBlock DockPanel.Dock="Left" Text="Размер фрактала:"></TextBlock>
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                     <TextBox Width="96"></TextBox>
-                    <TextBlock Text="^ D" Margin="5 0 0 0"></TextBlock>
+                    <TextBlock Text="^ D" Margin="5 0 0 0" Name="BlockD"></TextBlock>
                 </StackPanel>
             </DockPanel>
         </StackPanel>
