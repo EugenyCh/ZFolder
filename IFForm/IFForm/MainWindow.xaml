@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IFForm"
         mc:Ignorable="d"
-        Title="Генератор итерированных функций" Height="320" Width="640">
+        Title="Генератор итерированных функций" Height="360" Width="640">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -43,7 +43,34 @@
             <Button Content="Отобразить" Margin="0 8 0 0" Name="ButtonRender" Click="ButtonRender_Click"></Button>
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Vertical" Margin="8">
-            <DockPanel LastChildFill="False" IsEnabled="True" Name="DockMand">
+            <DockPanel LastChildFill="False" IsEnabled="True" Name="DockJulia">
+                <DockPanel DockPanel.Dock="Top" LastChildFill="False">
+                    <TextBlock DockPanel.Dock="Left" Text="Комплексная константа:"></TextBlock>
+                    <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
+                        <Run Text="с ="></Run>
+                        <Run Text="x" Foreground="DarkRed"></Run>
+                        <Run Text="+"></Run>
+                        <Run Text="yi" Foreground="DarkGreen"></Run>
+                    </TextBlock>
+                </DockPanel>
+                <StackPanel DockPanel.Dock="Right" Margin="0 8 0 0">
+                    <DockPanel LastChildFill="False">
+                        <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                            <Run Text="x" Foreground="DarkRed"></Run>
+                            <Run Text="="></Run>
+                        </TextBlock>
+                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxCX"></TextBox>
+                    </DockPanel>
+                    <DockPanel LastChildFill="False" Margin="0 8 0 0">
+                        <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                            <Run Text="y" Foreground="DarkGreen"></Run>
+                            <Run Text="="></Run>
+                        </TextBlock>
+                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxCY"></TextBox>
+                    </DockPanel>
+                </StackPanel>
+            </DockPanel>
+            <DockPanel LastChildFill="False" IsEnabled="True" Name="DockMand" Margin="0 8 0 0">
                 <DockPanel DockPanel.Dock="Top" LastChildFill="False">
                     <TextBlock DockPanel.Dock="Left" Text="Степень оболочки Мандельброта:"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
