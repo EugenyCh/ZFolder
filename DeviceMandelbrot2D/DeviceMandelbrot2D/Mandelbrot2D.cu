@@ -127,23 +127,6 @@ void Mandelbrot2D::draw()
 //	}
 //}
 
-//void Mandelbrot2D::initColorSpectrum()
-//{
-//	for (int i = 0; i < 256; ++i)
-//	{
-//		float k = i / 255.0;
-//		float b = sqrtf(k);
-//
-//		byte kRed = (byte)((k < 0.5 ? 2 * k : (k < 0.75 ? 1.0 : 4 - 4 * k)) * 255);
-//		byte kGreen = (byte)((k < 0.5 ? 2 * k : (k < 0.75 ? 1.5 - k : 3 - 3 * k)) * 255);
-//		byte kBlue = (byte)((k < 0.5 ? 1 : 2 - 2 * k) * 255);
-//
-//		colorSpectrum[i][0] = kRed * b;
-//		colorSpectrum[i][1] = kGreen * b;
-//		colorSpectrum[i][2] = kBlue * b;
-//	}
-//}
-
 void Mandelbrot2D::initColorSpectrum()
 {
 	for (int i = 0; i < 256; ++i)
@@ -151,8 +134,8 @@ void Mandelbrot2D::initColorSpectrum()
 		float k = i / 255.0;
 		float b = 4 * k * (1 - k);
 
-		byte kRed = (byte)((k < 0.5 ? 0 : (k < 0.75 ? 4 * k - 2 : 1.0)) * 255);
-		byte kGreen = (byte)((k < 0.5 ? 0 : (k < 0.75 ? 4 * k - 2 : 1.0)) * 255);
+		byte kRed = (byte)((k < 0.5 ? 2 * k : (k < 0.75 ? 1.0 : 4 - 4 * k)) * 255);
+		byte kGreen = (byte)((k < 0.5 ? 2 * k : (k < 0.75 ? 1.5 - k : 3 - 3 * k)) * 255);
 		byte kBlue = (byte)((k < 0.5 ? 1 : 2 - 2 * k) * 255);
 
 		colorSpectrum[i][0] = kRed * b;
@@ -160,3 +143,20 @@ void Mandelbrot2D::initColorSpectrum()
 		colorSpectrum[i][2] = kBlue * b;
 	}
 }
+
+//void Mandelbrot2D::initColorSpectrum()
+//{
+//	for (int i = 0; i < 256; ++i)
+//	{
+//		float k = i / 255.0;
+//		float b = 4 * k * (1 - k);
+//
+//		byte kRed = (byte)((k < 0.5 ? 0 : (k < 0.75 ? 4 * k - 2 : 1.0)) * 255);
+//		byte kGreen = (byte)((k < 0.5 ? 0 : (k < 0.75 ? 4 * k - 2 : 1.0)) * 255);
+//		byte kBlue = (byte)((k < 0.5 ? 1 : 2 - 2 * k) * 255);
+//
+//		colorSpectrum[i][0] = kRed * b;
+//		colorSpectrum[i][1] = kGreen * b;
+//		colorSpectrum[i][2] = kBlue * b;
+//	}
+//}
