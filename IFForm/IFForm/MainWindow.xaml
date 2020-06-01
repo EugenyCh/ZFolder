@@ -20,38 +20,52 @@
             </ComboBox>
             <DockPanel LastChildFill="False" Margin="0 8 0 0">
                 <TextBlock DockPanel.Dock="Left" Text="Размер окна:"></TextBlock>
-                <TextBox DockPanel.Dock="Right" Width="96"></TextBox>
+                <TextBox DockPanel.Dock="Right" Width="96" Name="BoxWinSize" TextChanged="BoxWinSize_TextChanged"></TextBox>
             </DockPanel>
             <DockPanel LastChildFill="False" Margin="0 8 0 0">
                 <TextBlock DockPanel.Dock="Left" Text="Размер фрактала:"></TextBlock>
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                    <TextBox Width="96"></TextBox>
+                    <TextBox Width="96" Name="BoxFractalSize" TextChanged="BoxFractalSize_TextChanged"></TextBox>
                     <TextBlock Text="^ D" Margin="5 0 0 0" Name="BlockD1"></TextBlock>
                 </StackPanel>
             </DockPanel>
             <DockPanel LastChildFill="False" Margin="0 8 0 0">
                 <TextBlock DockPanel.Dock="Left" Text="Итераций:"></TextBlock>
-                <TextBox DockPanel.Dock="Right" Width="96"></TextBox>
+                <TextBox DockPanel.Dock="Right" Width="96" Name="BoxIters" TextChanged="BoxIters_TextChanged"></TextBox>
             </DockPanel>
             <DockPanel LastChildFill="False" Margin="0 8 0 0">
                 <TextBlock DockPanel.Dock="Left" Text="Макс. размер фрактала:"></TextBlock>
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                    <TextBox Width="96"></TextBox>
+                    <TextBox Width="96" Name="BoxMaxFractalSize" TextChanged="BoxMaxFractalSize_TextChanged"></TextBox>
                     <TextBlock Text="^ D" Margin="5 0 0 0" Name="BlockD2"></TextBlock>
                 </StackPanel>
             </DockPanel>
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Vertical" Margin="8">
             <DockPanel LastChildFill="False" IsEnabled="True">
-                <TextBlock DockPanel.Dock="Left" Text="Степень оболочки Мандельброта:"></TextBlock>
-                <TextBox DockPanel.Dock="Right" Width="96"></TextBox>
+                <DockPanel DockPanel.Dock="Top" LastChildFill="False">
+                    <TextBlock DockPanel.Dock="Left" Text="Степень оболочки Мандельброта:"></TextBlock>
+                    <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
+                        <Run Text="z &#x2192; z ^"></Run>
+                        <Run Text="p" Foreground="DarkCyan"></Run>
+                        <Run Text="+ c"></Run>
+                    </TextBlock>
+                </DockPanel>
+                <StackPanel DockPanel.Dock="Right" Margin="0 8 0 0">
+                    <DockPanel LastChildFill="False">
+                        <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                            <Run Text="p" Foreground="DarkCyan"></Run>
+                            <Run Text="="></Run>
+                        </TextBlock>
+                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxP"></TextBox>
+                    </DockPanel>
+                </StackPanel>
             </DockPanel>
             <DockPanel LastChildFill="False" IsEnabled="True" Margin="0 8 0 0">
                 <DockPanel DockPanel.Dock="Top" LastChildFill="False">
                     <TextBlock DockPanel.Dock="Left" Text="Кватернионная константа:"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
-                        <Run Text="q" Foreground="DarkViolet"></Run>
-                        <Run Text="="></Run>
+                        <Run Text="q ="></Run>
                         <Run Text="r" Foreground="DarkRed"></Run>
                         <Run Text="+"></Run>
                         <Run Text="ai" Foreground="DarkOrange"></Run>
@@ -61,8 +75,8 @@
                         <Run Text="ck" Foreground="DarkGreen"></Run>
                     </TextBlock>
                 </DockPanel>
-                <StackPanel DockPanel.Dock="Right" Orientation="Vertical">
-                    <DockPanel LastChildFill="False" Margin="0 8 0 0">
+                <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Margin="0 8 0 0">
+                    <DockPanel LastChildFill="False">
                         <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
                             <Run Text="r" Foreground="DarkRed"></Run>
                             <Run Text="="></Run>
