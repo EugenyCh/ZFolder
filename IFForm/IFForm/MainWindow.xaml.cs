@@ -271,9 +271,87 @@ namespace IFForm
             }
         }
 
+        private bool ValidationTest()
+        {
+            if (Flags[0] == false)
+            {
+                MessageBox.Show("Ошибка при заполнении размера окна: должно быть целое число >= 100",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            if (Flags[1] == false)
+            {
+                MessageBox.Show("Ошибка при заполнении размера фрактала: должно быть целое число >= 100",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            if (Flags[2] == false)
+            {
+                MessageBox.Show("Ошибка при заполнении количества итераций: должно быть целое число >= 0",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            if (Flags[3] == false)
+            {
+                MessageBox.Show("Ошибка при заполнении максимального размера фрактала: должно быть целое число >= 100",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            if (MandFlag == false)
+            {
+                MessageBox.Show("Ошибка при заполнении степени оболочки Мандельброта: должно быть число >= 2.0",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            if (QuatFlags[0] == false)
+            {
+                MessageBox.Show("Ошибка при заполнении компоненты R: должно быть число",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            if (QuatFlags[1] == false)
+            {
+                MessageBox.Show("Ошибка при заполнении компоненты A: должно быть число",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            if (QuatFlags[2] == false)
+            {
+                MessageBox.Show("Ошибка при заполнении компоненты B: должно быть число",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            if (QuatFlags[3] == false)
+            {
+                MessageBox.Show("Ошибка при заполнении компоненты C: должно быть число",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            if (JuliaFlags[0] == false)
+            {
+                MessageBox.Show("Ошибка при заполнении компоненты X: должно быть число",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            if (JuliaFlags[1] == false)
+            {
+                MessageBox.Show("Ошибка при заполнении компоненты Y: должно быть число",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            return true;
+        }
+
         private void ButtonRender_Click(object sender, RoutedEventArgs e)
         {
+            if (!ValidationTest())
+                return;
+            //switch ((FractalType)ComboType.SelectedIndex)
+            //{
+            //    case FractalType.Mand2D:
 
+            //        break;
+            //}
         }
     }
 }

@@ -78,8 +78,8 @@ void display()
 
 void reshape(int w, int h)
 {
-    if (w != winWidth || h != winHeight)
-        systemList = 0;
+    //if (w != winWidth || h != winHeight)
+    //    systemList = 0;
 
     winWidth = w;
     winHeight = h;
