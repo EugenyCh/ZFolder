@@ -40,9 +40,10 @@
                     <TextBlock Text="^ D" Margin="5 0 0 0" Name="BlockD2"></TextBlock>
                 </StackPanel>
             </DockPanel>
+            <Button Content="Отобразить" Margin="0 8 0 0" Name="ButtonRender" Click="ButtonRender_Click"></Button>
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Vertical" Margin="8">
-            <DockPanel LastChildFill="False" IsEnabled="True">
+            <DockPanel LastChildFill="False" IsEnabled="True" Name="DockMand">
                 <DockPanel DockPanel.Dock="Top" LastChildFill="False">
                     <TextBlock DockPanel.Dock="Left" Text="Степень оболочки Мандельброта:"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
@@ -57,11 +58,11 @@
                             <Run Text="p" Foreground="DarkCyan"></Run>
                             <Run Text="="></Run>
                         </TextBlock>
-                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxP"></TextBox>
+                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxP" TextChanged="BoxP_TextChanged"></TextBox>
                     </DockPanel>
                 </StackPanel>
             </DockPanel>
-            <DockPanel LastChildFill="False" IsEnabled="True" Margin="0 8 0 0">
+            <DockPanel LastChildFill="False" IsEnabled="True" Name="DockQuat" Margin="0 8 0 0">
                 <DockPanel DockPanel.Dock="Top" LastChildFill="False">
                     <TextBlock DockPanel.Dock="Left" Text="Кватернионная константа:"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
@@ -81,27 +82,36 @@
                             <Run Text="r" Foreground="DarkRed"></Run>
                             <Run Text="="></Run>
                         </TextBlock>
-                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQR"></TextBox>
+                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQR" TextChanged="BoxQR_TextChanged"></TextBox>
                     </DockPanel>
                     <DockPanel LastChildFill="False" Margin="0 8 0 0">
                         <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
                             <Run Text="a" Foreground="DarkOrange"></Run>
                             <Run Text="="></Run></TextBlock>
-                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQA"></TextBox>
+                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQA" TextChanged="BoxQA_TextChanged"></TextBox>
                     </DockPanel>
                     <DockPanel LastChildFill="False" Margin="0 8 0 0">
                         <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
                             <Run Text="b" Foreground="DarkBlue"></Run>
                             <Run Text="="></Run></TextBlock>
-                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQB"></TextBox>
+                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQB" TextChanged="BoxQB_TextChanged"></TextBox>
                     </DockPanel>
                     <DockPanel LastChildFill="False" Margin="0 8 0 0">
                         <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
                             <Run Text="c" Foreground="DarkGreen"></Run>
                             <Run Text="="></Run></TextBlock>
-                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQC"></TextBox>
+                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQC" TextChanged="BoxQC_TextChanged"></TextBox>
                     </DockPanel>
                 </StackPanel>
+            </DockPanel>
+            <DockPanel LastChildFill="False" Margin="0 8 0 0" HorizontalAlignment="Right">
+                <TextBlock DockPanel.Dock="Left" Text="Скрыть компоненту:" Margin="0 0 5 0" VerticalAlignment="Center"></TextBlock>
+                <ComboBox Name="ComboComponent" SelectedIndex="0" IsEnabled="True">
+                    <TextBlock Text="R"></TextBlock>
+                    <TextBlock Text="A"></TextBlock>
+                    <TextBlock Text="B"></TextBlock>
+                    <TextBlock Text="C"></TextBlock>
+                </ComboBox>
             </DockPanel>
         </StackPanel>
     </Grid>

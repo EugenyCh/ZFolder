@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,16 +33,30 @@ namespace IFForm
         private int FractalSize;
         private int Iterations;
         private int MaxFractalSize;
+        private float MandP;
+        private float QuatR;
+        private float QuatA;
+        private float QuatB;
+        private float QuatC;
+
         private bool[] Flags = new bool[4];
+        private bool MandFlag;
+        private bool[] QuatFlags = new bool[4];
 
         public MainWindow()
         {
+            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
             InitializeComponent();
             ComboType.SelectedIndex = (int)(FractalType.Mand2D);
             BoxWinSize.Text = "500";
             BoxFractalSize.Text = "500";
             BoxIters.Text = "10";
             BoxMaxFractalSize.Text = "500";
+            BoxP.Text = "8.0";
+            BoxQR.Text = "-0.65";
+            BoxQA.Text = "-0.5";
+            BoxQB.Text = "0.0";
+            BoxQC.Text = "0.0";
         }
 
         private void ComboType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -51,10 +66,18 @@ namespace IFForm
                 case FractalType.Mand2D:
                 case FractalType.Julia2D:
                     BlockD1.Text = "^ 2";
+                    DockMand.IsEnabled = false;
+                    DockQuat.IsEnabled = ComboComponent.IsEnabled = false;
                     break;
                 case FractalType.Mand3D:
+                    BlockD1.Text = "^ 3";
+                    DockMand.IsEnabled = true;
+                    DockQuat.IsEnabled = ComboComponent.IsEnabled = false;
+                    break;
                 case FractalType.Julia4D:
                     BlockD1.Text = "^ 3";
+                    DockMand.IsEnabled = false;
+                    DockQuat.IsEnabled = ComboComponent.IsEnabled = true;
                     break;
             }
             BlockD2.Text = BlockD1.Text;
@@ -126,6 +149,88 @@ namespace IFForm
                 BoxMaxFractalSize.Background = new SolidColorBrush(Colors.Pink);
                 Flags[3] = false;
             }
+        }
+
+        private void BoxP_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                MandP = float.Parse(BoxP.Text);
+                if (MandP < 2.0)
+                    throw new Exception();
+                BoxP.Background = new SolidColorBrush(Colors.White);
+                MandFlag = true;
+            }
+            catch
+            {
+                BoxP.Background = new SolidColorBrush(Colors.Pink);
+                MandFlag = false;
+            }
+        }
+
+        private void BoxQR_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                QuatR = float.Parse(BoxQR.Text);
+                BoxQR.Background = new SolidColorBrush(Colors.White);
+                QuatFlags[0] = true;
+            }
+            catch
+            {
+                BoxQR.Background = new SolidColorBrush(Colors.Pink);
+                QuatFlags[0] = false;
+            }
+        }
+
+        private void BoxQA_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                QuatA = float.Parse(BoxQA.Text);
+                BoxQA.Background = new SolidColorBrush(Colors.White);
+                QuatFlags[1] = true;
+            }
+            catch
+            {
+                BoxQA.Background = new SolidColorBrush(Colors.Pink);
+                QuatFlags[1] = false;
+            }
+        }
+
+        private void BoxQB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                QuatB = float.Parse(BoxQB.Text);
+                BoxQB.Background = new SolidColorBrush(Colors.White);
+                QuatFlags[2] = true;
+            }
+            catch
+            {
+                BoxQB.Background = new SolidColorBrush(Colors.Pink);
+                QuatFlags[2] = false;
+            }
+        }
+
+        private void BoxQC_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                QuatC = float.Parse(BoxQC.Text);
+                BoxQC.Background = new SolidColorBrush(Colors.White);
+                QuatFlags[3] = true;
+            }
+            catch
+            {
+                BoxQC.Background = new SolidColorBrush(Colors.Pink);
+                QuatFlags[3] = false;
+            }
+        }
+
+        private void ButtonRender_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
