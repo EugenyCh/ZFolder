@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,9 +47,11 @@ namespace IFForm
         private bool[] QuatFlags = new bool[4];
         private bool[] JuliaFlags = new bool[2];
 
+        private ConsoleColor DefaultFore;
         public MainWindow()
         {
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+            DefaultFore = Console.ForegroundColor;
             InitializeComponent();
             ComboType.SelectedIndex = (int)(FractalType.Mand2D);
             BoxWinSize.Text = "500";
@@ -342,16 +345,56 @@ namespace IFForm
             return true;
         }
 
+        private void WriteInt(BinaryWriter writer, int value)
+        {
+            Console.Write($"{sizeof(int)} bytes : ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(value);
+            Console.ForegroundColor = DefaultFore;
+            writer.Write(value);
+        }
+
+        private void WriteFloat(BinaryWriter writer, float value)
+        {
+            Console.Write($"{sizeof(float)} bytes : ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(value);
+            Console.ForegroundColor = DefaultFore;
+            writer.Write(value);
+        }
+
         private void ButtonRender_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidationTest())
                 return;
-            //switch ((FractalType)ComboType.SelectedIndex)
-            //{
-            //    case FractalType.Mand2D:
-
-            //        break;
-            //}
+            try
+            {
+                using (BinaryWriter writer = new BinaryWriter(File.Open("input.bin", FileMode.Create)))
+                {
+                    Console.WriteLine("Generation of \"input.bin\"...");
+                    switch ((FractalType)ComboType.SelectedIndex)
+                    {
+                        case FractalType.Mand2D:
+                            Console.WriteLine("Type: Mandelbrot 2D");
+                            break;
+                        case FractalType.Julia2D:
+                            Console.WriteLine("Type: Julia 2D");
+                            break;
+                        case FractalType.Mand3D:
+                            Console.WriteLine("Type: Mandelbulb 3D");
+                            break;
+                        case FractalType.Julia4D:
+                            Console.WriteLine("Type: Julia 4D");
+                            break;
+                    }
+                    Console.WriteLine($"Total {writer.BaseStream.Length} bytes.");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при создании промежуточного файла",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

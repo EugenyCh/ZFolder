@@ -398,7 +398,6 @@ namespace LSForm
                 int rulesCount = StackRules.Children.Count - 1;
                 using (BinaryWriter writer = new BinaryWriter(File.Open("input.bin", FileMode.Create)))
                 {
-
                     Console.WriteLine("Generation of \"input.bin\"...");
                     WriteInt(writer, rulesCount);
                     WriteInt(writer, InitBox.Text.Length);
@@ -428,7 +427,8 @@ namespace LSForm
             }
             catch
             {
-                MessageBox.Show("Ошибка при создании промежуточного файла", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка при создании промежуточного файла",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             try
