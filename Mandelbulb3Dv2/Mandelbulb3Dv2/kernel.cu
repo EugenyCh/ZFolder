@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <time.h>
 #include <fstream>
+#include <string>
+#include <sstream>
 #include "Mandelbulb.cuh"
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -235,8 +237,11 @@ void saveImage()
     char buffer[80];
     time(&rawtime);
     timeinfo = localtime(&rawtime);
-    strftime(buffer, 80, "screen_%Y.%m.%d_%Hh.%Mm.%Ss.png", timeinfo);
-    puts(buffer);
+    strftime(buffer, 80, "screen_%Y.%m.%d_%Hh.%Mm.%Ss", timeinfo);
+    stringstream ssname;
+    ssname << buffer << "_s" << MIN(fFractalSize, fMaxFractalSize) << "_mand3d_p" << fPower << ".png";
+    const char* fname = ssname.str().c_str();
+    printf("Saving to %s", fname);
 
     size_t width = winWidth;
     size_t height = winHeight;
@@ -246,7 +251,7 @@ void saveImage()
 
     // Convert to FreeImage format & save to file
     FIBITMAP* image = FreeImage_ConvertFromRawBits(pixels, width, height, 3 * width, 24, 0x0000FF, 0xFF0000, 0x00FF00, false);
-    FreeImage_Save(FIF_PNG, image, buffer, 0);
+    FreeImage_Save(FIF_PNG, image, fname, 0);
 
     // Free resources
     FreeImage_Unload(image);
