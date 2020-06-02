@@ -372,18 +372,30 @@ namespace IFForm
                 using (BinaryWriter writer = new BinaryWriter(File.Open("input.bin", FileMode.Create)))
                 {
                     Console.WriteLine("Generation of \"input.bin\"...");
+                    WriteInt(writer, WindowSize);
+                    WriteInt(writer, FractalSize);
+                    WriteInt(writer, Iterations);
+                    WriteInt(writer, MaxFractalSize);
                     switch ((FractalType)ComboType.SelectedIndex)
                     {
                         case FractalType.Mand2D:
                             Console.WriteLine("Type: Mandelbrot 2D");
                             break;
                         case FractalType.Julia2D:
+                            WriteFloat(writer, JuliaX);
+                            WriteFloat(writer, JuliaY);
                             Console.WriteLine("Type: Julia 2D");
                             break;
                         case FractalType.Mand3D:
+                            WriteFloat(writer, MandP);
                             Console.WriteLine("Type: Mandelbulb 3D");
                             break;
                         case FractalType.Julia4D:
+                            WriteFloat(writer, QuatR);
+                            WriteFloat(writer, QuatA);
+                            WriteFloat(writer, QuatB);
+                            WriteFloat(writer, QuatC);
+                            WriteInt(writer, ComboComponent.SelectedIndex);
                             Console.WriteLine("Type: Julia 4D");
                             break;
                     }

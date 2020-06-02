@@ -260,7 +260,7 @@ void QFractal::draw()
 //{
 //	for (int i = 0; i < 256; ++i)
 //	{
-//		float k = 1.0 * i / 255.0;
+//		float k = i / 255.0;
 //		k = sqrtf(k);
 //		k = 4 * k * (1 - k);
 //		k = 4 * k * (1 - k);
