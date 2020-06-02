@@ -457,6 +457,30 @@ namespace IFForm
                         };
                         process.Start();
                         break;
+                    case FractalType.Mand3D:
+                        process = new Process
+                        {
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = "DeviceMandelbulb3D.exe",
+                                UseShellExecute = false,
+                                CreateNoWindow = true
+                            }
+                        };
+                        process.Start();
+                        break;
+                    case FractalType.Julia4D:
+                        process = new Process
+                        {
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = "DeviceJulia4D.exe",
+                                UseShellExecute = false,
+                                CreateNoWindow = true
+                            }
+                        };
+                        process.Start();
+                        break;
                 }
             }
             catch (Exception ex)
