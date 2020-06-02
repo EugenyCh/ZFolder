@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <time.h>
 #include <fstream>
+#include <string>
+#include <sstream>
 #include "Mandelbrot2D.cuh"
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 
@@ -233,21 +235,24 @@ void saveImage()
     time(&rawtime);
     timeinfo = localtime(&rawtime);
     strftime(buffer, 80, "screen_%Y.%m.%d_%Hh.%Mm.%Ss.png", timeinfo);
-    puts(buffer);
+    stringstream ssname;
+    ssname << buffer << "_s" << MIN(fFractalSize, fMaxFractalSize) << "_mand2d" << ".png";
 
     size_t width = winWidth;
     size_t height = winHeight;
     BYTE* pixels = new BYTE[3 * width * height];
 
+    glPixelStorei(GL_PACK_ALIGNMENT, 1);
     glReadPixels(0, 0, width, height, GL_BGR_EXT, GL_UNSIGNED_BYTE, pixels);
 
     // Convert to FreeImage format & save to file
-    FIBITMAP* image = FreeImage_ConvertFromRawBits(pixels, width, height, 3 * width, 24, 0x0000FF, 0xFF0000, 0x00FF00, false);
-    FreeImage_Save(FIF_PNG, image, buffer, 0);
+    FIBITMAP* image = FreeImage_ConvertFromRawBits(pixels, width, height, 3 * width, 24, 0xFF0000, 0x00FF00, 0x0000FF, false);
+    FreeImage_Save(FIF_PNG, image, ssname.str().c_str(), 0);
 
     // Free resources
     FreeImage_Unload(image);
     delete[] pixels;
+    printf("Saved to %s\n", ssname.str().c_str());
 }
 
 int main(int argc, char* argv[])
