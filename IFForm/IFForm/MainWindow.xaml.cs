@@ -430,14 +430,27 @@ namespace IFForm
 
             try
             {
+                Process process;
                 switch ((FractalType)ComboType.SelectedIndex)
                 {
                     case FractalType.Mand2D:
-                        var process = new Process
+                        process = new Process
                         {
                             StartInfo = new ProcessStartInfo
                             {
                                 FileName = "DeviceMandelbrot2D.exe",
+                                UseShellExecute = false,
+                                CreateNoWindow = true
+                            }
+                        };
+                        process.Start();
+                        break;
+                    case FractalType.Julia2D:
+                        process = new Process
+                        {
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = "DeviceJulia2D.exe",
                                 UseShellExecute = false,
                                 CreateNoWindow = true
                             }

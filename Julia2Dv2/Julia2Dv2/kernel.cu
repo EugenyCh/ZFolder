@@ -8,6 +8,8 @@
 #include "Julia2D.cuh"
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 
+using namespace std;
+
 float rotX = 0;
 float rotY = 90;
 float rotZ = 90;
@@ -15,13 +17,21 @@ float camRotH, camRotV;
 float camShH, camShV; // camera shift
 int mouseOldX = 0;
 int mouseOldY = 0;
-static Julia2D julia(-0.743643887037151, 0.13182590420533);
+static Julia2D julia;
 unsigned systemList = 0; // display list to draw system
 float zoom = 1.0f;
 int winWidth, winHeight;
 int windowedWidth, windowedHeight;
 bool fullscreen = false;
 bool saving = false;
+
+int fWindowSize;
+int fFractalSize;
+int fIterations;
+int fMaxFractalSize;
+int fGradientIndex;
+float fJuliaCX;
+float fJuliaCY;
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -57,8 +67,11 @@ void display()
         systemList = glGenLists(1);
 
         glNewList(systemList, GL_COMPILE);
-        julia.initColorSpectrum();
-        julia.compute(1000, 1000, 500, 3.0);
+        julia.cx = fJuliaCX;
+        julia.cy = fJuliaCY;
+        julia.fMaxFractalSize = fMaxFractalSize;
+        julia.initColorSpectrum(fGradientIndex);
+        julia.compute(fFractalSize, fFractalSize, fIterations, 1.0);
         julia.draw();
         glEndList();
     }
@@ -78,8 +91,8 @@ void display()
 
 void reshape(int w, int h)
 {
-    if (w != winWidth || h != winHeight)
-        systemList = 0;
+    //if (w != winWidth || h != winHeight)
+    //    systemList = 0;
 
     winWidth = w;
     winHeight = h;
@@ -218,7 +231,6 @@ void processKey(unsigned char key, int x, int y)
 
 void saveImage()
 {
-
     time_t rawtime;
     struct tm* timeinfo;
     char buffer[80];
@@ -244,10 +256,26 @@ void saveImage()
 
 int main(int argc, char* argv[])
 {
+    ifstream in("input.bin", ios::binary);
+    if (!in)
+    {
+        printf("Error of opening \"input.bin\"\n");
+        return 1;
+    }
+
+    in.read((char*)&fWindowSize, sizeof(int));
+    in.read((char*)&fFractalSize, sizeof(int));
+    in.read((char*)&fIterations, sizeof(int));
+    in.read((char*)&fMaxFractalSize, sizeof(int));
+    in.read((char*)&fGradientIndex, sizeof(int));
+    in.read((char*)&fJuliaCX, sizeof(float));
+    in.read((char*)&fJuliaCY, sizeof(float));
+    in.close();
+
     // initialize glut
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(1000, 1000);
+    glutInitWindowSize(fWindowSize, fWindowSize);
 
     // create window
     glutCreateWindow("Julia2D demo");

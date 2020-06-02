@@ -227,7 +227,6 @@ void processKey(unsigned char key, int x, int y)
 
 void saveImage()
 {
-
     time_t rawtime;
     struct tm* timeinfo;
     char buffer[80];

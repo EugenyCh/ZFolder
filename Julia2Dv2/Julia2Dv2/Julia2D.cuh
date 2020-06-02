@@ -12,14 +12,17 @@ private:
 	int height = 0;
 	byte colorSpectrum[256][3];
 	float setScalling;
+	void initColorSpectrum0();
+	void initColorSpectrum1();
+	void initColorSpectrum2();
 
 public:
+	int fMaxFractalSize;
 	float cx;
 	float cy;
 
-	Julia2D(float cx, float cy);
 	bool compute(size_t width, size_t height, int iters, float setScalling);
 	void draw();
-	void initColorSpectrum();
+	void initColorSpectrum(int index);
 };
 
