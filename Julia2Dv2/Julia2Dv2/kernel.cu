@@ -240,7 +240,9 @@ void saveImage()
 	timeinfo = localtime(&rawtime);
 	strftime(buffer, 80, "screen_%Y.%m.%d_%Hh.%Mm.%Ss", timeinfo);
 	stringstream ssname;
-	ssname << buffer << "_s" << MIN(fFractalSize, fMaxFractalSize) << "_julia2d_cx" << fJuliaCX << "_cy" << fJuliaCY << ".png";
+	ssname << buffer << "_s" << MIN(fFractalSize, fMaxFractalSize)
+		<< "_i" << fIterations
+		<< "_julia2d_cx" << fJuliaCX << "_cy" << fJuliaCY << ".png";
 
 	size_t width = winWidth;
 	size_t height = winHeight;

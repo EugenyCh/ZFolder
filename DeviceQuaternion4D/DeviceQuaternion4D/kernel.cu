@@ -5,9 +5,13 @@
 #include <stdio.h>
 #include <time.h>
 #include <fstream>
+#include <string>
+#include <sstream>
 #include "QFractal.cuh"
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
+
+using namespace std;
 
 float rotX = 0;
 float rotY = 90;
@@ -16,13 +20,24 @@ float camRotH, camRotV;
 float camShH, camShV; // camera shift
 int mouseOldX = 0;
 int mouseOldY = 0;
-static QFractal qfractal(-0.65, -0.5, 0.0, 0.0, QFractal::C, 30);
+static QFractal qfractal;
 unsigned systemList = 0; // display list to draw system
 float zoom = 1.0f;
 int winWidth, winHeight;
 int windowedWidth, windowedHeight;
 bool fullscreen = false;
 bool saving = false;
+
+int fWindowSize;
+int fFractalSize;
+int fIterations;
+int fMaxFractalSize;
+int fGradientIndex;
+int fHideIndex;
+float fQuatR;
+float fQuatA;
+float fQuatB;
+float fQuatC;
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -58,8 +73,10 @@ void display()
         systemList = glGenLists(1);
 
         glNewList(systemList, GL_COMPILE);
-        qfractal.initColorSpectrum();
-        qfractal.compute(winWidth, winHeight);
+        qfractal.fMaxFractalSize = fMaxFractalSize;
+        qfractal.set(fQuatR, fQuatA, fQuatB, fQuatC, (QFractal::ParamToHide)(fHideIndex));
+        qfractal.initColorSpectrum(fGradientIndex);
+        qfractal.compute(fFractalSize, fFractalSize, fIterations);
         qfractal.draw();
         glEndList();
     }
@@ -219,36 +236,59 @@ void processKey(unsigned char key, int x, int y)
 
 void saveImage()
 {
-
     time_t rawtime;
     struct tm* timeinfo;
     char buffer[80];
     time(&rawtime);
     timeinfo = localtime(&rawtime);
-    strftime(buffer, 80, "screen_%Y.%m.%d_%Hh.%Mm.%Ss.png", timeinfo);
-    puts(buffer);
+    strftime(buffer, 80, "screen_%Y.%m.%d_%Hh.%Mm.%Ss", timeinfo);
+    stringstream ssname;
+    ssname << buffer << "_s" << MIN(fFractalSize, fMaxFractalSize)
+        << "_i" << fIterations << "_julia4d_h" << fHideIndex
+        << "_r" << fQuatR << "_a" << fQuatA << "_b" << fQuatB << "_c" << fQuatC << ".png";
 
     size_t width = winWidth;
     size_t height = winHeight;
     BYTE* pixels = new BYTE[3 * width * height];
 
+    glPixelStorei(GL_PACK_ALIGNMENT, 1);
     glReadPixels(0, 0, width, height, GL_BGR_EXT, GL_UNSIGNED_BYTE, pixels);
 
     // Convert to FreeImage format & save to file
-    FIBITMAP* image = FreeImage_ConvertFromRawBits(pixels, width, height, 3 * width, 24, 0x0000FF, 0xFF0000, 0x00FF00, false);
-    FreeImage_Save(FIF_PNG, image, buffer, 0);
+    FIBITMAP* image = FreeImage_ConvertFromRawBits(pixels, width, height, 3 * width, 24, 0xFF0000, 0x00FF00, 0x0000FF, false);
+    FreeImage_Save(FIF_PNG, image, ssname.str().c_str(), 0);
 
     // Free resources
     FreeImage_Unload(image);
     delete[] pixels;
+    printf("Saved to %s\n", ssname.str().c_str());
 }
 
 int main(int argc, char* argv[])
 {
+    ifstream in("input.bin", ios::binary);
+    if (!in)
+    {
+        printf("Error of opening \"input.bin\"\n");
+        return 1;
+    }
+
+    in.read((char*)&fWindowSize, sizeof(int));
+    in.read((char*)&fFractalSize, sizeof(int));
+    in.read((char*)&fIterations, sizeof(int));
+    in.read((char*)&fMaxFractalSize, sizeof(int));
+    in.read((char*)&fGradientIndex, sizeof(int));
+    in.read((char*)&fQuatR, sizeof(float));
+    in.read((char*)&fQuatA, sizeof(float));
+    in.read((char*)&fQuatB, sizeof(float));
+    in.read((char*)&fQuatC, sizeof(float));
+    in.read((char*)&fHideIndex, sizeof(int));
+    in.close();
+
     // initialize glut
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(400, 400);
+    glutInitWindowSize(fWindowSize, fWindowSize);
 
     // create window
     glutCreateWindow("Quaternion fractal demo");

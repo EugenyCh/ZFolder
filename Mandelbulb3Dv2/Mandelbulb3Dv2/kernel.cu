@@ -239,7 +239,9 @@ void saveImage()
     timeinfo = localtime(&rawtime);
     strftime(buffer, 80, "screen_%Y.%m.%d_%Hh.%Mm.%Ss", timeinfo);
     stringstream ssname;
-    ssname << buffer << "_s" << MIN(fFractalSize, fMaxFractalSize) << "_mand3d_p" << fPower << ".png";
+    ssname << buffer << "_s" << MIN(fFractalSize, fMaxFractalSize)
+        << "_i" << fIterations
+        << "_mand3d_p" << fPower << ".png";
 
     size_t width = winWidth;
     size_t height = winHeight;
@@ -274,10 +276,6 @@ int main(int argc, char* argv[])
     in.read((char*)&fGradientIndex, sizeof(int));
     in.read((char*)&fPower, sizeof(float));
     in.close();
-
-    // ---
-    fFractalSize = 300;
-    // ---
 
     // initialize glut
     glutInit(&argc, argv);

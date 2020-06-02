@@ -234,9 +234,11 @@ void saveImage()
     char buffer[80];
     time(&rawtime);
     timeinfo = localtime(&rawtime);
-    strftime(buffer, 80, "screen_%Y.%m.%d_%Hh.%Mm.%Ss.png", timeinfo);
+    strftime(buffer, 80, "screen_%Y.%m.%d_%Hh.%Mm.%Ss", timeinfo);
     stringstream ssname;
-    ssname << buffer << "_s" << MIN(fFractalSize, fMaxFractalSize) << "_mand2d" << ".png";
+    ssname << buffer << "_s" << MIN(fFractalSize, fMaxFractalSize)
+        << "_i" << fIterations
+        << "_mand2d" << ".png";
 
     size_t width = winWidth;
     size_t height = winHeight;

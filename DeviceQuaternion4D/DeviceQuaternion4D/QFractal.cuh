@@ -14,12 +14,18 @@ private:
 	byte colorSpectrum[256][3];
 	int width = 0;
 	int height = 0;
+	void initColorSpectrum0();
+	void initColorSpectrum1();
+	void initColorSpectrum2();
+	void initColorSpectrum3();
 
 public:
+	int fMaxFractalSize;
+
 	static enum ParamToHide { R, A, B, C };
-	QFractal(float r, float a, float b, float c, ParamToHide h, int maxIter);
-	bool compute(size_t width, size_t height);
+	void set(float r, float a, float b, float c, QFractal::ParamToHide h);
+	bool compute(size_t width, size_t height, int iters);
 	void draw();
-	void initColorSpectrum();
+	void initColorSpectrum(int index);
 };
 

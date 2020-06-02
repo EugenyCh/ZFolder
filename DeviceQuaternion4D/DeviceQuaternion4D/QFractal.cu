@@ -9,7 +9,6 @@
 #include <ctime>
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define MIN(a, b) ((a) < (b) ? (b) : (a))
-#define SIDE_MAX 1200
 
 __device__ int side1;
 __device__ int side2;
@@ -71,7 +70,7 @@ __global__ void kernel(
 		buffer[offset] = 0;
 }
 
-QFractal::QFractal(float r, float a, float b, float c, QFractal::ParamToHide h, int maxIter)
+void QFractal::set(float r, float a, float b, float c, QFractal::ParamToHide h)
 {
 	switch (h)
 	{
@@ -100,20 +99,22 @@ QFractal::QFractal(float r, float a, float b, float c, QFractal::ParamToHide h, 
 		this->q4 = c;
 		break;
 	}
-	this->maxIter = maxIter;
-	this->bailout = 2.0f;
-	this->sqrBailout = 4.0f;
 }
 
-bool QFractal::compute(size_t width, size_t height)
+bool QFractal::compute(size_t width, size_t height, int iters)
 {
 	if (points)
 		delete[] points;
 	this->width = width;
 	this->height = height;
-	side = MIN(width, height);
-	if (side > SIDE_MAX)
-		side = SIDE_MAX;
+	if (width > fMaxFractalSize)
+		width = fMaxFractalSize;
+	if (height > fMaxFractalSize)
+		height = fMaxFractalSize;
+	side = MAX(width, height);
+
+	this->bailout = 2.0f;
+	this->sqrBailout = 4.0f;
 
 	const size_t sz = side * side * side;
 	points = new byte[sz];
@@ -140,7 +141,7 @@ bool QFractal::compute(size_t width, size_t height)
 	// Start
 	tStart = clock();
 	initVars << <1, 1 >> > (side);
-	kernel << <blocks, threads >> > (dev_buffer, q1, q2, q3, q4, maxIter, bailout, sqrBailout, dev_counterPoints);
+	kernel << <blocks, threads >> > (dev_buffer, q1, q2, q3, q4, iters, bailout, sqrBailout, dev_counterPoints);
 	cudaThreadSynchronize();
 	tFinish = clock();
 	// End
@@ -256,69 +257,88 @@ void QFractal::draw()
 	}
 }
 
-//void QFractal::initColorSpectrum()
-//{
-//	for (int i = 0; i < 256; ++i)
-//	{
-//		float k = i / 255.0;
-//		k = sqrtf(k);
-//		k = 4 * k * (1 - k);
-//		k = 4 * k * (1 - k);
-//		k = 4 * k * (1 - k);
-//		float b = 1 - 3 * k * (1 - k);
-//
-//		byte kRed = (byte)(4 * k * (1 - k) * 255);
-//		byte kGreen = (byte)(k * 127);
-//		byte kBlue = (byte)((1 - k) * 255);
-//
-//		colorSpectrum[i][0] = kRed * b;
-//		colorSpectrum[i][1] = kGreen * b;
-//		colorSpectrum[i][2] = kBlue * b;
-//	}
-//}
+void QFractal::initColorSpectrum(int index)
+{
+	switch (index)
+	{
+	case 0:
+		initColorSpectrum0();
+		break;
+	case 1:
+		initColorSpectrum1();
+		break;
+	case 2:
+		initColorSpectrum2();
+		break;
+	case 3:
+		initColorSpectrum3();
+		break;
+	}
+}
 
-//void QFractal::initColorSpectrum()
-//{
-//	for (int i = 0; i < 256; ++i)
-//	{
-//		float k = i / 255.0;
-//		k = sqrtf(k);
-//		k = 4 * k * (1 - k);
-//		k = 4 * k * (1 - k);
-//		k = 4 * k * (1 - k);
-//
-//		byte kRed = (byte)(k * 255);
-//		byte kGreen = (byte)(k * k * 255);
-//		byte kBlue = (byte)((1 - 4 * k * (1 - k)) * 255);
-//
-//		colorSpectrum[i][0] = kRed;
-//		colorSpectrum[i][1] = kGreen;
-//		colorSpectrum[i][2] = kBlue;
-//	}
-//}
+void QFractal::initColorSpectrum0()
+{
+	for (int i = 0; i < 256; ++i)
+	{
+		float k = i / 255.0;
+		k = sqrtf(k);
+		k = 4 * k * (1 - k);
+		k = 4 * k * (1 - k);
+		k = 4 * k * (1 - k);
+		float b = 1 - 3 * k * (1 - k);
 
-//void QFractal::initColorSpectrum()
-//{
-//	for (int i = 0; i < 256; ++i)
-//	{
-//		float k = i / 255.0;
-//		k = sqrtf(k);
-//		k = 4 * k * (1 - k);
-//		k = 4 * k * (1 - k);
-//		k = 4 * k * (1 - k);
-//		float b = 2 * k * (1 - k) + 0.5;
-//
-//		byte kRed = (byte)((k < 0.5 ? 2 * k : (k < 0.75 ? 1.0 : 3.25 - 3 * k)) * 255);
-//		byte kGreen = (byte)((k < 0.5 ? 2 * k : (k < 0.75 ? 1.5 - k : 2.25 - 2 * k)) * 255);
-//		byte kBlue = (byte)((k < 0.5 ? 1 : 2 - 2 * k) * 255);
-//
-//		colorSpectrum[i][0] = kRed * b;
-//		colorSpectrum[i][1] = kGreen * b;
-//		colorSpectrum[i][2] = kBlue * b;
-//	}
-//}
+		byte kRed = (byte)(4 * k * (1 - k) * 255);
+		byte kGreen = (byte)(k * 127);
+		byte kBlue = (byte)((1 - k) * 255);
 
-void QFractal::initColorSpectrum()
+		colorSpectrum[i][0] = kRed * b;
+		colorSpectrum[i][1] = kGreen * b;
+		colorSpectrum[i][2] = kBlue * b;
+	}
+}
+
+void QFractal::initColorSpectrum1()
+{
+	for (int i = 0; i < 256; ++i)
+	{
+		float k = i / 255.0;
+		k = sqrtf(k);
+		k = 4 * k * (1 - k);
+		k = 4 * k * (1 - k);
+		k = 4 * k * (1 - k);
+
+		byte kRed = (byte)(k * 255);
+		byte kGreen = (byte)(k * k * 255);
+		byte kBlue = (byte)((1 - 4 * k * (1 - k)) * 255);
+
+		colorSpectrum[i][0] = kRed;
+		colorSpectrum[i][1] = kGreen;
+		colorSpectrum[i][2] = kBlue;
+	}
+}
+
+void QFractal::initColorSpectrum2()
+{
+	for (int i = 0; i < 256; ++i)
+	{
+		float k = i / 255.0;
+		k = sqrtf(k);
+		k = 4 * k * (1 - k);
+		k = 4 * k * (1 - k);
+		k = 4 * k * (1 - k);
+		float b = 2 * k * (1 - k) + 0.5;
+
+		byte kRed = (byte)((k < 0.5 ? 2 * k : (k < 0.75 ? 1.0 : 3.25 - 3 * k)) * 255);
+		byte kGreen = (byte)((k < 0.5 ? 2 * k : (k < 0.75 ? 1.5 - k : 2.25 - 2 * k)) * 255);
+		byte kBlue = (byte)((k < 0.5 ? 1 : 2 - 2 * k) * 255);
+
+		colorSpectrum[i][0] = kRed * b;
+		colorSpectrum[i][1] = kGreen * b;
+		colorSpectrum[i][2] = kBlue * b;
+	}
+}
+
+void QFractal::initColorSpectrum3()
 {
 	for (int i = 0; i < 256; ++i)
 	{
