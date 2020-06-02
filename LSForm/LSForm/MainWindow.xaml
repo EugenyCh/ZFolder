@@ -12,8 +12,6 @@
             <Menu DockPanel.Dock="Top" VerticalAlignment="Top">
                 <MenuItem Header="Файл">
                     <MenuItem Header="Встроенные шаблоны" Name="ItemInner"/>
-                    <MenuItem Header="Пользовательские шаблоны" Name="ItemUser"/>
-                    <MenuItem Header="Сохранить шаблон" Name="ItemSave" Click="ItemSave_Click"/>
                 </MenuItem>
             </Menu>
             <Grid>
