@@ -65,6 +65,9 @@ namespace IFForm
             BoxQA.Text = "-0.5";
             BoxQB.Text = "0.0";
             BoxQC.Text = "0.0";
+            Combo2D.SelectedIndex = 1;
+            Combo3D.SelectedIndex = 1;
+            Combo4D.SelectedIndex = 1;
         }
 
         private void ComboType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -76,24 +79,36 @@ namespace IFForm
                     DockJulia.IsEnabled = false;
                     DockMand.IsEnabled = false;
                     DockQuat.IsEnabled = ComboComponent.IsEnabled = false;
+                    Combo2D.Visibility = Visibility.Visible;
+                    Combo3D.Visibility = Visibility.Collapsed;
+                    Combo4D.Visibility = Visibility.Collapsed;
                     break;
                 case FractalType.Julia2D:
                     BlockD1.Text = "^ 2";
                     DockJulia.IsEnabled = true;
                     DockMand.IsEnabled = false;
                     DockQuat.IsEnabled = ComboComponent.IsEnabled = false;
+                    Combo2D.Visibility = Visibility.Visible;
+                    Combo3D.Visibility = Visibility.Collapsed;
+                    Combo4D.Visibility = Visibility.Collapsed;
                     break;
                 case FractalType.Mand3D:
                     BlockD1.Text = "^ 3";
                     DockJulia.IsEnabled = false;
                     DockMand.IsEnabled = true;
                     DockQuat.IsEnabled = ComboComponent.IsEnabled = false;
+                    Combo2D.Visibility = Visibility.Collapsed;
+                    Combo3D.Visibility = Visibility.Visible;
+                    Combo4D.Visibility = Visibility.Collapsed;
                     break;
                 case FractalType.Julia4D:
                     BlockD1.Text = "^ 3";
                     DockJulia.IsEnabled = false;
                     DockMand.IsEnabled = false;
                     DockQuat.IsEnabled = ComboComponent.IsEnabled = true;
+                    Combo2D.Visibility = Visibility.Collapsed;
+                    Combo3D.Visibility = Visibility.Collapsed;
+                    Combo4D.Visibility = Visibility.Visible;
                     break;
             }
             BlockD2.Text = BlockD1.Text;
@@ -379,18 +394,22 @@ namespace IFForm
                     switch ((FractalType)ComboType.SelectedIndex)
                     {
                         case FractalType.Mand2D:
+                            WriteInt(writer, Combo2D.SelectedIndex);
                             Console.WriteLine("Type: Mandelbrot 2D");
                             break;
                         case FractalType.Julia2D:
+                            WriteInt(writer, Combo2D.SelectedIndex);
                             WriteFloat(writer, JuliaX);
                             WriteFloat(writer, JuliaY);
                             Console.WriteLine("Type: Julia 2D");
                             break;
                         case FractalType.Mand3D:
+                            WriteInt(writer, Combo3D.SelectedIndex);
                             WriteFloat(writer, MandP);
                             Console.WriteLine("Type: Mandelbulb 3D");
                             break;
                         case FractalType.Julia4D:
+                            WriteInt(writer, Combo4D.SelectedIndex);
                             WriteFloat(writer, QuatR);
                             WriteFloat(writer, QuatA);
                             WriteFloat(writer, QuatB);

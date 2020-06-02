@@ -8,6 +8,8 @@
 #include "Mandelbrot2D.cuh"
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 
+using namespace std;
+
 float rotX = 0;
 float rotY = 90;
 float rotZ = 90;
@@ -244,6 +246,54 @@ void saveImage()
 
 int main(int argc, char* argv[])
 {
+    ifstream in("input.bin", ios::binary);
+    if (!in)
+    {
+        printf("Error of opening \"input.bin\"\n");
+        return 1;
+    }
+
+    string initString;
+    int rulesCount;
+    float width0, width1;
+    unsigned char color0[4], color1[4];
+    float angle, scaling;
+    int temp;
+    char* strTemp;
+
+    in.read((char*)&rulesCount, sizeof(int)); // Rules count
+    in.read((char*)&temp, sizeof(int)); // Init string length
+    // Init string
+    strTemp = new char[temp + 1];
+    in.read((char*)strTemp, temp);
+    strTemp[temp] = 0;
+    initString = strTemp;
+    delete[] strTemp;
+
+    for (int i = 0; i < rulesCount; ++i)
+    {
+        // Rule letter
+        char ruleName;
+        in.read((char*)&ruleName, 1);
+        // Rule string length
+        in.read((char*)&temp, sizeof(int));
+        // Relu definition
+        strTemp = new char[temp + 1];
+        in.read((char*)strTemp, temp);
+        strTemp[temp] = 0;
+        rules[ruleName] = strTemp;
+        delete[] strTemp;
+    }
+
+    in.read((char*)&numIterations, sizeof(int)); // Start iteration
+    in.read((char*)&color0, 4); // Color 0
+    in.read((char*)&color1, 4); // Color 1
+    in.read((char*)&width0, sizeof(float)); // Width 0
+    in.read((char*)&width1, sizeof(float)); // Width 1
+    in.read((char*)&angle, sizeof(float)); // Angle
+    in.read((char*)&scaling, sizeof(float)); // Scaling
+    in.close();
+
     // initialize glut
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);

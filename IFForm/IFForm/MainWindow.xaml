@@ -40,6 +40,26 @@
                     <TextBlock Text="^ D" Margin="5 0 0 0" Name="BlockD2"></TextBlock>
                 </StackPanel>
             </DockPanel>
+            <DockPanel LastChildFill="False" Margin="0 8 0 0">
+                <TextBlock DockPanel.Dock="Left" Text="Цветовой градиент:" VerticalAlignment="Center"></TextBlock>
+                <ComboBox DockPanel.Dock="Right" Width="150" Visibility="Collapsed" Name="Combo2D">
+                    <Image Source="2d-gradient-1.png" Width="120"></Image>
+                    <Image Source="2d-gradient-2.png" Width="120"></Image>
+                    <Image Source="2d-gradient-3.png" Width="120"></Image>
+                </ComboBox>
+                <ComboBox DockPanel.Dock="Right" Width="150" Visibility="Collapsed" Name="Combo3D">
+                    <Image Source="3d-gradient-1.png" Width="120"></Image>
+                    <Image Source="3d-gradient-2.png" Width="120"></Image>
+                    <Image Source="3d-gradient-3.png" Width="120"></Image>
+                    <Image Source="3d-gradient-4.png" Width="120"></Image>
+                </ComboBox>
+                <ComboBox DockPanel.Dock="Right" Width="150" Visibility="Visible" Name="Combo4D">
+                    <Image Source="4d-gradient-1.png" Width="120"></Image>
+                    <Image Source="4d-gradient-2.png" Width="120"></Image>
+                    <Image Source="4d-gradient-3.png" Width="120"></Image>
+                    <Image Source="4d-gradient-4.png" Width="120"></Image>
+                </ComboBox>
+            </DockPanel>
             <Button Content="Отобразить" Margin="0 8 0 0" Name="ButtonRender" Click="ButtonRender_Click"></Button>
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Vertical" Margin="8">
