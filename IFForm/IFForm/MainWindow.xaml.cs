@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -425,6 +426,29 @@ namespace IFForm
             {
                 MessageBox.Show("Ошибка при создании промежуточного файла",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            try
+            {
+                switch ((FractalType)ComboType.SelectedIndex)
+                {
+                    case FractalType.Mand2D:
+                        var process = new Process
+                        {
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = "DeviceMandelbrot2D.exe",
+                                UseShellExecute = false,
+                                CreateNoWindow = true
+                            }
+                        };
+                        process.Start();
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }

@@ -450,10 +450,5 @@ namespace LSForm
                 Console.WriteLine(ex.Message);
             }
         }
-
-        private void ItemSave_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

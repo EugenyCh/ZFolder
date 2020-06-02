@@ -25,6 +25,12 @@ int windowedWidth, windowedHeight;
 bool fullscreen = false;
 bool saving = false;
 
+int fWindowSize;
+int fFractalSize;
+int fIterations;
+int fMaxFractalSize;
+int fGradientIndex;
+
 /////////////////////////////////////////////////////////////////////////////////
 
 void init()
@@ -59,8 +65,9 @@ void display()
         systemList = glGenLists(1);
 
         glNewList(systemList, GL_COMPILE);
-        mandelbrot.initColorSpectrum();
-        mandelbrot.compute(1000, 1000, 500, 3.0);
+        mandelbrot.fMaxFractalSize = fMaxFractalSize;
+        mandelbrot.initColorSpectrum(fGradientIndex);
+        mandelbrot.compute(fFractalSize, fFractalSize, fIterations, 1.0);
         mandelbrot.draw();
         glEndList();
     }
@@ -253,51 +260,17 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    string initString;
-    int rulesCount;
-    float width0, width1;
-    unsigned char color0[4], color1[4];
-    float angle, scaling;
-    int temp;
-    char* strTemp;
-
-    in.read((char*)&rulesCount, sizeof(int)); // Rules count
-    in.read((char*)&temp, sizeof(int)); // Init string length
-    // Init string
-    strTemp = new char[temp + 1];
-    in.read((char*)strTemp, temp);
-    strTemp[temp] = 0;
-    initString = strTemp;
-    delete[] strTemp;
-
-    for (int i = 0; i < rulesCount; ++i)
-    {
-        // Rule letter
-        char ruleName;
-        in.read((char*)&ruleName, 1);
-        // Rule string length
-        in.read((char*)&temp, sizeof(int));
-        // Relu definition
-        strTemp = new char[temp + 1];
-        in.read((char*)strTemp, temp);
-        strTemp[temp] = 0;
-        rules[ruleName] = strTemp;
-        delete[] strTemp;
-    }
-
-    in.read((char*)&numIterations, sizeof(int)); // Start iteration
-    in.read((char*)&color0, 4); // Color 0
-    in.read((char*)&color1, 4); // Color 1
-    in.read((char*)&width0, sizeof(float)); // Width 0
-    in.read((char*)&width1, sizeof(float)); // Width 1
-    in.read((char*)&angle, sizeof(float)); // Angle
-    in.read((char*)&scaling, sizeof(float)); // Scaling
+    in.read((char*)&fWindowSize, sizeof(int));
+    in.read((char*)&fFractalSize, sizeof(int));
+    in.read((char*)&fIterations, sizeof(int));
+    in.read((char*)&fMaxFractalSize, sizeof(int));
+    in.read((char*)&fGradientIndex, sizeof(int));
     in.close();
 
     // initialize glut
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(1000, 1000);
+    glutInitWindowSize(fWindowSize, fWindowSize);
 
     // create window
     glutCreateWindow("Mandelbrot2D demo");
