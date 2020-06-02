@@ -9,7 +9,6 @@
 #include <ctime>
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define MIN(a, b) ((a) < (b) ? (b) : (a))
-#define SIDE_MAX 1200
 
 __device__ int side1;
 __device__ int side2;
@@ -67,23 +66,20 @@ __global__ void kernel(
 		buffer[offset] = 0;
 }
 
-Mandelbulb::Mandelbulb(float power, int maxIter)
-{
-	this->n = power;
-	this->maxIter = maxIter;
-	this->bailout = powf(2.0f, 1.0f / (power - 1));
-	this->sqrBailout = powf(4.0f, 1.0f / (power - 1));
-}
-
-bool Mandelbulb::compute(size_t width, size_t height)
+bool Mandelbulb::compute(size_t width, size_t height, int iters)
 {
 	if (points)
 		delete[] points;
 	this->width = width;
 	this->height = height;
-	side = MIN(width, height);
-	if (side > SIDE_MAX)
-		side = SIDE_MAX;
+	if (width > fMaxFractalSize)
+		width = fMaxFractalSize;
+	if (height > fMaxFractalSize)
+		height = fMaxFractalSize;
+	side = MAX(width, height);
+
+	this->bailout = powf(2.0f, 1.0f / (fPower - 1));
+	this->sqrBailout = powf(4.0f, 1.0f / (fPower - 1));
 
 	const size_t sz = side * side * side;
 	points = new byte[sz];
@@ -110,7 +106,7 @@ bool Mandelbulb::compute(size_t width, size_t height)
 	// Start
 	tStart = clock();
 	initVars << <1, 1 >> > (side);
-	kernel << <blocks, threads >> > (dev_buffer, n, maxIter, bailout, sqrBailout, dev_counterPoints);
+	kernel << <blocks, threads >> > (dev_buffer, fPower, iters, bailout, sqrBailout, dev_counterPoints);
 	cudaThreadSynchronize();
 	tFinish = clock();
 	// End
@@ -225,63 +221,82 @@ void Mandelbulb::draw()
 	}
 }
 
-//void Mandelbulb::initColorSpectrum()
-//{
-//	for (int i = 0; i < 256; ++i)
-//	{
-//		float k = i / 255.0;
-//		k = sqrtf(k);
-//		k = 4 * k * (1 - k);
-//		float b = 1 - 3 * k * (1 - k);
-//
-//		byte kRed = (byte)(4 * k * (1 - k) * 255);
-//		byte kGreen = (byte)(k * 127);
-//		byte kBlue = (byte)((1 - k) * 255);
-//
-//		colorSpectrum[i][0] = kRed * b;
-//		colorSpectrum[i][1] = kGreen * b;
-//		colorSpectrum[i][2] = kBlue * b;
-//	}
-//}
+void Mandelbulb::initColorSpectrum(int index)
+{
+	switch (index)
+	{
+	case 0:
+		initColorSpectrum0();
+		break;
+	case 1:
+		initColorSpectrum1();
+		break;
+	case 2:
+		initColorSpectrum2();
+		break;
+	case 3:
+		initColorSpectrum3();
+		break;
+	}
+}
 
-//void Mandelbulb::initColorSpectrum()
-//{
-//	for (int i = 0; i < 256; ++i)
-//	{
-//		float k = i / 255.0;
-//		k = sqrtf(k);
-//		k = 4 * k * (1 - k);
-//
-//		byte kRed = (byte)(k * 255);
-//		byte kGreen = (byte)(k * k * 255);
-//		byte kBlue = (byte)((1 - 4 * k * (1 - k)) * 255);
-//
-//		colorSpectrum[i][0] = kRed;
-//		colorSpectrum[i][1] = kGreen;
-//		colorSpectrum[i][2] = kBlue;
-//	}
-//}
+void Mandelbulb::initColorSpectrum0()
+{
+	for (int i = 0; i < 256; ++i)
+	{
+		float k = i / 255.0;
+		k = sqrtf(k);
+		k = 4 * k * (1 - k);
+		float b = 1 - 3 * k * (1 - k);
 
-//void Mandelbulb::initColorSpectrum()
-//{
-//	for (int i = 0; i < 256; ++i)
-//	{
-//		float k = i / 255.0;
-//		k = sqrtf(k);
-//		k = 4 * k * (1 - k);
-//		float b = 1 - k * 0.3;
-//
-//		byte kRed = (byte)((k < 0.5 ? 2 * k : (k < 0.75 ? 1.0 : 3.25 - 3 * k)) * 255);
-//		byte kGreen = (byte)((k < 0.5 ? 2 * k : (k < 0.75 ? 1.5 - k : 2.25 - 2 * k)) * 255);
-//		byte kBlue = (byte)((k < 0.5 ? 1 : 2 - 2 * k) * 255);
-//
-//		colorSpectrum[i][0] = kRed * b;
-//		colorSpectrum[i][1] = kGreen * b;
-//		colorSpectrum[i][2] = kBlue * b;
-//	}
-//}
+		byte kRed = (byte)(4 * k * (1 - k) * 255);
+		byte kGreen = (byte)(k * 127);
+		byte kBlue = (byte)((1 - k) * 255);
 
-void Mandelbulb::initColorSpectrum()
+		colorSpectrum[i][0] = kRed * b;
+		colorSpectrum[i][1] = kGreen * b;
+		colorSpectrum[i][2] = kBlue * b;
+	}
+}
+
+void Mandelbulb::initColorSpectrum1()
+{
+	for (int i = 0; i < 256; ++i)
+	{
+		float k = i / 255.0;
+		k = sqrtf(k);
+		k = 4 * k * (1 - k);
+
+		byte kRed = (byte)(k * 255);
+		byte kGreen = (byte)(k * k * 255);
+		byte kBlue = (byte)((1 - 4 * k * (1 - k)) * 255);
+
+		colorSpectrum[i][0] = kRed;
+		colorSpectrum[i][1] = kGreen;
+		colorSpectrum[i][2] = kBlue;
+	}
+}
+
+void Mandelbulb::initColorSpectrum2()
+{
+	for (int i = 0; i < 256; ++i)
+	{
+		float k = i / 255.0;
+		k = sqrtf(k);
+		k = 4 * k * (1 - k);
+		float b = 1 - k * 0.3;
+
+		byte kRed = (byte)((k < 0.5 ? 2 * k : (k < 0.75 ? 1.0 : 3.25 - 3 * k)) * 255);
+		byte kGreen = (byte)((k < 0.5 ? 2 * k : (k < 0.75 ? 1.5 - k : 2.25 - 2 * k)) * 255);
+		byte kBlue = (byte)((k < 0.5 ? 1 : 2 - 2 * k) * 255);
+
+		colorSpectrum[i][0] = kRed * b;
+		colorSpectrum[i][1] = kGreen * b;
+		colorSpectrum[i][2] = kBlue * b;
+	}
+}
+
+void Mandelbulb::initColorSpectrum3()
 {
 	for (int i = 0; i < 256; ++i)
 	{

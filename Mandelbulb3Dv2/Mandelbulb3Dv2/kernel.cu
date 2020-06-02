@@ -9,6 +9,8 @@
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
+using namespace std;
+
 float rotX = 0;
 float rotY = 90;
 float rotZ = 90;
@@ -16,13 +18,20 @@ float camRotH, camRotV;
 float camShH, camShV; // camera shift
 int mouseOldX = 0;
 int mouseOldY = 0;
-static Mandelbulb mandelbulb(8.0, 10);
+static Mandelbulb mandelbulb;
 unsigned systemList = 0; // display list to draw system
 float zoom = 1.0f;
 int winWidth, winHeight;
 int windowedWidth, windowedHeight;
 bool fullscreen = false;
 bool saving = false;
+
+int fWindowSize;
+int fFractalSize;
+int fIterations;
+int fMaxFractalSize;
+int fGradientIndex;
+float fPower;
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -58,8 +67,10 @@ void display()
         systemList = glGenLists(1);
 
         glNewList(systemList, GL_COMPILE);
-        mandelbulb.initColorSpectrum();
-        mandelbulb.compute(winWidth, winHeight);
+        mandelbulb.fMaxFractalSize = fMaxFractalSize;
+        mandelbulb.fPower = fPower;
+        mandelbulb.initColorSpectrum(fGradientIndex);
+        mandelbulb.compute(fFractalSize, fFractalSize, fIterations);
         mandelbulb.draw();
         glEndList();
     }
@@ -79,8 +90,8 @@ void display()
 
 void reshape(int w, int h)
 {
-    if (w != winWidth || h != winHeight)
-        systemList = 0;
+    //if (w != winWidth || h != winHeight)
+    //    systemList = 0;
 
     winWidth = w;
     winHeight = h;
@@ -219,7 +230,6 @@ void processKey(unsigned char key, int x, int y)
 
 void saveImage()
 {
-
     time_t rawtime;
     struct tm* timeinfo;
     char buffer[80];
@@ -245,10 +255,25 @@ void saveImage()
 
 int main(int argc, char* argv[])
 {
+    ifstream in("input.bin", ios::binary);
+    if (!in)
+    {
+        printf("Error of opening \"input.bin\"\n");
+        return 1;
+    }
+
+    in.read((char*)&fWindowSize, sizeof(int));
+    in.read((char*)&fFractalSize, sizeof(int));
+    in.read((char*)&fIterations, sizeof(int));
+    in.read((char*)&fMaxFractalSize, sizeof(int));
+    in.read((char*)&fGradientIndex, sizeof(int));
+    in.read((char*)&fPower, sizeof(float));
+    in.close();
+
     // initialize glut
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(400, 400);
+    glutInitWindowSize(fWindowSize, fWindowSize);
 
     // create window
     glutCreateWindow("Mandelbulb demo");
