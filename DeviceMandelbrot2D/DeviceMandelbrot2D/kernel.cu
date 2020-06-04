@@ -67,6 +67,7 @@ void display()
         systemList = glGenLists(1);
 
         glNewList(systemList, GL_COMPILE);
+        mandelbrot.power = 2.0;
         mandelbrot.fMaxFractalSize = fMaxFractalSize;
         mandelbrot.initColorSpectrum(fGradientIndex);
         mandelbrot.compute(fFractalSize, fFractalSize, fIterations, 1.0);
