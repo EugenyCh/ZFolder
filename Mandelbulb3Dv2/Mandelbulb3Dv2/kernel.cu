@@ -71,6 +71,7 @@ void display()
         glNewList(systemList, GL_COMPILE);
         mandelbulb.fMaxFractalSize = fMaxFractalSize;
         mandelbulb.fPower = fPower;
+        mandelbulb.setConstParam(0.5, 0.5, 0.5);
         mandelbulb.initColorSpectrum(fGradientIndex);
         mandelbulb.compute(fFractalSize, fFractalSize, fIterations);
         mandelbulb.draw();

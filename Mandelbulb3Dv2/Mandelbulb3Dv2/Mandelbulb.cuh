@@ -17,11 +17,17 @@ private:
 	void initColorSpectrum1();
 	void initColorSpectrum2();
 	void initColorSpectrum3();
+	float hcX = 0.0;
+	float hcY = 0.0;
+	float hcZ = 0.0;
+	bool hasParameter = false;
 
 public:
 	int fMaxFractalSize;
 	float fPower;
 
+	void setConstParam(float x, float y, float z);
+	void setNoConstParam();
 	bool compute(size_t width, size_t height, int iters);
 	void draw();
 	void initColorSpectrum(int index);

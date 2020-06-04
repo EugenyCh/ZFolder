@@ -21,7 +21,7 @@ __global__ void initVars(const int side)
 	side3 = side * side * side;
 }
 
-__global__ void kernel(
+__global__ void kernelStandart(
 	byte* buffer,
 	const float n,
 	const int maxIter,
@@ -66,6 +66,67 @@ __global__ void kernel(
 		buffer[offset] = 0;
 }
 
+__global__ void kernelParameter(
+	byte* buffer,
+	const float n,
+	const float hcx,
+	const float hcy,
+	const float hcz,
+	const int maxIter,
+	const float bailout,
+	const float sqrBailout,
+	int* counterPoints)
+{
+	int offset = threadIdx.x + blockDim.x * blockIdx.x;
+	if (offset >= side3)
+		return;
+	int z = offset / side2;
+	offset -= z * side2;
+	int y = offset / side1;
+	int x = offset % side1;
+	offset += z * side2;
+
+	// Compute point at this position
+	int halfSide = side1 >> 1;
+	float fx = bailout * (float)(x - halfSide) / halfSide;
+	float fy = bailout * (float)(y - halfSide) / halfSide;
+	float fz = bailout * (float)(z - halfSide) / halfSide;
+	Hypercomplex hc(hcx, hcy, hcz);
+	Hypercomplex hz(fx, fy, fz);
+
+	// Iterating
+	bool belongs;
+	if (hc.sqrRadius() > sqrBailout)
+		belongs = false;
+	else
+	{
+		for (int i = 0; i < maxIter; ++i)
+			hz = (hz ^ n) + hc;
+		belongs = hz.sqrRadius() <= sqrBailout;
+	}
+
+	if (belongs)
+	{
+		buffer[offset] = (byte)((fx * fx + fy * fy + fz * fz) / sqrBailout * 255);
+		atomicAdd(counterPoints, 1);
+	}
+	else
+		buffer[offset] = 0;
+}
+
+void Mandelbulb::setConstParam(float x, float y, float z)
+{
+	hcX = x;
+	hcY = y;
+	hcZ = z;
+	hasParameter = true;
+}
+
+void Mandelbulb::setNoConstParam()
+{
+	hasParameter = false;
+}
+
 bool Mandelbulb::compute(size_t width, size_t height, int iters)
 {
 	if (points)
@@ -106,7 +167,10 @@ bool Mandelbulb::compute(size_t width, size_t height, int iters)
 	// Start
 	tStart = clock();
 	initVars << <1, 1 >> > (side);
-	kernel << <blocks, threads >> > (dev_buffer, fPower, iters, bailout, sqrBailout, dev_counterPoints);
+	if (hasParameter)
+		kernelParameter << <blocks, threads >> > (dev_buffer, fPower, hcX, hcY, hcZ, iters, bailout, sqrBailout, dev_counterPoints);
+	else
+		kernelStandart << <blocks, threads >> > (dev_buffer, fPower, iters, bailout, sqrBailout, dev_counterPoints);
 	cudaThreadSynchronize();
 	tFinish = clock();
 	// End
