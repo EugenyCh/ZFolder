@@ -50,7 +50,7 @@ struct Quaternion
 				--n;
 			}
 			else {
-				a = a * a;
+				a = a.sqr();
 				n = n >> 1;
 			}
 		return res;
