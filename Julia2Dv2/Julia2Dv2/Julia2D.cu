@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <time.h>
 
-__global__ void kernel(byte* buffer, const int side, const float cx, const float cy, const int iters)
+__global__ void kernel(byte* buffer, const int side, const float sqrBailout, const float cx, const float cy, const float p, const int iters)
 {
 	int offset = threadIdx.x + blockDim.x * blockIdx.x;
 	if (offset >= side * side)
@@ -26,8 +26,8 @@ __global__ void kernel(byte* buffer, const int side, const float cx, const float
 	int i;
 	for (i = 0; i < iters; ++i)
 	{
-		z = z * z + c;
-		if (z.sqrMagnitude() > 4.0f)
+		z = (z ^ p) + c;
+		if (z.sqrMagnitude() > sqrBailout)
 			break;
 	}
 	float k = (float)i / iters;
@@ -38,6 +38,7 @@ __global__ void kernel(byte* buffer, const int side, const float cx, const float
 
 bool Julia2D::compute(size_t width, size_t height, int iters, float setScalling)
 {
+	sqrBailout = powf(4.0, 1.0 / (power - 1.0));
 	if (setScalling < 1.0)
 		setScalling = 1.0;
 	width *= setScalling;
@@ -67,7 +68,7 @@ bool Julia2D::compute(size_t width, size_t height, int iters, float setScalling)
 	int threads = 1024;
 	int blocks = (sz + threads - 1) / threads;
 	clock_t tStart = clock();
-	kernel << <blocks, threads >> > (dev_buffer, side, cx, cy, iters);
+	kernel << <blocks, threads >> > (dev_buffer, side, sqrBailout, cx, cy, power, iters);
 	cudaThreadSynchronize();
 	clock_t tFinish = clock();
 	double tDelta = (double)(tFinish - tStart) / CLOCKS_PER_SEC;

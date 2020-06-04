@@ -71,6 +71,7 @@ void display()
 		glNewList(systemList, GL_COMPILE);
 		julia.cx = fJuliaCX;
 		julia.cy = fJuliaCY;
+		julia.power = 2.0;
 		julia.fMaxFractalSize = fMaxFractalSize;
 		julia.initColorSpectrum(fGradientIndex);
 		julia.compute(fFractalSize, fFractalSize, fIterations, 1.0);

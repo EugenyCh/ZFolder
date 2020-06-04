@@ -15,11 +15,13 @@ private:
 	void initColorSpectrum0();
 	void initColorSpectrum1();
 	void initColorSpectrum2();
+	float sqrBailout;
 
 public:
 	int fMaxFractalSize;
 	float cx;
 	float cy;
+	float power;
 
 	bool compute(size_t width, size_t height, int iters, float setScalling);
 	void draw();
