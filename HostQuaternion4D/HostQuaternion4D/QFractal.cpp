@@ -8,7 +8,7 @@
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define MIN(a, b) ((a) < (b) ? (b) : (a))
 #define SIDE_MAX 600
-#define TO_TIME
+//#define TO_TIME
 
 QFractal::QFractal(float r, float a, float b, float c, QFractal::ParamToHide h, int maxIter)
 {
@@ -90,7 +90,7 @@ void QFractal::compute(size_t width, size_t height)
 				else
 				{
 					for (int i = 0; i < maxIter; ++i)
-						qv = qv.sqr() + qc;
+						qv = (qv ^ 3) + qc;
 					belongs = qv.sqrRadius() <= sqrBailout;
 				}
 

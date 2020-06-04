@@ -57,7 +57,7 @@ __global__ void kernel(
 	else
 	{
 		for (int i = 0; i < maxIter; ++i)
-			qv = qv.sqr() + qc;
+			qv = (qv ^ 5) + qc;
 		belongs = qv.sqrRadius() <= sqrBailout;
 	}
 

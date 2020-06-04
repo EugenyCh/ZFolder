@@ -52,7 +52,7 @@ void display()
 
         glNewList(systemList, GL_COMPILE);
         qfractal.initColorSpectrum();
-        qfractal.compute(600, 600);
+        qfractal.compute(200, 200);
         qfractal.draw();
         glEndList();
     }
