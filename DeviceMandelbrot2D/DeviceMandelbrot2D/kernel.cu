@@ -32,6 +32,7 @@ int fFractalSize;
 int fIterations;
 int fMaxFractalSize;
 int fGradientIndex;
+float fPower;
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -67,7 +68,7 @@ void display()
         systemList = glGenLists(1);
 
         glNewList(systemList, GL_COMPILE);
-        mandelbrot.power = 2.0;
+        mandelbrot.power = fPower;
         mandelbrot.fMaxFractalSize = fMaxFractalSize;
         mandelbrot.initColorSpectrum(fGradientIndex);
         mandelbrot.compute(fFractalSize, fFractalSize, fIterations, 1.0);
@@ -267,11 +268,17 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    int type;
     in.read((char*)&fWindowSize, sizeof(int));
     in.read((char*)&fFractalSize, sizeof(int));
     in.read((char*)&fIterations, sizeof(int));
     in.read((char*)&fMaxFractalSize, sizeof(int));
     in.read((char*)&fGradientIndex, sizeof(int));
+    in.read((char*)&type, sizeof(int));
+    if (type == 0)
+        fPower = 2.0;
+    if (type == 1)
+        in.read((char*)&fPower, sizeof(float));
     in.close();
 
     // initialize glut

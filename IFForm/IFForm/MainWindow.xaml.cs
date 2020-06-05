@@ -106,8 +106,8 @@ namespace IFForm
             BoxJulia2DCY.Text = "0.521295573094847";
             // TJulia2D
             BoxTJulia2DP.Text = "3.0";
-            BoxTJulia2DCX.Text = "-0.70176";
-            BoxTJulia2DCY.Text = "-0.3842";
+            BoxTJulia2DCX.Text = "0.535";
+            BoxTJulia2DCY.Text = "0.35";
             // Mand3D
             BoxMand3DP.Text = "8.0";
             // TJulia3D
@@ -130,7 +130,7 @@ namespace IFForm
             BoxTMand4DP.Text = "2.0";
             BoxTMand4DQC.Text = "0.0";
             // Combo Gradient
-            Combo2D.SelectedIndex = 1;
+            Combo2D.SelectedIndex = 0;
             Combo3D.SelectedIndex = 1;
             Combo4D.SelectedIndex = 1;
         }
@@ -939,110 +939,169 @@ namespace IFForm
         {
             if (!ValidationTest())
                 return;
-            //try
-            //{
-            //    using (BinaryWriter writer = new BinaryWriter(File.Open("input.bin", FileMode.Create)))
-            //    {
-            //        Console.WriteLine("Generation of \"input.bin\"...");
-            //        WriteInt(writer, WindowSize);
-            //        WriteInt(writer, FractalSize);
-            //        WriteInt(writer, Iterations);
-            //        WriteInt(writer, MaxFractalSize);
-            //        switch ((FractalType)ComboType.SelectedIndex)
-            //        {
-            //            case FractalType.Mand2D:
-            //                WriteInt(writer, Combo2D.SelectedIndex);
-            //                Console.WriteLine("Type: Mandelbrot 2D");
-            //                break;
-            //            case FractalType.Julia2D:
-            //                WriteInt(writer, Combo2D.SelectedIndex);
-            //                WriteFloat(writer, Julia2DCX);
-            //                WriteFloat(writer, Julia2DCY);
-            //                Console.WriteLine("Type: Julia 2D");
-            //                break;
-            //            case FractalType.Mand3D:
-            //                WriteInt(writer, Combo3D.SelectedIndex);
-            //                WriteFloat(writer, Mand3DP);
-            //                Console.WriteLine("Type: Mandelbulb 3D");
-            //                break;
-            //            case FractalType.Julia4D:
-            //                WriteInt(writer, Combo4D.SelectedIndex);
-            //                WriteFloat(writer, Julia4DR);
-            //                WriteFloat(writer, Julia4DA);
-            //                WriteFloat(writer, Julia4DB);
-            //                WriteFloat(writer, Julia4DC);
-            //                WriteInt(writer, ComboJulia4DComponent.SelectedIndex);
-            //                Console.WriteLine("Type: Julia 4D");
-            //                break;
-            //        }
-            //        Console.WriteLine($"Total {writer.BaseStream.Length} bytes.");
-            //    }
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Ошибка при создании промежуточного файла",
-            //        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
+            try
+            {
+                using (BinaryWriter writer = new BinaryWriter(File.Open("input.bin", FileMode.Create)))
+                {
+                    Console.WriteLine("Generation of \"input.bin\"...");
+                    WriteInt(writer, WindowSize);
+                    WriteInt(writer, FractalSize);
+                    WriteInt(writer, Iterations);
+                    WriteInt(writer, MaxFractalSize);
+                    //Mand2D = 0,
+                    //TMand2D = 1,
+                    //Julia2D = 2,
+                    //TJulia2D = 3,
+                    //Mand3D = 4,
+                    //TJulia3D = 5,
+                    //Julia4D = 6,
+                    //TJulia4D = 7,
+                    //TMand4D = 8
+                    switch ((FractalType)ComboType.SelectedIndex)
+                    {
+                        case FractalType.Mand2D:
+                            WriteInt(writer, Combo2D.SelectedIndex);
+                            WriteInt(writer, 0);
+                            Console.WriteLine("Type: Mandelbrot 2D");
+                            break;
+                        case FractalType.TMand2D:
+                            WriteInt(writer, Combo2D.SelectedIndex);
+                            WriteInt(writer, 1);
+                            WriteFloat(writer, TMand2DP);
+                            Console.WriteLine("Type: T Mandelbrot 2D");
+                            break;
+                        case FractalType.Julia2D:
+                            WriteInt(writer, Combo2D.SelectedIndex);
+                            WriteInt(writer, 0);
+                            WriteFloat(writer, Julia2DCX);
+                            WriteFloat(writer, Julia2DCY);
+                            Console.WriteLine("Type: Julia 2D");
+                            break;
+                        case FractalType.TJulia2D:
+                            WriteInt(writer, Combo2D.SelectedIndex);
+                            WriteInt(writer, 1);
+                            WriteFloat(writer, TJulia2DCX);
+                            WriteFloat(writer, TJulia2DCY);
+                            WriteFloat(writer, TJulia2DP);
+                            Console.WriteLine("Type: T Julia 2D");
+                            break;
+                        case FractalType.Mand3D:
+                            WriteInt(writer, Combo3D.SelectedIndex);
+                            WriteInt(writer, 0);
+                            WriteFloat(writer, Mand3DP);
+                            Console.WriteLine("Type: Mandelbulb 3D");
+                            break;
+                        case FractalType.TJulia3D:
+                            WriteInt(writer, Combo3D.SelectedIndex);
+                            WriteInt(writer, 1);
+                            WriteFloat(writer, TJulia3DCX);
+                            WriteFloat(writer, TJulia3DCY);
+                            WriteFloat(writer, TJulia3DCZ);
+                            WriteFloat(writer, TJulia3DP);
+                            Console.WriteLine("Type: T Julia 3D");
+                            break;
+                        case FractalType.Julia4D:
+                            WriteInt(writer, Combo4D.SelectedIndex);
+                            WriteInt(writer, 0);
+                            WriteFloat(writer, Julia4DQR);
+                            WriteFloat(writer, Julia4DQA);
+                            WriteFloat(writer, Julia4DQB);
+                            WriteFloat(writer, Julia4DQC);
+                            WriteInt(writer, ComboJulia4DComponent.SelectedIndex);
+                            Console.WriteLine("Type: Julia 4D");
+                            break;
+                        case FractalType.TJulia4D:
+                            WriteInt(writer, Combo4D.SelectedIndex);
+                            WriteInt(writer, 1);
+                            WriteFloat(writer, TJulia4DQR);
+                            WriteFloat(writer, TJulia4DQA);
+                            WriteFloat(writer, TJulia4DQB);
+                            WriteFloat(writer, TJulia4DQC);
+                            WriteFloat(writer, TJulia4DP);
+                            WriteInt(writer, ComboTJulia4DComponent.SelectedIndex);
+                            Console.WriteLine("Type: T Julia 4D");
+                            break;
+                        case FractalType.TMand4D:
+                            WriteInt(writer, Combo4D.SelectedIndex);
+                            WriteInt(writer, 2);
+                            WriteFloat(writer, TMand4DP);
+                            WriteFloat(writer, TMand4DQC);
+                            Console.WriteLine("Type: T Mandelbrot 4D");
+                            break;
+                    }
+                    Console.WriteLine($"Total {writer.BaseStream.Length} bytes.");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при создании промежуточного файла",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
-            //try
-            //{
-            //    Process process;
-            //    switch ((FractalType)ComboType.SelectedIndex)
-            //    {
-            //        case FractalType.Mand2D:
-            //            process = new Process
-            //            {
-            //                StartInfo = new ProcessStartInfo
-            //                {
-            //                    FileName = "DeviceMandelbrot2D.exe",
-            //                    UseShellExecute = false,
-            //                    CreateNoWindow = true
-            //                }
-            //            };
-            //            process.Start();
-            //            break;
-            //        case FractalType.Julia2D:
-            //            process = new Process
-            //            {
-            //                StartInfo = new ProcessStartInfo
-            //                {
-            //                    FileName = "DeviceJulia2D.exe",
-            //                    UseShellExecute = false,
-            //                    CreateNoWindow = true
-            //                }
-            //            };
-            //            process.Start();
-            //            break;
-            //        case FractalType.Mand3D:
-            //            process = new Process
-            //            {
-            //                StartInfo = new ProcessStartInfo
-            //                {
-            //                    FileName = "DeviceMandelbulb3D.exe",
-            //                    UseShellExecute = false,
-            //                    CreateNoWindow = true
-            //                }
-            //            };
-            //            process.Start();
-            //            break;
-            //        case FractalType.Julia4D:
-            //            process = new Process
-            //            {
-            //                StartInfo = new ProcessStartInfo
-            //                {
-            //                    FileName = "DeviceJulia4D.exe",
-            //                    UseShellExecute = false,
-            //                    CreateNoWindow = true
-            //                }
-            //            };
-            //            process.Start();
-            //            break;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
+            try
+            {
+                Process process;
+                switch ((FractalType)ComboType.SelectedIndex)
+                {
+                    case FractalType.Mand2D:
+                    case FractalType.TMand2D:
+                        process = new Process
+                        {
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = "DeviceMandelbrot2D.exe",
+                                UseShellExecute = false,
+                                CreateNoWindow = true
+                            }
+                        };
+                        process.Start();
+                        break;
+                    case FractalType.Julia2D:
+                    case FractalType.TJulia2D:
+                        process = new Process
+                        {
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = "DeviceJulia2D.exe",
+                                UseShellExecute = false,
+                                CreateNoWindow = true
+                            }
+                        };
+                        process.Start();
+                        break;
+                    case FractalType.Mand3D:
+                    case FractalType.TJulia3D:
+                        process = new Process
+                        {
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = "DeviceMandelbulb3D.exe",
+                                UseShellExecute = false,
+                                CreateNoWindow = true
+                            }
+                        };
+                        process.Start();
+                        break;
+                    case FractalType.Julia4D:
+                    case FractalType.TJulia4D:
+                    case FractalType.TMand4D:
+                        process = new Process
+                        {
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = "DeviceJulia4D.exe",
+                                UseShellExecute = false,
+                                CreateNoWindow = true
+                            }
+                        };
+                        process.Start();
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

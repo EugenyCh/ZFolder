@@ -34,6 +34,7 @@ int fMaxFractalSize;
 int fGradientIndex;
 float fJuliaCX;
 float fJuliaCY;
+float fPower;
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -71,7 +72,7 @@ void display()
 		glNewList(systemList, GL_COMPILE);
 		julia.cx = fJuliaCX;
 		julia.cy = fJuliaCY;
-		julia.power = 2.0;
+		julia.power = fPower;
 		julia.fMaxFractalSize = fMaxFractalSize;
 		julia.initColorSpectrum(fGradientIndex);
 		julia.compute(fFractalSize, fFractalSize, fIterations, 1.0);
@@ -271,13 +272,19 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
+	int type;
 	in.read((char*)&fWindowSize, sizeof(int));
 	in.read((char*)&fFractalSize, sizeof(int));
 	in.read((char*)&fIterations, sizeof(int));
 	in.read((char*)&fMaxFractalSize, sizeof(int));
 	in.read((char*)&fGradientIndex, sizeof(int));
+	in.read((char*)&type, sizeof(int));
 	in.read((char*)&fJuliaCX, sizeof(float));
 	in.read((char*)&fJuliaCY, sizeof(float));
+	if (type == 0)
+		fPower = 2.0;
+	if (type == 1)
+		in.read((char*)&fPower, sizeof(float));
 	in.close();
 
 	// initialize glut

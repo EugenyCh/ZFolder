@@ -222,7 +222,7 @@
                 </DockPanel>
                 <DockPanel LastChildFill="False" Margin="0 8 0 0">
                     <DockPanel DockPanel.Dock="Top" LastChildFill="False">
-                        <TextBlock DockPanel.Dock="Left" Text="Степень:"></TextBlock>
+                        <TextBlock DockPanel.Dock="Left" Text="Степень оболочки:"></TextBlock>
                         <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
                         <Run Text="z &#x2192; z ^"></Run>
                         <Run Text="p" Foreground="DarkCyan"></Run>
@@ -387,7 +387,7 @@
                     <DockPanel DockPanel.Dock="Top" LastChildFill="False">
                         <TextBlock DockPanel.Dock="Left" Text="Степень:"></TextBlock>
                         <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
-                        <Run Text="z &#x2192; z ^"></Run>
+                        <Run Text="q &#x2192; q ^"></Run>
                         <Run Text="p" Foreground="DarkCyan"></Run>
                         <Run Text="+ c"></Run>
                         </TextBlock>
