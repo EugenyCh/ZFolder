@@ -692,6 +692,8 @@ namespace IFForm
             try
             {
                 TMand4DP = float.Parse(BoxTMand4DP.Text);
+                if (TMand4DP < 2.0)
+                    throw new Exception();
                 BoxTMand4DP.Background = new SolidColorBrush(Colors.White);
                 FlagTMand4DP = true;
             }
@@ -705,6 +707,7 @@ namespace IFForm
 
         private bool ValidationTest()
         {
+            #region Main Flags
             if (FlagsMain[0] == false)
             {
                 MessageBox.Show("Ошибка при заполнении размера окна: должно быть целое число >= 100",
@@ -729,48 +732,188 @@ namespace IFForm
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
-            if (MandFlag == false)
+            #endregion
+
+            #region TMand2D Flags
+            if ((FractalType)ComboType.SelectedIndex == FractalType.TMand2D)
             {
-                MessageBox.Show("Ошибка при заполнении степени оболочки Мандельброта: должно быть число >= 2.0",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
+                if (FlagTMand2DP == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении степени оболочки: должно быть число >= 2.0",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
             }
-            if (QuatFlags[0] == false)
+            #endregion
+
+            #region Julia2D Flags
+            if ((FractalType)ComboType.SelectedIndex == FractalType.Julia2D)
             {
-                MessageBox.Show("Ошибка при заполнении компоненты R: должно быть число",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
+                if (FlagJulia2DCX == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компоненты X в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                if (FlagJulia2DCY == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компоненты Y в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
             }
-            if (QuatFlags[1] == false)
+            #endregion
+
+            #region TJulia2D Flags
+            if ((FractalType)ComboType.SelectedIndex == FractalType.TJulia2D)
             {
-                MessageBox.Show("Ошибка при заполнении компоненты A: должно быть число",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
+                if (FlagTJulia2DP == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении степени: должно быть число >= 2.0",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                if (FlagTJulia2DCX == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компненты X в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                if (FlagTJulia2DCY == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компненты Y в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
             }
-            if (QuatFlags[2] == false)
+            #endregion
+
+            #region Mand3D Flags
+            if ((FractalType)ComboType.SelectedIndex == FractalType.Mand3D)
             {
-                MessageBox.Show("Ошибка при заполнении компоненты B: должно быть число",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
+                if (FlagMand3DP == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении степени: должно быть число >= 2.0",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
             }
-            if (QuatFlags[3] == false)
+            #endregion
+
+            #region TJulia3D Flags
+            if ((FractalType)ComboType.SelectedIndex == FractalType.TJulia3D)
             {
-                MessageBox.Show("Ошибка при заполнении компоненты C: должно быть число",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
+                if (FlagTJulia3DP == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении степени: должно быть число >= 2.0",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                if (FlagTJulia3DCX == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компненты X в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                if (FlagTJulia3DCY == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компненты Y в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                if (FlagTJulia3DCZ == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компненты Z в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
             }
-            if (JuliaFlags[0] == false)
+            #endregion
+
+            #region Julia4D Flags
+            if ((FractalType)ComboType.SelectedIndex == FractalType.Julia4D)
             {
-                MessageBox.Show("Ошибка при заполнении компоненты X: должно быть число",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
+                if (FlagJulia4DQR == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компненты R в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                if (FlagJulia4DQA == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компненты X в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                if (FlagJulia4DQB == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компненты Y в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                if (FlagJulia4DQC == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компненты Z в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
             }
-            if (JuliaFlags[1] == false)
+            #endregion
+
+            #region TJulia4D Flags
+            if ((FractalType)ComboType.SelectedIndex == FractalType.TJulia4D)
             {
-                MessageBox.Show("Ошибка при заполнении компоненты Y: должно быть число",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
+                if (FlagTJulia4DP == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении степени: должно быть число >= 2.0",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                if (FlagTJulia4DQR == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компненты R в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                if (FlagTJulia4DQA == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компненты X в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                if (FlagTJulia4DQB == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компненты Y в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                if (FlagTJulia4DQC == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компненты Z в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
             }
+            #endregion
+
+            #region TMand4D Flags
+            if ((FractalType)ComboType.SelectedIndex == FractalType.TMand4D)
+            {
+                if (FlagTMand4DP == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении степени: должно быть число >= 2.0",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                if (FlagTMand4DQC == false)
+                {
+                    MessageBox.Show("Ошибка при заполнении компненты Z в константе: должно быть число",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+            }
+            #endregion
+
             return true;
         }
 
@@ -796,110 +939,110 @@ namespace IFForm
         {
             if (!ValidationTest())
                 return;
-            try
-            {
-                using (BinaryWriter writer = new BinaryWriter(File.Open("input.bin", FileMode.Create)))
-                {
-                    Console.WriteLine("Generation of \"input.bin\"...");
-                    WriteInt(writer, WindowSize);
-                    WriteInt(writer, FractalSize);
-                    WriteInt(writer, Iterations);
-                    WriteInt(writer, MaxFractalSize);
-                    switch ((FractalType)ComboType.SelectedIndex)
-                    {
-                        case FractalType.Mand2D:
-                            WriteInt(writer, Combo2D.SelectedIndex);
-                            Console.WriteLine("Type: Mandelbrot 2D");
-                            break;
-                        case FractalType.Julia2D:
-                            WriteInt(writer, Combo2D.SelectedIndex);
-                            WriteFloat(writer, Julia2DCX);
-                            WriteFloat(writer, Julia2DCY);
-                            Console.WriteLine("Type: Julia 2D");
-                            break;
-                        case FractalType.Mand3D:
-                            WriteInt(writer, Combo3D.SelectedIndex);
-                            WriteFloat(writer, Mand3DP);
-                            Console.WriteLine("Type: Mandelbulb 3D");
-                            break;
-                        case FractalType.Julia4D:
-                            WriteInt(writer, Combo4D.SelectedIndex);
-                            WriteFloat(writer, Julia4DR);
-                            WriteFloat(writer, Julia4DA);
-                            WriteFloat(writer, Julia4DB);
-                            WriteFloat(writer, Julia4DC);
-                            WriteInt(writer, ComboJulia4DComponent.SelectedIndex);
-                            Console.WriteLine("Type: Julia 4D");
-                            break;
-                    }
-                    Console.WriteLine($"Total {writer.BaseStream.Length} bytes.");
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Ошибка при создании промежуточного файла",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            //try
+            //{
+            //    using (BinaryWriter writer = new BinaryWriter(File.Open("input.bin", FileMode.Create)))
+            //    {
+            //        Console.WriteLine("Generation of \"input.bin\"...");
+            //        WriteInt(writer, WindowSize);
+            //        WriteInt(writer, FractalSize);
+            //        WriteInt(writer, Iterations);
+            //        WriteInt(writer, MaxFractalSize);
+            //        switch ((FractalType)ComboType.SelectedIndex)
+            //        {
+            //            case FractalType.Mand2D:
+            //                WriteInt(writer, Combo2D.SelectedIndex);
+            //                Console.WriteLine("Type: Mandelbrot 2D");
+            //                break;
+            //            case FractalType.Julia2D:
+            //                WriteInt(writer, Combo2D.SelectedIndex);
+            //                WriteFloat(writer, Julia2DCX);
+            //                WriteFloat(writer, Julia2DCY);
+            //                Console.WriteLine("Type: Julia 2D");
+            //                break;
+            //            case FractalType.Mand3D:
+            //                WriteInt(writer, Combo3D.SelectedIndex);
+            //                WriteFloat(writer, Mand3DP);
+            //                Console.WriteLine("Type: Mandelbulb 3D");
+            //                break;
+            //            case FractalType.Julia4D:
+            //                WriteInt(writer, Combo4D.SelectedIndex);
+            //                WriteFloat(writer, Julia4DR);
+            //                WriteFloat(writer, Julia4DA);
+            //                WriteFloat(writer, Julia4DB);
+            //                WriteFloat(writer, Julia4DC);
+            //                WriteInt(writer, ComboJulia4DComponent.SelectedIndex);
+            //                Console.WriteLine("Type: Julia 4D");
+            //                break;
+            //        }
+            //        Console.WriteLine($"Total {writer.BaseStream.Length} bytes.");
+            //    }
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Ошибка при создании промежуточного файла",
+            //        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
 
-            try
-            {
-                Process process;
-                switch ((FractalType)ComboType.SelectedIndex)
-                {
-                    case FractalType.Mand2D:
-                        process = new Process
-                        {
-                            StartInfo = new ProcessStartInfo
-                            {
-                                FileName = "DeviceMandelbrot2D.exe",
-                                UseShellExecute = false,
-                                CreateNoWindow = true
-                            }
-                        };
-                        process.Start();
-                        break;
-                    case FractalType.Julia2D:
-                        process = new Process
-                        {
-                            StartInfo = new ProcessStartInfo
-                            {
-                                FileName = "DeviceJulia2D.exe",
-                                UseShellExecute = false,
-                                CreateNoWindow = true
-                            }
-                        };
-                        process.Start();
-                        break;
-                    case FractalType.Mand3D:
-                        process = new Process
-                        {
-                            StartInfo = new ProcessStartInfo
-                            {
-                                FileName = "DeviceMandelbulb3D.exe",
-                                UseShellExecute = false,
-                                CreateNoWindow = true
-                            }
-                        };
-                        process.Start();
-                        break;
-                    case FractalType.Julia4D:
-                        process = new Process
-                        {
-                            StartInfo = new ProcessStartInfo
-                            {
-                                FileName = "DeviceJulia4D.exe",
-                                UseShellExecute = false,
-                                CreateNoWindow = true
-                            }
-                        };
-                        process.Start();
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            //try
+            //{
+            //    Process process;
+            //    switch ((FractalType)ComboType.SelectedIndex)
+            //    {
+            //        case FractalType.Mand2D:
+            //            process = new Process
+            //            {
+            //                StartInfo = new ProcessStartInfo
+            //                {
+            //                    FileName = "DeviceMandelbrot2D.exe",
+            //                    UseShellExecute = false,
+            //                    CreateNoWindow = true
+            //                }
+            //            };
+            //            process.Start();
+            //            break;
+            //        case FractalType.Julia2D:
+            //            process = new Process
+            //            {
+            //                StartInfo = new ProcessStartInfo
+            //                {
+            //                    FileName = "DeviceJulia2D.exe",
+            //                    UseShellExecute = false,
+            //                    CreateNoWindow = true
+            //                }
+            //            };
+            //            process.Start();
+            //            break;
+            //        case FractalType.Mand3D:
+            //            process = new Process
+            //            {
+            //                StartInfo = new ProcessStartInfo
+            //                {
+            //                    FileName = "DeviceMandelbulb3D.exe",
+            //                    UseShellExecute = false,
+            //                    CreateNoWindow = true
+            //                }
+            //            };
+            //            process.Start();
+            //            break;
+            //        case FractalType.Julia4D:
+            //            process = new Process
+            //            {
+            //                StartInfo = new ProcessStartInfo
+            //                {
+            //                    FileName = "DeviceJulia4D.exe",
+            //                    UseShellExecute = false,
+            //                    CreateNoWindow = true
+            //                }
+            //            };
+            //            process.Start();
+            //            break;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
         }
     }
 }
