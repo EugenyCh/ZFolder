@@ -73,7 +73,7 @@ namespace IFForm
             BoxIters.Text = "10";
             BoxMaxFractalSize.Text = "500";
             // TMand2D
-            BoxTMand2DP.Text = "8.0";
+            BoxTMand2DP.Text = "3.0";
             // Julia2D
             BoxJulia2DCX.Text = "-0.512511498387847";
             BoxJulia2DCY.Text = "0.521295573094847";
@@ -109,48 +109,146 @@ namespace IFForm
 
         private void ComboType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // BlockD1 & BlockD2
             switch ((FractalType)ComboType.SelectedIndex)
             {
                 case FractalType.Mand2D:
-                    BlockD1.Text = "^ 2";
-                    PanelJulia2D.Visibility = Visibility.Collapsed;
-                    PanelMand3D.Visibility = Visibility.Collapsed;
-                    PanelJulia4D.Visibility = Visibility.Collapsed;
-                    Combo2D.Visibility = Visibility.Visible;
-                    Combo3D.Visibility = Visibility.Collapsed;
-                    Combo4D.Visibility = Visibility.Collapsed;
-                    break;
+                case FractalType.TMand2D:
                 case FractalType.Julia2D:
-                    BlockD1.Text = "^ 2";
-                    PanelJulia2D.Visibility = Visibility.Visible;
-                    PanelMand3D.Visibility = Visibility.Collapsed;
-                    PanelJulia4D.Visibility =  Visibility.Collapsed;
+                case FractalType.TJulia2D:
+                    BlockD1.Text = "^ 3";
+                    break;
+                case FractalType.Mand3D:
+                case FractalType.TJulia3D:
+                case FractalType.Julia4D:
+                case FractalType.TJulia4D:
+                case FractalType.TMand4D:
+                    BlockD1.Text = "^ 3";
+                    break;
+            }
+            BlockD2.Text = BlockD1.Text;
+            // Combo Gradient
+            switch ((FractalType)ComboType.SelectedIndex)
+            {
+                case FractalType.Mand2D:
+                case FractalType.TMand2D:
+                case FractalType.Julia2D:
+                case FractalType.TJulia2D:
                     Combo2D.Visibility = Visibility.Visible;
                     Combo3D.Visibility = Visibility.Collapsed;
                     Combo4D.Visibility = Visibility.Collapsed;
                     break;
                 case FractalType.Mand3D:
-                    BlockD1.Text = "^ 3";
-                    PanelJulia2D.Visibility = Visibility.Collapsed;
-                    PanelMand3D.Visibility = Visibility.Visible;
-                    PanelJulia4D.Visibility = Visibility.Collapsed;
+                case FractalType.TJulia3D:
                     Combo2D.Visibility = Visibility.Collapsed;
                     Combo3D.Visibility = Visibility.Visible;
                     Combo4D.Visibility = Visibility.Collapsed;
                     break;
                 case FractalType.Julia4D:
-                    BlockD1.Text = "^ 3";
-                    PanelJulia2D.Visibility = Visibility.Collapsed;
-                    PanelMand3D.Visibility = Visibility.Collapsed;
-                    PanelJulia4D.Visibility = Visibility.Visible;
+                case FractalType.TJulia4D:
+                case FractalType.TMand4D:
                     Combo2D.Visibility = Visibility.Collapsed;
                     Combo3D.Visibility = Visibility.Collapsed;
                     Combo4D.Visibility = Visibility.Visible;
                     break;
             }
-            BlockD2.Text = BlockD1.Text;
+            // Panel
+            switch ((FractalType)ComboType.SelectedIndex)
+            {
+                case FractalType.Mand2D:
+                    PanelTMand2D.Visibility = Visibility.Collapsed;
+                    PanelJulia2D.Visibility = Visibility.Collapsed;
+                    PanelTJulia2D.Visibility = Visibility.Collapsed;
+                    PanelMand3D.Visibility = Visibility.Collapsed;
+                    PanelTJulia3D.Visibility = Visibility.Collapsed;
+                    PanelJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTMand4D.Visibility = Visibility.Collapsed;
+                    break;
+                case FractalType.TMand2D:
+                    PanelTMand2D.Visibility = Visibility.Visible;
+                    PanelJulia2D.Visibility = Visibility.Collapsed;
+                    PanelTJulia2D.Visibility = Visibility.Collapsed;
+                    PanelMand3D.Visibility = Visibility.Collapsed;
+                    PanelTJulia3D.Visibility = Visibility.Collapsed;
+                    PanelJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTMand4D.Visibility = Visibility.Collapsed;
+                    break;
+                case FractalType.Julia2D:
+                    PanelTMand2D.Visibility = Visibility.Collapsed;
+                    PanelJulia2D.Visibility = Visibility.Visible;
+                    PanelTJulia2D.Visibility = Visibility.Collapsed;
+                    PanelMand3D.Visibility = Visibility.Collapsed;
+                    PanelTJulia3D.Visibility = Visibility.Collapsed;
+                    PanelJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTMand4D.Visibility = Visibility.Collapsed;
+                    break;
+                case FractalType.TJulia2D:
+                    PanelTMand2D.Visibility = Visibility.Collapsed;
+                    PanelJulia2D.Visibility = Visibility.Collapsed;
+                    PanelTJulia2D.Visibility = Visibility.Visible;
+                    PanelMand3D.Visibility = Visibility.Collapsed;
+                    PanelTJulia3D.Visibility = Visibility.Collapsed;
+                    PanelJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTMand4D.Visibility = Visibility.Collapsed;
+                    break;
+                case FractalType.Mand3D:
+                    PanelTMand2D.Visibility = Visibility.Collapsed;
+                    PanelJulia2D.Visibility = Visibility.Collapsed;
+                    PanelTJulia2D.Visibility = Visibility.Collapsed;
+                    PanelMand3D.Visibility = Visibility.Visible;
+                    PanelTJulia3D.Visibility = Visibility.Collapsed;
+                    PanelJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTMand4D.Visibility = Visibility.Collapsed;
+                    break;
+                case FractalType.TJulia3D:
+                    PanelTMand2D.Visibility = Visibility.Collapsed;
+                    PanelJulia2D.Visibility = Visibility.Collapsed;
+                    PanelTJulia2D.Visibility = Visibility.Collapsed;
+                    PanelMand3D.Visibility = Visibility.Collapsed;
+                    PanelTJulia3D.Visibility = Visibility.Visible;
+                    PanelJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTMand4D.Visibility = Visibility.Collapsed;
+                    break;
+                case FractalType.Julia4D:
+                    PanelTMand2D.Visibility = Visibility.Collapsed;
+                    PanelJulia2D.Visibility = Visibility.Collapsed;
+                    PanelTJulia2D.Visibility = Visibility.Collapsed;
+                    PanelMand3D.Visibility = Visibility.Collapsed;
+                    PanelTJulia3D.Visibility = Visibility.Collapsed;
+                    PanelJulia4D.Visibility = Visibility.Visible;
+                    PanelTJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTMand4D.Visibility = Visibility.Collapsed;
+                    break;
+                case FractalType.TJulia4D:
+                    PanelTMand2D.Visibility = Visibility.Collapsed;
+                    PanelJulia2D.Visibility = Visibility.Collapsed;
+                    PanelTJulia2D.Visibility = Visibility.Collapsed;
+                    PanelMand3D.Visibility = Visibility.Collapsed;
+                    PanelTJulia3D.Visibility = Visibility.Collapsed;
+                    PanelJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTJulia4D.Visibility = Visibility.Visible;
+                    PanelTMand4D.Visibility = Visibility.Collapsed;
+                    break;
+                case FractalType.TMand4D:
+                    PanelTMand2D.Visibility = Visibility.Collapsed;
+                    PanelJulia2D.Visibility = Visibility.Collapsed;
+                    PanelTJulia2D.Visibility = Visibility.Collapsed;
+                    PanelMand3D.Visibility = Visibility.Collapsed;
+                    PanelTJulia3D.Visibility = Visibility.Collapsed;
+                    PanelJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTJulia4D.Visibility = Visibility.Collapsed;
+                    PanelTMand4D.Visibility = Visibility.Visible;
+                    break;
+            }
         }
 
+        #region Left Panel
         private void BoxWinSize_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -218,7 +316,65 @@ namespace IFForm
                 Flags[3] = false;
             }
         }
+        #endregion
 
+        #region TMand2D
+        private void BoxTMand2DP_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region Julia2D
+        private void BoxJulia2DCX_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                Julia2DCX = float.Parse(BoxJulia2DCX.Text);
+                BoxJulia2DCX.Background = new SolidColorBrush(Colors.White);
+                JuliaFlags[0] = true;
+            }
+            catch
+            {
+                BoxJulia2DCX.Background = new SolidColorBrush(Colors.Pink);
+                JuliaFlags[0] = false;
+            }
+        }
+
+        private void BoxJulia2DCY_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                Julia2DCY = float.Parse(BoxJulia2DCY.Text);
+                BoxJulia2DCY.Background = new SolidColorBrush(Colors.White);
+                JuliaFlags[1] = true;
+            }
+            catch
+            {
+                BoxJulia2DCY.Background = new SolidColorBrush(Colors.Pink);
+                JuliaFlags[1] = false;
+            }
+        }
+        #endregion
+
+        #region TJulia2D
+        private void BoxTJulia2DCX_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void BoxTJulia2DCY_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void BoxTJulia2DP_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region Mand3D
         private void BoxMand3DP_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -235,7 +391,31 @@ namespace IFForm
                 MandFlag = false;
             }
         }
+        #endregion
 
+        #region TJulia3D
+        private void BoxTJulia3DCX_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void BoxTJulia3DCY_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void BoxTJulia3DCZ_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void BoxTJulia3DP_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region Julia4D
         private void BoxJulia4DQR_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -295,36 +475,46 @@ namespace IFForm
                 QuatFlags[3] = false;
             }
         }
+        #endregion
 
-        private void BoxJulia2DCX_TextChanged(object sender, TextChangedEventArgs e)
+        #region TJulia4D
+        private void BoxTJulia4DQR_TextChanged(object sender, TextChangedEventArgs e)
         {
-            try
-            {
-                Julia2DCX = float.Parse(BoxJulia2DCX.Text);
-                BoxJulia2DCX.Background = new SolidColorBrush(Colors.White);
-                JuliaFlags[0] = true;
-            }
-            catch
-            {
-                BoxJulia2DCX.Background = new SolidColorBrush(Colors.Pink);
-                JuliaFlags[0] = false;
-            }
+
         }
 
-        private void BoxJulia2DCY_TextChanged(object sender, TextChangedEventArgs e)
+        private void BoxTJulia4DQA_TextChanged(object sender, TextChangedEventArgs e)
         {
-            try
-            {
-                Julia2DCY = float.Parse(BoxJulia2DCY.Text);
-                BoxJulia2DCY.Background = new SolidColorBrush(Colors.White);
-                JuliaFlags[1] = true;
-            }
-            catch
-            {
-                BoxJulia2DCY.Background = new SolidColorBrush(Colors.Pink);
-                JuliaFlags[1] = false;
-            }
+
         }
+
+        private void BoxTJulia4DQB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void BoxTJulia4DQC_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void BoxTJulia4DP_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region TMand4D
+        private void BoxTMand4DQC_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void BoxTMand4DP_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+        #endregion
 
         private bool ValidationTest()
         {
@@ -523,11 +713,6 @@ namespace IFForm
             {
                 Console.WriteLine(ex.Message);
             }
-        }
-
-        private void BoxTMand2DP_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }
