@@ -26,22 +26,35 @@ namespace IFForm
         private enum FractalType
         {
             Mand2D = 0,
-            Julia2D = 1,
-            Mand3D = 2,
-            Julia4D = 3
+            TMand2D = 1,
+            Julia2D = 2,
+            TJulia2D = 3,
+            Mand3D = 4,
+            TJulia3D = 5,
+            Julia4D = 6,
+            TJulia4D = 7,
+            TMand4D = 8
         };
 
         private int WindowSize;
         private int FractalSize;
         private int Iterations;
         private int MaxFractalSize;
-        private float MandP;
+        private float TMand2DP;
+        private float Julia2DCX;
+        private float Julia2DCY;
+        private float TJulia2DP;
+        private float TJulia2DCX;
+        private float TJulia2DCY;
+        private float Mand3DP;
+        private float TJulia3DP;
+        private float TJulia3DCX;
+        private float TJulia3DCY;
+        private float TJulia3DCZ;
         private float QuatR;
         private float QuatA;
         private float QuatB;
         private float QuatC;
-        private float JuliaX;
-        private float JuliaY;
 
         private bool[] Flags = new bool[4];
         private bool MandFlag;
@@ -59,13 +72,36 @@ namespace IFForm
             BoxFractalSize.Text = "500";
             BoxIters.Text = "10";
             BoxMaxFractalSize.Text = "500";
-            BoxCX.Text = "-0.512511498387847";
-            BoxCY.Text = "0.521295573094847";
-            BoxP.Text = "8.0";
-            BoxQR.Text = "-0.65";
-            BoxQA.Text = "-0.5";
-            BoxQB.Text = "0.0";
-            BoxQC.Text = "0.0";
+            // TMand2D
+            BoxTMand2DP.Text = "8.0";
+            // Julia2D
+            BoxJulia2DCX.Text = "-0.512511498387847";
+            BoxJulia2DCY.Text = "0.521295573094847";
+            // TJulia2D
+            BoxTJulia2DP.Text = "3.0";
+            BoxTJulia2DCX.Text = "-0.70176";
+            BoxTJulia2DCY.Text = "-0.3842";
+            // Mand3D
+            BoxMand3DP.Text = "8.0";
+            // TJulia3D
+            BoxTJulia3DP.Text = "8.0";
+            BoxTJulia3DCX.Text = "0.45";
+            BoxTJulia3DCY.Text = "0.50";
+            BoxTJulia3DCZ.Text = "0.55";
+            // Julia4D
+            BoxJulia4DQR.Text = "-0.65";
+            BoxJulia4DQA.Text = "-0.5";
+            BoxJulia4DQB.Text = "0.0";
+            BoxJulia4DQC.Text = "0.0";
+            // TJulia4D
+            BoxTJulia4DP.Text = "4.0";
+            BoxTJulia4DQR.Text = "-1.0";
+            BoxTJulia4DQA.Text = "0.2";
+            BoxTJulia4DQB.Text = "0.0";
+            BoxTJulia4DQC.Text = "0.0";
+            // TMand4D
+            BoxTMand4DP.Text = "2.0";
+            BoxTMand4DQC.Text = "0.0";
             Combo2D.SelectedIndex = 1;
             Combo3D.SelectedIndex = 1;
             Combo4D.SelectedIndex = 1;
@@ -77,36 +113,36 @@ namespace IFForm
             {
                 case FractalType.Mand2D:
                     BlockD1.Text = "^ 2";
-                    DockJulia.IsEnabled = false;
-                    DockMand.IsEnabled = false;
-                    DockQuat.IsEnabled = ComboComponent.IsEnabled = false;
+                    PanelJulia2D.Visibility = Visibility.Collapsed;
+                    PanelMand3D.Visibility = Visibility.Collapsed;
+                    PanelJulia4D.Visibility = Visibility.Collapsed;
                     Combo2D.Visibility = Visibility.Visible;
                     Combo3D.Visibility = Visibility.Collapsed;
                     Combo4D.Visibility = Visibility.Collapsed;
                     break;
                 case FractalType.Julia2D:
                     BlockD1.Text = "^ 2";
-                    DockJulia.IsEnabled = true;
-                    DockMand.IsEnabled = false;
-                    DockQuat.IsEnabled = ComboComponent.IsEnabled = false;
+                    PanelJulia2D.Visibility = Visibility.Visible;
+                    PanelMand3D.Visibility = Visibility.Collapsed;
+                    PanelJulia4D.Visibility =  Visibility.Collapsed;
                     Combo2D.Visibility = Visibility.Visible;
                     Combo3D.Visibility = Visibility.Collapsed;
                     Combo4D.Visibility = Visibility.Collapsed;
                     break;
                 case FractalType.Mand3D:
                     BlockD1.Text = "^ 3";
-                    DockJulia.IsEnabled = false;
-                    DockMand.IsEnabled = true;
-                    DockQuat.IsEnabled = ComboComponent.IsEnabled = false;
+                    PanelJulia2D.Visibility = Visibility.Collapsed;
+                    PanelMand3D.Visibility = Visibility.Visible;
+                    PanelJulia4D.Visibility = Visibility.Collapsed;
                     Combo2D.Visibility = Visibility.Collapsed;
                     Combo3D.Visibility = Visibility.Visible;
                     Combo4D.Visibility = Visibility.Collapsed;
                     break;
                 case FractalType.Julia4D:
                     BlockD1.Text = "^ 3";
-                    DockJulia.IsEnabled = false;
-                    DockMand.IsEnabled = false;
-                    DockQuat.IsEnabled = ComboComponent.IsEnabled = true;
+                    PanelJulia2D.Visibility = Visibility.Collapsed;
+                    PanelMand3D.Visibility = Visibility.Collapsed;
+                    PanelJulia4D.Visibility = Visibility.Visible;
                     Combo2D.Visibility = Visibility.Collapsed;
                     Combo3D.Visibility = Visibility.Collapsed;
                     Combo4D.Visibility = Visibility.Visible;
@@ -183,109 +219,109 @@ namespace IFForm
             }
         }
 
-        private void BoxP_TextChanged(object sender, TextChangedEventArgs e)
+        private void BoxMand3DP_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
-                MandP = float.Parse(BoxP.Text);
-                if (MandP < 2.0)
+                Mand3DP = float.Parse(BoxMand3DP.Text);
+                if (Mand3DP < 2.0)
                     throw new Exception();
-                BoxP.Background = new SolidColorBrush(Colors.White);
+                BoxMand3DP.Background = new SolidColorBrush(Colors.White);
                 MandFlag = true;
             }
             catch
             {
-                BoxP.Background = new SolidColorBrush(Colors.Pink);
+                BoxMand3DP.Background = new SolidColorBrush(Colors.Pink);
                 MandFlag = false;
             }
         }
 
-        private void BoxQR_TextChanged(object sender, TextChangedEventArgs e)
+        private void BoxJulia4DQR_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
-                QuatR = float.Parse(BoxQR.Text);
-                BoxQR.Background = new SolidColorBrush(Colors.White);
+                QuatR = float.Parse(BoxJulia4DQR.Text);
+                BoxJulia4DQR.Background = new SolidColorBrush(Colors.White);
                 QuatFlags[0] = true;
             }
             catch
             {
-                BoxQR.Background = new SolidColorBrush(Colors.Pink);
+                BoxJulia4DQR.Background = new SolidColorBrush(Colors.Pink);
                 QuatFlags[0] = false;
             }
         }
 
-        private void BoxQA_TextChanged(object sender, TextChangedEventArgs e)
+        private void BoxJulia4DQA_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
-                QuatA = float.Parse(BoxQA.Text);
-                BoxQA.Background = new SolidColorBrush(Colors.White);
+                QuatA = float.Parse(BoxJulia4DQA.Text);
+                BoxJulia4DQA.Background = new SolidColorBrush(Colors.White);
                 QuatFlags[1] = true;
             }
             catch
             {
-                BoxQA.Background = new SolidColorBrush(Colors.Pink);
+                BoxJulia4DQA.Background = new SolidColorBrush(Colors.Pink);
                 QuatFlags[1] = false;
             }
         }
 
-        private void BoxQB_TextChanged(object sender, TextChangedEventArgs e)
+        private void BoxJulia4DQB_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
-                QuatB = float.Parse(BoxQB.Text);
-                BoxQB.Background = new SolidColorBrush(Colors.White);
+                QuatB = float.Parse(BoxJulia4DQB.Text);
+                BoxJulia4DQB.Background = new SolidColorBrush(Colors.White);
                 QuatFlags[2] = true;
             }
             catch
             {
-                BoxQB.Background = new SolidColorBrush(Colors.Pink);
+                BoxJulia4DQB.Background = new SolidColorBrush(Colors.Pink);
                 QuatFlags[2] = false;
             }
         }
 
-        private void BoxQC_TextChanged(object sender, TextChangedEventArgs e)
+        private void BoxJulia4DQC_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
-                QuatC = float.Parse(BoxQC.Text);
-                BoxQC.Background = new SolidColorBrush(Colors.White);
+                QuatC = float.Parse(BoxJulia4DQC.Text);
+                BoxJulia4DQC.Background = new SolidColorBrush(Colors.White);
                 QuatFlags[3] = true;
             }
             catch
             {
-                BoxQC.Background = new SolidColorBrush(Colors.Pink);
+                BoxJulia4DQC.Background = new SolidColorBrush(Colors.Pink);
                 QuatFlags[3] = false;
             }
         }
 
-        private void BoxCX_TextChanged(object sender, TextChangedEventArgs e)
+        private void BoxJulia2DCX_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
-                JuliaX = float.Parse(BoxCX.Text);
-                BoxCX.Background = new SolidColorBrush(Colors.White);
+                Julia2DCX = float.Parse(BoxJulia2DCX.Text);
+                BoxJulia2DCX.Background = new SolidColorBrush(Colors.White);
                 JuliaFlags[0] = true;
             }
             catch
             {
-                BoxCX.Background = new SolidColorBrush(Colors.Pink);
+                BoxJulia2DCX.Background = new SolidColorBrush(Colors.Pink);
                 JuliaFlags[0] = false;
             }
         }
 
-        private void BoxCY_TextChanged(object sender, TextChangedEventArgs e)
+        private void BoxJulia2DCY_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
-                JuliaY = float.Parse(BoxCY.Text);
-                BoxCY.Background = new SolidColorBrush(Colors.White);
+                Julia2DCY = float.Parse(BoxJulia2DCY.Text);
+                BoxJulia2DCY.Background = new SolidColorBrush(Colors.White);
                 JuliaFlags[1] = true;
             }
             catch
             {
-                BoxCY.Background = new SolidColorBrush(Colors.Pink);
+                BoxJulia2DCY.Background = new SolidColorBrush(Colors.Pink);
                 JuliaFlags[1] = false;
             }
         }
@@ -400,13 +436,13 @@ namespace IFForm
                             break;
                         case FractalType.Julia2D:
                             WriteInt(writer, Combo2D.SelectedIndex);
-                            WriteFloat(writer, JuliaX);
-                            WriteFloat(writer, JuliaY);
+                            WriteFloat(writer, Julia2DCX);
+                            WriteFloat(writer, Julia2DCY);
                             Console.WriteLine("Type: Julia 2D");
                             break;
                         case FractalType.Mand3D:
                             WriteInt(writer, Combo3D.SelectedIndex);
-                            WriteFloat(writer, MandP);
+                            WriteFloat(writer, Mand3DP);
                             Console.WriteLine("Type: Mandelbulb 3D");
                             break;
                         case FractalType.Julia4D:
@@ -415,7 +451,7 @@ namespace IFForm
                             WriteFloat(writer, QuatA);
                             WriteFloat(writer, QuatB);
                             WriteFloat(writer, QuatC);
-                            WriteInt(writer, ComboComponent.SelectedIndex);
+                            WriteInt(writer, ComboJulia4DComponent.SelectedIndex);
                             Console.WriteLine("Type: Julia 4D");
                             break;
                     }
@@ -487,6 +523,11 @@ namespace IFForm
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private void BoxTMand2DP_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

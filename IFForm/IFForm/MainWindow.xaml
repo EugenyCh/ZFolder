@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IFForm"
         mc:Ignorable="d"
-        Title="Генератор итерированных функций" Height="360" Width="640">
+        Title="Визуализатор итерированных функций" Height="360" Width="640">
+    <!-- Height="360" Width="640" -->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -14,9 +15,14 @@
         <StackPanel Grid.Column="0" Orientation="Vertical" Margin="8">
             <ComboBox Name="ComboType" SelectionChanged="ComboType_SelectionChanged">
                 <TextBlock Text="Комплексный фрактал Мандельброта 2D"></TextBlock>
+                <TextBlock Text="Комплексный фрактал типа Мандельброта 2D"></TextBlock>
                 <TextBlock Text="Комплексный фрактал Жюлиа 2D"></TextBlock>
+                <TextBlock Text="Комплексный фрактал типа Жюлиа 2D"></TextBlock>
                 <TextBlock Text="Гиперкомплексная оболочка Мандельброта 3D"></TextBlock>
+                <TextBlock Text="Гиперкомплексная оболочка типа Жюлиа 3D"></TextBlock>
                 <TextBlock Text="Кватернионный фрактал Жюлиа 4D"></TextBlock>
+                <TextBlock Text="Кватернионный фрактал типа Жюлиа 4D"></TextBlock>
+                <TextBlock Text="Кватернионный фрактал типа Мандельброта 4D"></TextBlock>
             </ComboBox>
             <DockPanel LastChildFill="False" Margin="0 8 0 0">
                 <TextBlock DockPanel.Dock="Left" Text="Размер окна:"></TextBlock>
@@ -63,7 +69,26 @@
             <Button Content="Отобразить" Margin="0 8 0 0" Name="ButtonRender" Click="ButtonRender_Click"></Button>
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Vertical" Margin="8">
-            <DockPanel LastChildFill="False" IsEnabled="True" Name="DockJulia">
+            <DockPanel LastChildFill="False" Visibility="Collapsed" Name="PanelTMand2D">
+                <DockPanel DockPanel.Dock="Top" LastChildFill="False">
+                    <TextBlock DockPanel.Dock="Left" Text="Степень:"></TextBlock>
+                    <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
+                        <Run Text="z &#x2192; z ^"></Run>
+                        <Run Text="p" Foreground="DarkCyan"></Run>
+                        <Run Text="+ c"></Run>
+                    </TextBlock>
+                </DockPanel>
+                <StackPanel DockPanel.Dock="Right" Margin="0 8 0 0">
+                    <DockPanel LastChildFill="False">
+                        <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                            <Run Text="p" Foreground="DarkCyan"></Run>
+                            <Run Text="="></Run>
+                        </TextBlock>
+                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxTMand2DP" TextChanged="BoxTMand2DP_TextChanged"></TextBox>
+                    </DockPanel>
+                </StackPanel>
+            </DockPanel>
+            <DockPanel LastChildFill="False" Visibility="Collapsed" Name="PanelJulia2D">
                 <DockPanel DockPanel.Dock="Top" LastChildFill="False">
                     <TextBlock DockPanel.Dock="Left" Text="Комплексная константа:"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
@@ -79,20 +104,68 @@
                             <Run Text="x" Foreground="DarkRed"></Run>
                             <Run Text="="></Run>
                         </TextBlock>
-                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxCX" TextChanged="BoxCX_TextChanged"></TextBox>
+                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxJulia2DCX" TextChanged="BoxJulia2DCX_TextChanged"></TextBox>
                     </DockPanel>
                     <DockPanel LastChildFill="False" Margin="0 8 0 0">
                         <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
                             <Run Text="y" Foreground="DarkGreen"></Run>
                             <Run Text="="></Run>
                         </TextBlock>
-                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxCY" TextChanged="BoxCY_TextChanged"></TextBox>
+                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxJulia2DCY" TextChanged="BoxJulia2DCY_TextChanged"></TextBox>
                     </DockPanel>
                 </StackPanel>
             </DockPanel>
-            <DockPanel LastChildFill="False" IsEnabled="True" Name="DockMand" Margin="0 8 0 0">
+            <StackPanel Orientation="Vertical" Visibility="Collapsed" Name="PanelTJulia2D">
+                <DockPanel LastChildFill="False">
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="False">
+                        <TextBlock DockPanel.Dock="Left" Text="Комплексная константа:"></TextBlock>
+                        <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
+                                <Run Text="с ="></Run>
+                                <Run Text="x" Foreground="DarkRed"></Run>
+                                <Run Text="+"></Run>
+                                <Run Text="yi" Foreground="DarkGreen"></Run>
+                        </TextBlock>
+                    </DockPanel>
+                    <StackPanel DockPanel.Dock="Right" Margin="0 8 0 0">
+                        <DockPanel LastChildFill="False">
+                            <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                                    <Run Text="x" Foreground="DarkRed"></Run>
+                                    <Run Text="="></Run>
+                            </TextBlock>
+                            <TextBox DockPanel.Dock="Right" Width="96" Name="BoxTJulia2DCX" TextChanged=""></TextBox>
+                        </DockPanel>
+                        <DockPanel LastChildFill="False" Margin="0 8 0 0">
+                            <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                                    <Run Text="y" Foreground="DarkGreen"></Run>
+                                    <Run Text="="></Run>
+                            </TextBlock>
+                            <TextBox DockPanel.Dock="Right" Width="96" Name="BoxTJulia2DCY" TextChanged=""></TextBox>
+                        </DockPanel>
+                    </StackPanel>
+                </DockPanel>
+                <DockPanel LastChildFill="False" Margin="0 8 0 0">
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="False">
+                        <TextBlock DockPanel.Dock="Left" Text="Степень:"></TextBlock>
+                        <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
+                        <Run Text="z &#x2192; z ^"></Run>
+                        <Run Text="p" Foreground="DarkCyan"></Run>
+                        <Run Text="+ c"></Run>
+                        </TextBlock>
+                    </DockPanel>
+                    <StackPanel DockPanel.Dock="Right" Margin="0 8 0 0">
+                        <DockPanel LastChildFill="False">
+                            <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                            <Run Text="p" Foreground="DarkCyan"></Run>
+                            <Run Text="="></Run>
+                            </TextBlock>
+                            <TextBox DockPanel.Dock="Right" Width="96" Name="BoxTJulia2DP" TextChanged=""></TextBox>
+                        </DockPanel>
+                    </StackPanel>
+                </DockPanel>
+            </StackPanel>
+            <DockPanel LastChildFill="False" Visibility="Collapsed" Name="PanelMand3D">
                 <DockPanel DockPanel.Dock="Top" LastChildFill="False">
-                    <TextBlock DockPanel.Dock="Left" Text="Степень оболочки Мандельброта:"></TextBlock>
+                    <TextBlock DockPanel.Dock="Left" Text="Степень оболочки:"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
                         <Run Text="z &#x2192; z ^"></Run>
                         <Run Text="p" Foreground="DarkCyan"></Run>
@@ -105,14 +178,73 @@
                             <Run Text="p" Foreground="DarkCyan"></Run>
                             <Run Text="="></Run>
                         </TextBlock>
-                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxP" TextChanged="BoxP_TextChanged"></TextBox>
+                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxMand3DP" TextChanged="BoxMand3DP_TextChanged"></TextBox>
                     </DockPanel>
                 </StackPanel>
             </DockPanel>
-            <DockPanel LastChildFill="False" IsEnabled="True" Name="DockQuat" Margin="0 8 0 0">
-                <DockPanel DockPanel.Dock="Top" LastChildFill="False">
-                    <TextBlock DockPanel.Dock="Left" Text="Кватернионная константа:"></TextBlock>
-                    <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
+            <StackPanel Orientation="Vertical" Visibility="Visible" Name="PanelTJulia3D">
+                <DockPanel LastChildFill="False">
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="False">
+                        <TextBlock DockPanel.Dock="Left" Text="Гиперкомплексная константа:"></TextBlock>
+                        <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
+                                <Run Text="с = ("></Run>
+                                <Run Text="x" Foreground="DarkRed"></Run>
+                                <Run Text=","></Run>
+                                <Run Text="y" Foreground="DarkGreen"></Run>
+                                <Run Text=","></Run>
+                                <Run Text="z" Foreground="DarkBlue"></Run>
+                                <Run Text=")"></Run>
+                        </TextBlock>
+                    </DockPanel>
+                    <StackPanel DockPanel.Dock="Right" Margin="0 8 0 0">
+                        <DockPanel LastChildFill="False">
+                            <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                                    <Run Text="x" Foreground="DarkRed"></Run>
+                                    <Run Text="="></Run>
+                            </TextBlock>
+                            <TextBox DockPanel.Dock="Right" Width="96" Name="BoxTJulia3DCX" TextChanged=""></TextBox>
+                        </DockPanel>
+                        <DockPanel LastChildFill="False" Margin="0 8 0 0">
+                            <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                                    <Run Text="y" Foreground="DarkGreen"></Run>
+                                    <Run Text="="></Run>
+                            </TextBlock>
+                            <TextBox DockPanel.Dock="Right" Width="96" Name="BoxTJulia3DCY" TextChanged=""></TextBox>
+                        </DockPanel>
+                        <DockPanel LastChildFill="False" Margin="0 8 0 0">
+                            <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                                    <Run Text="z" Foreground="DarkBlue"></Run>
+                                    <Run Text="="></Run>
+                            </TextBlock>
+                            <TextBox DockPanel.Dock="Right" Width="96" Name="BoxTJulia3DCZ" TextChanged=""></TextBox>
+                        </DockPanel>
+                    </StackPanel>
+                </DockPanel>
+                <DockPanel LastChildFill="False" Margin="0 8 0 0">
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="False">
+                        <TextBlock DockPanel.Dock="Left" Text="Степень:"></TextBlock>
+                        <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
+                        <Run Text="z &#x2192; z ^"></Run>
+                        <Run Text="p" Foreground="DarkCyan"></Run>
+                        <Run Text="+ c"></Run>
+                        </TextBlock>
+                    </DockPanel>
+                    <StackPanel DockPanel.Dock="Right" Margin="0 8 0 0">
+                        <DockPanel LastChildFill="False">
+                            <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                            <Run Text="p" Foreground="DarkCyan"></Run>
+                            <Run Text="="></Run>
+                            </TextBlock>
+                            <TextBox DockPanel.Dock="Right" Width="96" Name="BoxTJulia3DP" TextChanged=""></TextBox>
+                        </DockPanel>
+                    </StackPanel>
+                </DockPanel>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Visibility="Collapsed" Name="PanelJulia4D">
+                <DockPanel LastChildFill="False">
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="False">
+                        <TextBlock DockPanel.Dock="Left" Text="Кватернионная константа:"></TextBlock>
+                        <TextBlock DockPanel.Dock="Right" FontWeight="Bold">
                         <Run Text="q ="></Run>
                         <Run Text="r" Foreground="DarkRed"></Run>
                         <Run Text="+"></Run>
@@ -121,45 +253,46 @@
                         <Run Text="bj" Foreground="DarkBlue"></Run>
                         <Run Text="+"></Run>
                         <Run Text="ck" Foreground="DarkGreen"></Run>
-                    </TextBlock>
-                </DockPanel>
-                <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Margin="0 8 0 0">
-                    <DockPanel LastChildFill="False">
-                        <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                        </TextBlock>
+                    </DockPanel>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Margin="0 8 0 0">
+                        <DockPanel LastChildFill="False">
+                            <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
                             <Run Text="r" Foreground="DarkRed"></Run>
                             <Run Text="="></Run>
-                        </TextBlock>
-                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQR" TextChanged="BoxQR_TextChanged"></TextBox>
-                    </DockPanel>
-                    <DockPanel LastChildFill="False" Margin="0 8 0 0">
-                        <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                            </TextBlock>
+                            <TextBox DockPanel.Dock="Right" Width="96" Name="BoxJulia4DQR" TextChanged="BoxJulia4DQR_TextChanged"></TextBox>
+                        </DockPanel>
+                        <DockPanel LastChildFill="False" Margin="0 8 0 0">
+                            <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
                             <Run Text="a" Foreground="DarkOrange"></Run>
                             <Run Text="="></Run></TextBlock>
-                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQA" TextChanged="BoxQA_TextChanged"></TextBox>
-                    </DockPanel>
-                    <DockPanel LastChildFill="False" Margin="0 8 0 0">
-                        <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                            <TextBox DockPanel.Dock="Right" Width="96" Name="BoxJulia4DQA" TextChanged="BoxJulia4DQA_TextChanged"></TextBox>
+                        </DockPanel>
+                        <DockPanel LastChildFill="False" Margin="0 8 0 0">
+                            <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
                             <Run Text="b" Foreground="DarkBlue"></Run>
                             <Run Text="="></Run></TextBlock>
-                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQB" TextChanged="BoxQB_TextChanged"></TextBox>
-                    </DockPanel>
-                    <DockPanel LastChildFill="False" Margin="0 8 0 0">
-                        <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
+                            <TextBox DockPanel.Dock="Right" Width="96" Name="BoxJulia4DQB" TextChanged="BoxJulia4DQB_TextChanged"></TextBox>
+                        </DockPanel>
+                        <DockPanel LastChildFill="False" Margin="0 8 0 0">
+                            <TextBlock DockPanel.Dock="Left" FontWeight="Bold" Margin="0 0 5 0">
                             <Run Text="c" Foreground="DarkGreen"></Run>
                             <Run Text="="></Run></TextBlock>
-                        <TextBox DockPanel.Dock="Right" Width="96" Name="BoxQC" TextChanged="BoxQC_TextChanged"></TextBox>
-                    </DockPanel>
-                </StackPanel>
-            </DockPanel>
-            <DockPanel LastChildFill="False" Margin="0 8 0 0" HorizontalAlignment="Right">
-                <TextBlock DockPanel.Dock="Left" Text="Скрыть компоненту:" Margin="0 0 5 0" VerticalAlignment="Center"></TextBlock>
-                <ComboBox Name="ComboComponent" SelectedIndex="3" IsEnabled="True">
-                    <TextBlock Text="R"></TextBlock>
-                    <TextBlock Text="A"></TextBlock>
-                    <TextBlock Text="B"></TextBlock>
-                    <TextBlock Text="C"></TextBlock>
-                </ComboBox>
-            </DockPanel>
+                            <TextBox DockPanel.Dock="Right" Width="96" Name="BoxJulia4DQC" TextChanged="BoxJulia4DQC_TextChanged"></TextBox>
+                        </DockPanel>
+                    </StackPanel>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Right" LastChildFill="False" Margin="0 8 0 0" HorizontalAlignment="Right">
+                    <TextBlock DockPanel.Dock="Left" Text="Скрыть компоненту:" Margin="0 0 5 0" VerticalAlignment="Center"></TextBlock>
+                    <ComboBox Name="ComboJulia4DComponent" SelectedIndex="3" IsEnabled="True">
+                        <TextBlock Text="R"></TextBlock>
+                        <TextBlock Text="A"></TextBlock>
+                        <TextBlock Text="B"></TextBlock>
+                        <TextBlock Text="C"></TextBlock>
+                    </ComboBox>
+                </DockPanel>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

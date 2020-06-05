@@ -47,8 +47,10 @@ __global__ void kernel(
 	float fa = bailout * (float)(y - halfSide) / halfSide;
 	float fb = bailout * (float)(z - halfSide) / halfSide;
 	float fc = q4;
-	Quaternion qc(q1, q2, q3, q4);
-	Quaternion qv(fr, fa, fb, fc);
+	//Quaternion qc(q1, q2, q3, q4);
+	Quaternion qc(fr, fa, fb, 0.0);
+	//Quaternion qv(fr, fa, fb, fc);
+	Quaternion qv(fr, fa, fb, 0.0);
 
 	// Iterating
 	bool belongs;
@@ -57,13 +59,14 @@ __global__ void kernel(
 	else
 	{
 		for (int i = 0; i < maxIter; ++i)
-			qv = (qv ^ 5) + qc;
+			qv = (qv ^ 2) + qc;
 		belongs = qv.sqrRadius() <= sqrBailout;
 	}
 
 	if (belongs)
 	{
-		buffer[offset] = (byte)((fr * fr + fa * fa + fb * fb) / (sqrBailout - fc * fc) * 255);
+		//buffer[offset] = (byte)((fr * fr + fa * fa + fb * fb) / (sqrBailout - fc * fc) * 255);
+		buffer[offset] = (byte)((fr * fr + fa * fa + fb * fb) / sqrBailout * 255);
 		atomicAdd(counterPoints, 1);
 	}
 	else
