@@ -21,12 +21,62 @@ __global__ void initVars(const int side)
 	side3 = side * side * side;
 }
 
-__global__ void kernel(
+//__global__ void kernel(
+//	byte* buffer,
+//	const float q1,
+//	const float q2,
+//	const float q3,
+//	const float q4,
+//	const int maxIter,
+//	const float bailout,
+//	const float sqrBailout,
+//	int* counterPoints)
+//{
+//	int offset = threadIdx.x + blockDim.x * blockIdx.x;
+//	if (offset >= side3)
+//		return;
+//	int z = offset / side2;
+//	offset -= z * side2;
+//	int y = offset / side1;
+//	int x = offset % side1;
+//	offset += z * side2;
+//
+//	// Compute point at this position
+//	int halfSide = side1 >> 1;
+//	float fr = bailout * (float)(x - halfSide) / halfSide;
+//	float fa = bailout * (float)(y - halfSide) / halfSide;
+//	float fb = bailout * (float)(z - halfSide) / halfSide;
+//	float fc = q4;
+//	//Quaternion qc(q1, q2, q3, q4);
+//	Quaternion qc(fr, fa, fb, 0.0);
+//	//Quaternion qv(fr, fa, fb, fc);
+//	Quaternion qv(fr, fa, fb, 0.0);
+//
+//	// Iterating
+//	bool belongs;
+//	if (qv.sqrRadius() > sqrBailout)
+//		belongs = false;
+//	else
+//	{
+//		for (int i = 0; i < maxIter; ++i)
+//			qv = (qv ^ 2) + qc;
+//		belongs = qv.sqrRadius() <= sqrBailout;
+//	}
+//
+//	if (belongs)
+//	{
+//		//buffer[offset] = (byte)((fr * fr + fa * fa + fb * fb) / (sqrBailout - fc * fc) * 255);
+//		buffer[offset] = (byte)((fr * fr + fa * fa + fb * fb) / sqrBailout * 255);
+//		atomicAdd(counterPoints, 1);
+//	}
+//	else
+//		buffer[offset] = 0;
+//}
+
+__global__ void kernelMand(
 	byte* buffer,
-	const float q1,
-	const float q2,
-	const float q3,
 	const float q4,
+	const int n,
 	const int maxIter,
 	const float bailout,
 	const float sqrBailout,
@@ -47,10 +97,8 @@ __global__ void kernel(
 	float fa = bailout * (float)(y - halfSide) / halfSide;
 	float fb = bailout * (float)(z - halfSide) / halfSide;
 	float fc = q4;
-	//Quaternion qc(q1, q2, q3, q4);
-	Quaternion qc(fr, fa, fb, 0.0);
-	//Quaternion qv(fr, fa, fb, fc);
-	Quaternion qv(fr, fa, fb, 0.0);
+	Quaternion qc(fr, fa, fb, fc);
+	Quaternion qv(fr, fa, fb, fc);
 
 	// Iterating
 	bool belongs;
@@ -59,14 +107,63 @@ __global__ void kernel(
 	else
 	{
 		for (int i = 0; i < maxIter; ++i)
-			qv = (qv ^ 2) + qc;
+			qv = (qv ^ n) + qc;
 		belongs = qv.sqrRadius() <= sqrBailout;
 	}
 
 	if (belongs)
 	{
-		//buffer[offset] = (byte)((fr * fr + fa * fa + fb * fb) / (sqrBailout - fc * fc) * 255);
 		buffer[offset] = (byte)((fr * fr + fa * fa + fb * fb) / sqrBailout * 255);
+		atomicAdd(counterPoints, 1);
+	}
+	else
+		buffer[offset] = 0;
+}
+
+__global__ void kernelStandart(
+	byte* buffer,
+	const float q1,
+	const float q2,
+	const float q3,
+	const float q4,
+	const int n,
+	const int maxIter,
+	const float bailout,
+	const float sqrBailout,
+	int* counterPoints)
+{
+	int offset = threadIdx.x + blockDim.x * blockIdx.x;
+	if (offset >= side3)
+		return;
+	int z = offset / side2;
+	offset -= z * side2;
+	int y = offset / side1;
+	int x = offset % side1;
+	offset += z * side2;
+
+	// Compute point at this position
+	int halfSide = side1 >> 1;
+	float fr = bailout * (float)(x - halfSide) / halfSide;
+	float fa = bailout * (float)(y - halfSide) / halfSide;
+	float fb = bailout * (float)(z - halfSide) / halfSide;
+	float fc = q4;
+	Quaternion qc(q1, q2, q3, q4);
+	Quaternion qv(fr, fa, fb, fc);
+
+	// Iterating
+	bool belongs;
+	if (qv.sqrRadius() > sqrBailout)
+		belongs = false;
+	else
+	{
+		for (int i = 0; i < maxIter; ++i)
+			qv = (qv ^ n) + qc;
+		belongs = qv.sqrRadius() <= sqrBailout;
+	}
+
+	if (belongs)
+	{
+		buffer[offset] = (byte)((fr * fr + fa * fa + fb * fb) / (sqrBailout - fc * fc) * 255);
 		atomicAdd(counterPoints, 1);
 	}
 	else
@@ -75,6 +172,8 @@ __global__ void kernel(
 
 void QFractal::set(float r, float a, float b, float c, QFractal::ParamToHide h)
 {
+	isMand4D = false;
+	fPower = 2;
 	switch (h)
 	{
 	case QFractal::R:
@@ -102,6 +201,46 @@ void QFractal::set(float r, float a, float b, float c, QFractal::ParamToHide h)
 		this->q4 = c;
 		break;
 	}
+}
+
+void QFractal::set(float r, float a, float b, float c, QFractal::ParamToHide h, int power)
+{
+	isMand4D = false;
+	fPower = power;
+	switch (h)
+	{
+	case QFractal::R:
+		this->q1 = a;
+		this->q2 = b;
+		this->q3 = c;
+		this->q4 = r;
+		break;
+	case QFractal::A:
+		this->q1 = r;
+		this->q2 = b;
+		this->q3 = c;
+		this->q4 = a;
+		break;
+	case QFractal::B:
+		this->q1 = r;
+		this->q2 = a;
+		this->q3 = c;
+		this->q4 = b;
+		break;
+	case QFractal::C:
+		this->q1 = r;
+		this->q2 = a;
+		this->q3 = b;
+		this->q4 = c;
+		break;
+	}
+}
+
+void QFractal::set(float c, int power)
+{
+	isMand4D = true;
+	fPower = power;
+	this->q4 = c;
 }
 
 bool QFractal::compute(size_t width, size_t height, int iters)
@@ -144,7 +283,10 @@ bool QFractal::compute(size_t width, size_t height, int iters)
 	// Start
 	tStart = clock();
 	initVars << <1, 1 >> > (side);
-	kernel << <blocks, threads >> > (dev_buffer, q1, q2, q3, q4, iters, bailout, sqrBailout, dev_counterPoints);
+	if (isMand4D)
+		kernelMand << <blocks, threads >> > (dev_buffer, q4, fPower, iters, bailout, sqrBailout, dev_counterPoints);
+	else
+		kernelStandart << <blocks, threads >> > (dev_buffer, q1, q2, q3, q4, fPower, iters, bailout, sqrBailout, dev_counterPoints);
 	cudaThreadSynchronize();
 	tFinish = clock();
 	// End

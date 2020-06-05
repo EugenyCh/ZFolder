@@ -55,12 +55,12 @@ namespace IFForm
         private float Julia4DQA;
         private float Julia4DQB;
         private float Julia4DQC;
-        private float TJulia4DP;
+        private int TJulia4DP;
         private float TJulia4DQR;
         private float TJulia4DQA;
         private float TJulia4DQB;
         private float TJulia4DQC;
-        private float TMand4DP;
+        private int TMand4DP;
         private float TMand4DQC;
 
         private bool[] FlagsMain = new bool[4] { true, true, true, true };
@@ -111,7 +111,7 @@ namespace IFForm
             // Mand3D
             BoxMand3DP.Text = "8.0";
             // TJulia3D
-            BoxTJulia3DP.Text = "8.0";
+            BoxTJulia3DP.Text = "4.0";
             BoxTJulia3DCX.Text = "0.45";
             BoxTJulia3DCY.Text = "0.50";
             BoxTJulia3DCZ.Text = "0.55";
@@ -657,8 +657,8 @@ namespace IFForm
         {
             try
             {
-                TJulia4DP = float.Parse(BoxTJulia4DP.Text);
-                if (TJulia4DP < 2.0)
+                TJulia4DP = int.Parse(BoxTJulia4DP.Text);
+                if (TJulia4DP < 2)
                     throw new Exception();
                 BoxTJulia4DP.Background = new SolidColorBrush(Colors.White);
                 FlagTJulia4DP = true;
@@ -691,7 +691,7 @@ namespace IFForm
         {
             try
             {
-                TMand4DP = float.Parse(BoxTMand4DP.Text);
+                TMand4DP = int.Parse(BoxTMand4DP.Text);
                 if (TMand4DP < 2.0)
                     throw new Exception();
                 BoxTMand4DP.Background = new SolidColorBrush(Colors.White);
@@ -865,7 +865,7 @@ namespace IFForm
             {
                 if (FlagTJulia4DP == false)
                 {
-                    MessageBox.Show("Ошибка при заполнении степени: должно быть число >= 2.0",
+                    MessageBox.Show("Ошибка при заполнении степени: должно быть целое число >= 2",
                         "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
@@ -901,7 +901,7 @@ namespace IFForm
             {
                 if (FlagTMand4DP == false)
                 {
-                    MessageBox.Show("Ошибка при заполнении степени: должно быть число >= 2.0",
+                    MessageBox.Show("Ошибка при заполнении степени: должно быть целое число >= 2",
                         "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
@@ -994,10 +994,10 @@ namespace IFForm
                         case FractalType.TJulia3D:
                             WriteInt(writer, Combo3D.SelectedIndex);
                             WriteInt(writer, 1);
+                            WriteFloat(writer, TJulia3DP);
                             WriteFloat(writer, TJulia3DCX);
                             WriteFloat(writer, TJulia3DCY);
                             WriteFloat(writer, TJulia3DCZ);
-                            WriteFloat(writer, TJulia3DP);
                             Console.WriteLine("Type: T Julia 3D");
                             break;
                         case FractalType.Julia4D:
@@ -1017,15 +1017,15 @@ namespace IFForm
                             WriteFloat(writer, TJulia4DQA);
                             WriteFloat(writer, TJulia4DQB);
                             WriteFloat(writer, TJulia4DQC);
-                            WriteFloat(writer, TJulia4DP);
                             WriteInt(writer, ComboTJulia4DComponent.SelectedIndex);
+                            WriteInt(writer, TJulia4DP);
                             Console.WriteLine("Type: T Julia 4D");
                             break;
                         case FractalType.TMand4D:
                             WriteInt(writer, Combo4D.SelectedIndex);
                             WriteInt(writer, 2);
-                            WriteFloat(writer, TMand4DP);
                             WriteFloat(writer, TMand4DQC);
+                            WriteInt(writer, TMand4DP);
                             Console.WriteLine("Type: T Mandelbrot 4D");
                             break;
                     }

@@ -34,6 +34,10 @@ int fIterations;
 int fMaxFractalSize;
 int fGradientIndex;
 float fPower;
+bool hasParam;
+float fX;
+float fY;
+float fZ;
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -71,7 +75,10 @@ void display()
         glNewList(systemList, GL_COMPILE);
         mandelbulb.fMaxFractalSize = fMaxFractalSize;
         mandelbulb.fPower = fPower;
-        mandelbulb.setConstParam(0.5, 0.5, 0.5);
+        if (hasParam)
+            mandelbulb.setConstParam(fX, fY, fZ);
+        else
+            mandelbulb.setNoConstParam();
         mandelbulb.initColorSpectrum(fGradientIndex);
         mandelbulb.compute(fFractalSize, fFractalSize, fIterations);
         mandelbulb.draw();
@@ -270,12 +277,23 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    int type;
     in.read((char*)&fWindowSize, sizeof(int));
     in.read((char*)&fFractalSize, sizeof(int));
     in.read((char*)&fIterations, sizeof(int));
     in.read((char*)&fMaxFractalSize, sizeof(int));
     in.read((char*)&fGradientIndex, sizeof(int));
+    in.read((char*)&type, sizeof(int));
     in.read((char*)&fPower, sizeof(float));
+    if (type == 0)
+        hasParam = false;
+    if (type == 1)
+    {
+        hasParam = true;
+        in.read((char*)&fX, sizeof(float));
+        in.read((char*)&fY, sizeof(float));
+        in.read((char*)&fZ, sizeof(float));
+    }
     in.close();
 
     // initialize glut

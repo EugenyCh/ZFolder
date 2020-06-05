@@ -38,6 +38,8 @@ float fQuatR;
 float fQuatA;
 float fQuatB;
 float fQuatC;
+int fPower;
+bool isMand;
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -74,7 +76,9 @@ void display()
 
         glNewList(systemList, GL_COMPILE);
         qfractal.fMaxFractalSize = fMaxFractalSize;
-        qfractal.set(fQuatR, fQuatA, fQuatB, fQuatC, (QFractal::ParamToHide)(fHideIndex));
+        //qfractal.set(fQuatR, fQuatA, fQuatB, fQuatC, (QFractal::ParamToHide)(fHideIndex));
+        //qfractal.set(fQuatR, fQuatA, fQuatB, fQuatC, (QFractal::ParamToHide)(fHideIndex), 4);
+        //qfractal.set(0.0, 2);
         qfractal.initColorSpectrum(fGradientIndex);
         qfractal.compute(fFractalSize, fFractalSize, fIterations);
         qfractal.draw();
@@ -273,16 +277,32 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    int type;
     in.read((char*)&fWindowSize, sizeof(int));
     in.read((char*)&fFractalSize, sizeof(int));
     in.read((char*)&fIterations, sizeof(int));
     in.read((char*)&fMaxFractalSize, sizeof(int));
     in.read((char*)&fGradientIndex, sizeof(int));
-    in.read((char*)&fQuatR, sizeof(float));
-    in.read((char*)&fQuatA, sizeof(float));
-    in.read((char*)&fQuatB, sizeof(float));
-    in.read((char*)&fQuatC, sizeof(float));
-    in.read((char*)&fHideIndex, sizeof(int));
+    in.read((char*)&type, sizeof(int));
+    if (type == 0 || type == 1)
+    {
+        isMand = false;
+        in.read((char*)&fQuatR, sizeof(float));
+        in.read((char*)&fQuatA, sizeof(float));
+        in.read((char*)&fQuatB, sizeof(float));
+        in.read((char*)&fQuatC, sizeof(float));
+        in.read((char*)&fHideIndex, sizeof(int));
+        if (type == 0)
+            fPower = 2;
+        else
+            in.read((char*)&fPower, sizeof(int));
+    }
+    else
+    {
+        isMand = true;
+        in.read((char*)&fQuatC, sizeof(float));
+        in.read((char*)&fPower, sizeof(int));
+    }
     in.close();
 
     // initialize glut
