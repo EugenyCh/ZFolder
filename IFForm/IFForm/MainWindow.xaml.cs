@@ -51,15 +51,41 @@ namespace IFForm
         private float TJulia3DCX;
         private float TJulia3DCY;
         private float TJulia3DCZ;
-        private float QuatR;
-        private float QuatA;
-        private float QuatB;
-        private float QuatC;
+        private float Julia4DQR;
+        private float Julia4DQA;
+        private float Julia4DQB;
+        private float Julia4DQC;
+        private float TJulia4DP;
+        private float TJulia4DQR;
+        private float TJulia4DQA;
+        private float TJulia4DQB;
+        private float TJulia4DQC;
+        private float TMand4DP;
+        private float TMand4DQC;
 
-        private bool[] Flags = new bool[4];
-        private bool MandFlag;
-        private bool[] QuatFlags = new bool[4];
-        private bool[] JuliaFlags = new bool[2];
+        private bool[] FlagsMain = new bool[4] { true, true, true, true };
+        private bool FlagTMand2DP = true;
+        private bool FlagJulia2DCX = true;
+        private bool FlagJulia2DCY = true;
+        private bool FlagTJulia2DP = true;
+        private bool FlagTJulia2DCX = true;
+        private bool FlagTJulia2DCY = true;
+        private bool FlagMand3DP = true;
+        private bool FlagTJulia3DP = true;
+        private bool FlagTJulia3DCX = true;
+        private bool FlagTJulia3DCY = true;
+        private bool FlagTJulia3DCZ = true;
+        private bool FlagJulia4DQR = true;
+        private bool FlagJulia4DQA = true;
+        private bool FlagJulia4DQB = true;
+        private bool FlagJulia4DQC = true;
+        private bool FlagTJulia4DP = true;
+        private bool FlagTJulia4DQR = true;
+        private bool FlagTJulia4DQA = true;
+        private bool FlagTJulia4DQB = true;
+        private bool FlagTJulia4DQC = true;
+        private bool FlagTMand4DP = true;
+        private bool FlagTMand4DQC = true;
 
         private ConsoleColor DefaultFore;
         public MainWindow()
@@ -67,6 +93,7 @@ namespace IFForm
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
             DefaultFore = Console.ForegroundColor;
             InitializeComponent();
+            // Left Panel
             ComboType.SelectedIndex = (int)(FractalType.Mand2D);
             BoxWinSize.Text = "500";
             BoxFractalSize.Text = "500";
@@ -102,11 +129,13 @@ namespace IFForm
             // TMand4D
             BoxTMand4DP.Text = "2.0";
             BoxTMand4DQC.Text = "0.0";
+            // Combo Gradient
             Combo2D.SelectedIndex = 1;
             Combo3D.SelectedIndex = 1;
             Combo4D.SelectedIndex = 1;
         }
 
+        #region Fractal Type Selection
         private void ComboType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // BlockD1 & BlockD2
@@ -247,6 +276,7 @@ namespace IFForm
                     break;
             }
         }
+        #endregion
 
         #region Left Panel
         private void BoxWinSize_TextChanged(object sender, TextChangedEventArgs e)
@@ -257,12 +287,12 @@ namespace IFForm
                 if (WindowSize < 100)
                     throw new Exception();
                 BoxWinSize.Background = new SolidColorBrush(Colors.White);
-                Flags[0] = true;
+                FlagsMain[0] = true;
             }
             catch
             {
                 BoxWinSize.Background = new SolidColorBrush(Colors.Pink);
-                Flags[0] = false;
+                FlagsMain[0] = false;
             }
         }
 
@@ -274,12 +304,12 @@ namespace IFForm
                 if (FractalSize < 100)
                     throw new Exception();
                 BoxFractalSize.Background = new SolidColorBrush(Colors.White);
-                Flags[1] = true;
+                FlagsMain[1] = true;
             }
             catch
             {
                 BoxFractalSize.Background = new SolidColorBrush(Colors.Pink);
-                Flags[1] = false;
+                FlagsMain[1] = false;
             }
         }
 
@@ -291,12 +321,12 @@ namespace IFForm
                 if (Iterations < 0)
                     throw new Exception();
                 BoxIters.Background = new SolidColorBrush(Colors.White);
-                Flags[2] = true;
+                FlagsMain[2] = true;
             }
             catch
             {
                 BoxIters.Background = new SolidColorBrush(Colors.Pink);
-                Flags[2] = false;
+                FlagsMain[2] = false;
             }
         }
 
@@ -308,12 +338,12 @@ namespace IFForm
                 if (MaxFractalSize < 100)
                     throw new Exception();
                 BoxMaxFractalSize.Background = new SolidColorBrush(Colors.White);
-                Flags[3] = true;
+                FlagsMain[3] = true;
             }
             catch
             {
                 BoxMaxFractalSize.Background = new SolidColorBrush(Colors.Pink);
-                Flags[3] = false;
+                FlagsMain[3] = false;
             }
         }
         #endregion
@@ -321,7 +351,19 @@ namespace IFForm
         #region TMand2D
         private void BoxTMand2DP_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            try
+            {
+                TMand2DP = float.Parse(BoxTMand2DP.Text);
+                if (TMand2DP < 2.0)
+                    throw new Exception();
+                BoxTMand2DP.Background = new SolidColorBrush(Colors.White);
+                FlagTMand2DP = true;
+            }
+            catch
+            {
+                BoxTMand2DP.Background = new SolidColorBrush(Colors.Pink);
+                FlagTMand2DP = false;
+            }
         }
         #endregion
 
@@ -332,12 +374,12 @@ namespace IFForm
             {
                 Julia2DCX = float.Parse(BoxJulia2DCX.Text);
                 BoxJulia2DCX.Background = new SolidColorBrush(Colors.White);
-                JuliaFlags[0] = true;
+                FlagJulia2DCX = true;
             }
             catch
             {
                 BoxJulia2DCX.Background = new SolidColorBrush(Colors.Pink);
-                JuliaFlags[0] = false;
+                FlagJulia2DCX = false;
             }
         }
 
@@ -347,30 +389,61 @@ namespace IFForm
             {
                 Julia2DCY = float.Parse(BoxJulia2DCY.Text);
                 BoxJulia2DCY.Background = new SolidColorBrush(Colors.White);
-                JuliaFlags[1] = true;
+                FlagJulia2DCY = true;
             }
             catch
             {
                 BoxJulia2DCY.Background = new SolidColorBrush(Colors.Pink);
-                JuliaFlags[1] = false;
+                FlagJulia2DCY = false;
             }
         }
         #endregion
 
         #region TJulia2D
+        private void BoxTJulia2DP_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                TJulia2DP = float.Parse(BoxTJulia2DP.Text);
+                if (TJulia2DP < 2.0)
+                    throw new Exception();
+                BoxTJulia2DP.Background = new SolidColorBrush(Colors.White);
+                FlagTJulia2DP = true;
+            }
+            catch
+            {
+                BoxTJulia2DP.Background = new SolidColorBrush(Colors.Pink);
+                FlagTJulia2DP = false;
+            }
+        }
         private void BoxTJulia2DCX_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            try
+            {
+                TJulia2DCX = float.Parse(BoxTJulia2DCX.Text);
+                BoxTJulia2DCX.Background = new SolidColorBrush(Colors.White);
+                FlagTJulia2DCX = true;
+            }
+            catch
+            {
+                BoxTJulia2DCX.Background = new SolidColorBrush(Colors.Pink);
+                FlagTJulia2DCX = false;
+            }
         }
 
         private void BoxTJulia2DCY_TextChanged(object sender, TextChangedEventArgs e)
         {
-
-        }
-
-        private void BoxTJulia2DP_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
+            try
+            {
+                TJulia2DCY = float.Parse(BoxTJulia2DCY.Text);
+                BoxTJulia2DCY.Background = new SolidColorBrush(Colors.White);
+                FlagTJulia2DCY = true;
+            }
+            catch
+            {
+                BoxTJulia2DCY.Background = new SolidColorBrush(Colors.Pink);
+                FlagTJulia2DCY = false;
+            }
         }
         #endregion
 
@@ -383,12 +456,12 @@ namespace IFForm
                 if (Mand3DP < 2.0)
                     throw new Exception();
                 BoxMand3DP.Background = new SolidColorBrush(Colors.White);
-                MandFlag = true;
+                FlagMand3DP = true;
             }
             catch
             {
                 BoxMand3DP.Background = new SolidColorBrush(Colors.Pink);
-                MandFlag = false;
+                FlagMand3DP = false;
             }
         }
         #endregion
@@ -396,22 +469,64 @@ namespace IFForm
         #region TJulia3D
         private void BoxTJulia3DCX_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            try
+            {
+                TJulia3DCX = float.Parse(BoxTJulia3DCX.Text);
+                BoxTJulia3DCX.Background = new SolidColorBrush(Colors.White);
+                FlagTJulia3DCX = true;
+            }
+            catch
+            {
+                BoxTJulia3DCX.Background = new SolidColorBrush(Colors.Pink);
+                FlagTJulia3DCX = false;
+            }
         }
 
         private void BoxTJulia3DCY_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            try
+            {
+                TJulia3DCY = float.Parse(BoxTJulia3DCY.Text);
+                BoxTJulia3DCY.Background = new SolidColorBrush(Colors.White);
+                FlagTJulia3DCY = true;
+            }
+            catch
+            {
+                BoxTJulia3DCY.Background = new SolidColorBrush(Colors.Pink);
+                FlagTJulia3DCY = false;
+            }
         }
 
         private void BoxTJulia3DCZ_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            try
+            {
+                TJulia3DCZ = float.Parse(BoxTJulia3DCZ.Text);
+                BoxTJulia3DCZ.Background = new SolidColorBrush(Colors.White);
+                FlagTJulia3DCZ = true;
+            }
+            catch
+            {
+                BoxTJulia3DCZ.Background = new SolidColorBrush(Colors.Pink);
+                FlagTJulia3DCZ = false;
+            }
         }
 
         private void BoxTJulia3DP_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            try
+            {
+                TJulia3DP = float.Parse(BoxTJulia3DP.Text);
+                if (TJulia3DP < 2.0)
+                    throw new Exception();
+                BoxTJulia3DP.Background = new SolidColorBrush(Colors.White);
+                FlagTJulia3DP = true;
+            }
+            catch
+            {
+                BoxTJulia3DP.Background = new SolidColorBrush(Colors.Pink);
+                FlagTJulia3DP = false;
+            }
         }
         #endregion
 
@@ -420,14 +535,14 @@ namespace IFForm
         {
             try
             {
-                QuatR = float.Parse(BoxJulia4DQR.Text);
+                Julia4DQR = float.Parse(BoxJulia4DQR.Text);
                 BoxJulia4DQR.Background = new SolidColorBrush(Colors.White);
-                QuatFlags[0] = true;
+                FlagJulia4DQR = true;
             }
             catch
             {
                 BoxJulia4DQR.Background = new SolidColorBrush(Colors.Pink);
-                QuatFlags[0] = false;
+                FlagJulia4DQR = false;
             }
         }
 
@@ -435,14 +550,14 @@ namespace IFForm
         {
             try
             {
-                QuatA = float.Parse(BoxJulia4DQA.Text);
+                Julia4DQA = float.Parse(BoxJulia4DQA.Text);
                 BoxJulia4DQA.Background = new SolidColorBrush(Colors.White);
-                QuatFlags[1] = true;
+                FlagJulia4DQA = true;
             }
             catch
             {
                 BoxJulia4DQA.Background = new SolidColorBrush(Colors.Pink);
-                QuatFlags[1] = false;
+                FlagJulia4DQA = false;
             }
         }
 
@@ -450,14 +565,14 @@ namespace IFForm
         {
             try
             {
-                QuatB = float.Parse(BoxJulia4DQB.Text);
+                Julia4DQB = float.Parse(BoxJulia4DQB.Text);
                 BoxJulia4DQB.Background = new SolidColorBrush(Colors.White);
-                QuatFlags[2] = true;
+                FlagJulia4DQB = true;
             }
             catch
             {
                 BoxJulia4DQB.Background = new SolidColorBrush(Colors.Pink);
-                QuatFlags[2] = false;
+                FlagJulia4DQB = false;
             }
         }
 
@@ -465,14 +580,14 @@ namespace IFForm
         {
             try
             {
-                QuatC = float.Parse(BoxJulia4DQC.Text);
+                Julia4DQC = float.Parse(BoxJulia4DQC.Text);
                 BoxJulia4DQC.Background = new SolidColorBrush(Colors.White);
-                QuatFlags[3] = true;
+                FlagJulia4DQC = true;
             }
             catch
             {
                 BoxJulia4DQC.Background = new SolidColorBrush(Colors.Pink);
-                QuatFlags[3] = false;
+                FlagJulia4DQC = false;
             }
         }
         #endregion
@@ -480,63 +595,135 @@ namespace IFForm
         #region TJulia4D
         private void BoxTJulia4DQR_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            try
+            {
+                TJulia4DQR = float.Parse(BoxTJulia4DQR.Text);
+                BoxTJulia4DQR.Background = new SolidColorBrush(Colors.White);
+                FlagTJulia4DQR = true;
+            }
+            catch
+            {
+                BoxTJulia4DQR.Background = new SolidColorBrush(Colors.Pink);
+                FlagTJulia4DQR = false;
+            }
         }
 
         private void BoxTJulia4DQA_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            try
+            {
+                TJulia4DQA = float.Parse(BoxTJulia4DQA.Text);
+                BoxTJulia4DQA.Background = new SolidColorBrush(Colors.White);
+                FlagTJulia4DQA = true;
+            }
+            catch
+            {
+                BoxTJulia4DQA.Background = new SolidColorBrush(Colors.Pink);
+                FlagTJulia4DQA = false;
+            }
         }
 
         private void BoxTJulia4DQB_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            try
+            {
+                TJulia4DQB = float.Parse(BoxTJulia4DQB.Text);
+                BoxTJulia4DQB.Background = new SolidColorBrush(Colors.White);
+                FlagTJulia4DQB = true;
+            }
+            catch
+            {
+                BoxTJulia4DQB.Background = new SolidColorBrush(Colors.Pink);
+                FlagTJulia4DQB = false;
+            }
         }
 
         private void BoxTJulia4DQC_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            try
+            {
+                TJulia4DQC = float.Parse(BoxTJulia4DQC.Text);
+                BoxTJulia4DQC.Background = new SolidColorBrush(Colors.White);
+                FlagTJulia4DQC = true;
+            }
+            catch
+            {
+                BoxTJulia4DQC.Background = new SolidColorBrush(Colors.Pink);
+                FlagTJulia4DQC = false;
+            }
         }
 
         private void BoxTJulia4DP_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            try
+            {
+                TJulia4DP = float.Parse(BoxTJulia4DP.Text);
+                if (TJulia4DP < 2.0)
+                    throw new Exception();
+                BoxTJulia4DP.Background = new SolidColorBrush(Colors.White);
+                FlagTJulia4DP = true;
+            }
+            catch
+            {
+                BoxTJulia4DP.Background = new SolidColorBrush(Colors.Pink);
+                FlagTJulia4DP = false;
+            }
         }
         #endregion
 
         #region TMand4D
         private void BoxTMand4DQC_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            try
+            {
+                TMand4DQC = float.Parse(BoxTMand4DQC.Text);
+                BoxTMand4DQC.Background = new SolidColorBrush(Colors.White);
+                FlagTMand4DQC = true;
+            }
+            catch
+            {
+                BoxTMand4DQC.Background = new SolidColorBrush(Colors.Pink);
+                FlagTMand4DQC = false;
+            }
         }
 
         private void BoxTMand4DP_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            try
+            {
+                TMand4DP = float.Parse(BoxTMand4DP.Text);
+                BoxTMand4DP.Background = new SolidColorBrush(Colors.White);
+                FlagTMand4DP = true;
+            }
+            catch
+            {
+                BoxTMand4DP.Background = new SolidColorBrush(Colors.Pink);
+                FlagTMand4DP = false;
+            }
         }
         #endregion
 
         private bool ValidationTest()
         {
-            if (Flags[0] == false)
+            if (FlagsMain[0] == false)
             {
                 MessageBox.Show("Ошибка при заполнении размера окна: должно быть целое число >= 100",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
-            if (Flags[1] == false)
+            if (FlagsMain[1] == false)
             {
                 MessageBox.Show("Ошибка при заполнении размера фрактала: должно быть целое число >= 100",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
-            if (Flags[2] == false)
+            if (FlagsMain[2] == false)
             {
                 MessageBox.Show("Ошибка при заполнении количества итераций: должно быть целое число >= 0",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
-            if (Flags[3] == false)
+            if (FlagsMain[3] == false)
             {
                 MessageBox.Show("Ошибка при заполнении максимального размера фрактала: должно быть целое число >= 100",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -637,10 +824,10 @@ namespace IFForm
                             break;
                         case FractalType.Julia4D:
                             WriteInt(writer, Combo4D.SelectedIndex);
-                            WriteFloat(writer, QuatR);
-                            WriteFloat(writer, QuatA);
-                            WriteFloat(writer, QuatB);
-                            WriteFloat(writer, QuatC);
+                            WriteFloat(writer, Julia4DR);
+                            WriteFloat(writer, Julia4DA);
+                            WriteFloat(writer, Julia4DB);
+                            WriteFloat(writer, Julia4DC);
                             WriteInt(writer, ComboJulia4DComponent.SelectedIndex);
                             Console.WriteLine("Type: Julia 4D");
                             break;
