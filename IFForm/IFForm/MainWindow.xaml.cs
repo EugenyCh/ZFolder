@@ -477,8 +477,60 @@ namespace IFForm
             Console.WriteLine("Click");
             MenuItem parent = (MenuItem)((MenuItem)sender).Parent;
             MenuItem greatParent = (MenuItem)parent.Parent;
-            int id = ItemInner.Items.IndexOf(greatParent);
-
+            int id = ItemInner.Items.IndexOf(greatParent) + 1;
+            ComboType.SelectedIndex = id;
+            int parentId = greatParent.Items.IndexOf(parent);
+            switch ((FractalType)id)
+            {
+                case FractalType.TMand2D:
+                    var template1 = innerTemplates.TMand2Ds[parentId];
+                    BoxTMand2DP.Text = template1.Power.ToString();
+                    break;
+                case FractalType.Julia2D:
+                    var template2 = innerTemplates.Julia2Ds[parentId];
+                    BoxJulia2DCX.Text = template2.CX.ToString();
+                    BoxJulia2DCY.Text = template2.CY.ToString();
+                    break;
+                case FractalType.TJulia2D:
+                    var template3 = innerTemplates.TJulia2Ds[parentId];
+                    BoxTJulia2DP.Text = template3.Power.ToString();
+                    BoxTJulia2DCX.Text = template3.CX.ToString();
+                    BoxTJulia2DCY.Text = template3.CY.ToString();
+                    break;
+                case FractalType.Mand3D:
+                    var template4 = innerTemplates.Mand3Ds[parentId];
+                    BoxMand3DP.Text = template4.Power.ToString();
+                    break;
+                case FractalType.TJulia3D:
+                    var template5 = innerTemplates.TJulia3Ds[parentId];
+                    BoxTJulia3DP.Text = template5.Power.ToString();
+                    BoxTJulia3DCX.Text = template5.CX.ToString();
+                    BoxTJulia3DCY.Text = template5.CY.ToString();
+                    BoxTJulia3DCZ.Text = template5.CZ.ToString();
+                    break;
+                case FractalType.Julia4D:
+                    var template6 = innerTemplates.Julia4Ds[parentId];
+                    BoxJulia4DQR.Text = template6.CR.ToString();
+                    BoxJulia4DQA.Text = template6.CX.ToString();
+                    BoxJulia4DQB.Text = template6.CY.ToString();
+                    BoxJulia4DQC.Text = template6.CZ.ToString();
+                    ComboJulia4DComponent.SelectedIndex = template6.Hidden;
+                    break;
+                case FractalType.TJulia4D:
+                    var template7 = innerTemplates.TJulia4Ds[parentId];
+                    BoxTJulia4DP.Text = template7.Power.ToString();
+                    BoxTJulia4DQR.Text = template7.CR.ToString();
+                    BoxTJulia4DQA.Text = template7.CX.ToString();
+                    BoxTJulia4DQB.Text = template7.CY.ToString();
+                    BoxTJulia4DQC.Text = template7.CZ.ToString();
+                    ComboTJulia4DComponent.SelectedIndex = template7.Hidden;
+                    break;
+                case FractalType.TMand4D:
+                    var template8 = innerTemplates.TMand4Ds[parentId];
+                    BoxTMand4DP.Text = template8.Power.ToString();
+                    BoxTMand4DQC.Text = template8.CZ.ToString();
+                    break;
+            }
         }
 
         #region Fractal Type Selection
