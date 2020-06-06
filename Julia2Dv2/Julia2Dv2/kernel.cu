@@ -244,7 +244,10 @@ void saveImage()
 	stringstream ssname;
 	ssname << buffer << "_s" << MIN(fFractalSize, fMaxFractalSize)
 		<< "_i" << fIterations
-		<< "_julia2d_cx" << fJuliaCX << "_cy" << fJuliaCY << ".png";
+		<< "_julia2d"
+		<< "_p" << fPower
+		<< "_cx" << fJuliaCX
+		<< "_cy" << fJuliaCY << ".png";
 
 	size_t width = winWidth;
 	size_t height = winHeight;

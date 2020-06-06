@@ -76,9 +76,10 @@ void display()
 
         glNewList(systemList, GL_COMPILE);
         qfractal.fMaxFractalSize = fMaxFractalSize;
-        //qfractal.set(fQuatR, fQuatA, fQuatB, fQuatC, (QFractal::ParamToHide)(fHideIndex));
-        //qfractal.set(fQuatR, fQuatA, fQuatB, fQuatC, (QFractal::ParamToHide)(fHideIndex), 4);
-        //qfractal.set(0.0, 2);
+        if (isMand)
+            qfractal.set(fQuatC, fPower);
+        else
+            qfractal.set(fQuatR, fQuatA, fQuatB, fQuatC, (QFractal::ParamToHide)(fHideIndex), fPower);
         qfractal.initColorSpectrum(fGradientIndex);
         qfractal.compute(fFractalSize, fFractalSize, fIterations);
         qfractal.draw();
@@ -248,7 +249,17 @@ void saveImage()
     strftime(buffer, 80, "screen_%Y.%m.%d_%Hh.%Mm.%Ss", timeinfo);
     stringstream ssname;
     ssname << buffer << "_s" << MIN(fFractalSize, fMaxFractalSize)
-        << "_i" << fIterations << "_julia4d_h" << fHideIndex
+        << "_i" << fIterations;
+    if (isMand)
+        ssname
+        << "_mand4d"
+        << "_p" << fPower
+        << "_c" << fQuatC << ".png";
+    else
+        ssname
+        << "_julia4d"
+        << "_p" << fPower
+        << "_h" << fHideIndex
         << "_r" << fQuatR << "_a" << fQuatA << "_b" << fQuatB << "_c" << fQuatC << ".png";
 
     size_t width = winWidth;

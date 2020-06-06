@@ -240,7 +240,8 @@ void saveImage()
     stringstream ssname;
     ssname << buffer << "_s" << MIN(fFractalSize, fMaxFractalSize)
         << "_i" << fIterations
-        << "_mand2d" << ".png";
+        << "_mand2d"
+        << "_p" << fPower <<".png";
 
     size_t width = winWidth;
     size_t height = winHeight;

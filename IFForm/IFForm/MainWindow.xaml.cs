@@ -121,13 +121,13 @@ namespace IFForm
             BoxJulia4DQB.Text = "0.0";
             BoxJulia4DQC.Text = "0.0";
             // TJulia4D
-            BoxTJulia4DP.Text = "4.0";
+            BoxTJulia4DP.Text = "4";
             BoxTJulia4DQR.Text = "-1.0";
             BoxTJulia4DQA.Text = "0.2";
             BoxTJulia4DQB.Text = "0.0";
             BoxTJulia4DQC.Text = "0.0";
             // TMand4D
-            BoxTMand4DP.Text = "2.0";
+            BoxTMand4DP.Text = "2";
             BoxTMand4DQC.Text = "0.0";
             // Combo Gradient
             Combo2D.SelectedIndex = 0;
