@@ -114,6 +114,7 @@ namespace IFForm
                                 Name = xfractal.Attributes.GetNamedItem("name").Value,
                                 Power = float.Parse(xfractal.GetElementsByTagName("power")[0].InnerText)
                             };
+                            innerTemplates.Add(template);
                             Console.WriteLine($"Added [{type}] '{template.Name}'");
                             Console.WriteLine($"| Power = {template.Power}");
                         }
@@ -125,6 +126,7 @@ namespace IFForm
                                 CX = float.Parse(xfractal.GetElementsByTagName("cx")[0].InnerText),
                                 CY = float.Parse(xfractal.GetElementsByTagName("cy")[0].InnerText)
                             };
+                            innerTemplates.Add(template);
                             Console.WriteLine($"Added [{type}] '{template.Name}'");
                             Console.WriteLine($"| CX = {template.CX}");
                             Console.WriteLine($"| CY = {template.CY}");
@@ -138,6 +140,7 @@ namespace IFForm
                                 CX = float.Parse(xfractal.GetElementsByTagName("cx")[0].InnerText),
                                 CY = float.Parse(xfractal.GetElementsByTagName("cy")[0].InnerText)
                             };
+                            innerTemplates.Add(template);
                             Console.WriteLine($"Added [{type}] '{template.Name}'");
                             Console.WriteLine($"| Power = {template.Power}");
                             Console.WriteLine($"| CX = {template.CX}");
@@ -150,6 +153,7 @@ namespace IFForm
                                 Name = xfractal.Attributes.GetNamedItem("name").Value,
                                 Power = float.Parse(xfractal.GetElementsByTagName("power")[0].InnerText)
                             };
+                            innerTemplates.Add(template);
                             Console.WriteLine($"Added [{type}] '{template.Name}'");
                             Console.WriteLine($"| Power = {template.Power}");
                         }
@@ -163,6 +167,7 @@ namespace IFForm
                                 CY = float.Parse(xfractal.GetElementsByTagName("cy")[0].InnerText),
                                 CZ = float.Parse(xfractal.GetElementsByTagName("cz")[0].InnerText)
                             };
+                            innerTemplates.Add(template);
                             Console.WriteLine($"Added [{type}] '{template.Name}'");
                             Console.WriteLine($"| Power = {template.Power}");
                             Console.WriteLine($"| CX = {template.CX}");
@@ -189,6 +194,7 @@ namespace IFForm
                                 CY = float.Parse(xfractal.GetElementsByTagName("cy")[0].InnerText),
                                 CZ = float.Parse(xfractal.GetElementsByTagName("cz")[0].InnerText)
                             };
+                            innerTemplates.Add(template);
                             Console.WriteLine($"Added [{type}] '{template.Name}'");
                             Console.WriteLine($"| CR = {template.CR}");
                             Console.WriteLine($"| CX = {template.CX}");
@@ -217,6 +223,7 @@ namespace IFForm
                                 CY = float.Parse(xfractal.GetElementsByTagName("cy")[0].InnerText),
                                 CZ = float.Parse(xfractal.GetElementsByTagName("cz")[0].InnerText)
                             };
+                            innerTemplates.Add(template);
                             Console.WriteLine($"Added [{type}] '{template.Name}'");
                             Console.WriteLine($"| Power = {template.Power}");
                             Console.WriteLine($"| CR = {template.CR}");
@@ -233,16 +240,193 @@ namespace IFForm
                                 Power = int.Parse(xfractal.GetElementsByTagName("power")[0].InnerText),
                                 CZ = float.Parse(xfractal.GetElementsByTagName("cz")[0].InnerText)
                             };
+                            innerTemplates.Add(template);
                             Console.WriteLine($"Added [{type}] '{template.Name}'");
                             Console.WriteLine($"| Power = {template.Power}");
                             Console.WriteLine($"| CZ = {template.CZ}");
                         }
                     }
                 }
+
+                #region TMand2Ds
+                MenuItem itemTMand2Ds = new MenuItem
+                {
+                    Header = "Комплексный фрактал типа Мандельброта 2D"
+                };
+                ItemInner.Items.Add(itemTMand2Ds);
+                foreach (var fractal in innerTemplates.TMand2Ds)
+                {
+                    MenuItem item = new MenuItem
+                    {
+                        Header = fractal.Name
+                    };
+                    MenuItem subItem = new MenuItem
+                    {
+                        Header = $"z -> z ^ {fractal.Power} + c\nc = C"
+                    };
+                    item.Items.Add(subItem);
+                    subItem.Click += Item_Click;
+                    itemTMand2Ds.Items.Add(item);
+                }
+                #endregion
+
+                #region TMand2Ds
+                MenuItem itemsJulia2Ds = new MenuItem
+                {
+                    Header = "Комплексный фрактал Жюлиа 2D"
+                };
+                ItemInner.Items.Add(itemsJulia2Ds);
+                foreach (var fractal in innerTemplates.Julia2Ds)
+                {
+                    MenuItem item = new MenuItem
+                    {
+                        Header = fractal.Name
+                    };
+                    MenuItem subItem = new MenuItem
+                    {
+                        Header = $"z -> z ^ 2 + c\nc = {fractal.CX} + {fractal.CY}i"
+                    };
+                    item.Items.Add(subItem);
+                    subItem.Click += Item_Click;
+                    itemsJulia2Ds.Items.Add(item);
+                }
+                #endregion
+
+                #region TJulia2Ds
+                MenuItem itemsTJulia2Ds = new MenuItem
+                {
+                    Header = "Комплексный фрактал типа Жюлиа 2D"
+                };
+                ItemInner.Items.Add(itemsTJulia2Ds);
+                foreach (var fractal in innerTemplates.TJulia2Ds)
+                {
+                    MenuItem item = new MenuItem
+                    {
+                        Header = fractal.Name
+                    };
+                    MenuItem subItem = new MenuItem
+                    {
+                        Header = $"z -> z ^ {fractal.Power} + c\nc = {fractal.CX} + {fractal.CY}i"
+                    };
+                    item.Items.Add(subItem);
+                    subItem.Click += Item_Click;
+                    itemsTJulia2Ds.Items.Add(item);
+                }
+                #endregion
+
+                #region Mand3Ds
+                MenuItem itemsMand3Ds = new MenuItem
+                {
+                    Header = "Гиперкомплексная оболочка Мандельброта 3D"
+                };
+                ItemInner.Items.Add(itemsMand3Ds);
+                foreach (var fractal in innerTemplates.Mand3Ds)
+                {
+                    MenuItem item = new MenuItem
+                    {
+                        Header = fractal.Name
+                    };
+                    MenuItem subItem = new MenuItem
+                    {
+                        Header = $"v -> v ^ {fractal.Power} + c\nc = R^3"
+                    };
+                    item.Items.Add(subItem);
+                    subItem.Click += Item_Click;
+                    itemsMand3Ds.Items.Add(item);
+                }
+                #endregion
+
+                #region TJulia3Ds
+                MenuItem itemsTJulia3Ds = new MenuItem
+                {
+                    Header = "Гиперкомплексная оболочка типа Жюлиа 3D"
+                };
+                ItemInner.Items.Add(itemsTJulia3Ds);
+                foreach (var fractal in innerTemplates.TJulia3Ds)
+                {
+                    MenuItem item = new MenuItem
+                    {
+                        Header = fractal.Name
+                    };
+                    MenuItem subItem = new MenuItem
+                    {
+                        Header = $"v -> v ^ {fractal.Power} + c\nc = ({fractal.CX}, {fractal.CY}, {fractal.CZ})"
+                    };
+                    item.Items.Add(subItem);
+                    subItem.Click += Item_Click;
+                    itemsTJulia3Ds.Items.Add(item);
+                }
+                #endregion
+
+                #region Julia4Ds
+                MenuItem itemsJulia4Ds = new MenuItem
+                {
+                    Header = "Кватернионный фрактал Жюлиа 4D"
+                };
+                ItemInner.Items.Add(itemsJulia4Ds);
+                foreach (var fractal in innerTemplates.Julia4Ds)
+                {
+                    MenuItem item = new MenuItem
+                    {
+                        Header = fractal.Name
+                    };
+                    MenuItem subItem = new MenuItem
+                    {
+                        Header = $"q -> q ^ 2 + c\nc = {fractal.CR} + {fractal.CX}i + {fractal.CY}j + {fractal.CZ}k\n{fractal.Hidden}'th component is hidden"
+                    };
+                    item.Items.Add(subItem);
+                    subItem.Click += Item_Click;
+                    itemsJulia4Ds.Items.Add(item);
+                }
+                #endregion
+
+                #region TJulia4Ds
+                MenuItem itemsTJulia4Ds = new MenuItem
+                {
+                    Header = "Кватернионный фрактал типа Жюлиа 4D"
+                };
+                ItemInner.Items.Add(itemsTJulia4Ds);
+                foreach (var fractal in innerTemplates.TJulia4Ds)
+                {
+                    MenuItem item = new MenuItem
+                    {
+                        Header = fractal.Name
+                    };
+                    MenuItem subItem = new MenuItem
+                    {
+                        Header = $"q -> q ^ {fractal.Power} + c\nc = {fractal.CR} + {fractal.CX}i + {fractal.CY}j + {fractal.CZ}k\n{fractal.Hidden}'th component is hidden"
+                    };
+                    item.Items.Add(subItem);
+                    subItem.Click += Item_Click;
+                    itemsTJulia4Ds.Items.Add(item);
+                }
+                #endregion
+
+                #region TMand4Ds
+                MenuItem itemsTMand4Ds = new MenuItem
+                {
+                    Header = "Кватернионный фрактал типа Мандельброта 4D"
+                };
+                ItemInner.Items.Add(itemsTMand4Ds);
+                foreach (var fractal in innerTemplates.TMand4Ds)
+                {
+                    MenuItem item = new MenuItem
+                    {
+                        Header = fractal.Name
+                    };
+                    MenuItem subItem = new MenuItem
+                    {
+                        Header = $"q -> q ^ {fractal.Power} + c\nc = R + Ri + Rj + {fractal.CZ}"
+                    };
+                    item.Items.Add(subItem);
+                    subItem.Click += Item_Click;
+                    itemsTMand4Ds.Items.Add(item);
+                }
+                #endregion
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при чтении встроенных шаблонов:\n{ex}",
+                MessageBox.Show($"Ошибка при инициалищации встроенных шаблонов:\n{ex}",
                         "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
@@ -286,6 +470,15 @@ namespace IFForm
             Combo2D.SelectedIndex = 0;
             Combo3D.SelectedIndex = 1;
             Combo4D.SelectedIndex = 1;
+        }
+
+        private void Item_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Click");
+            MenuItem parent = (MenuItem)((MenuItem)sender).Parent;
+            MenuItem greatParent = (MenuItem)parent.Parent;
+            int id = ItemInner.Items.IndexOf(greatParent);
+
         }
 
         #region Fractal Type Selection
