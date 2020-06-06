@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 
 namespace IFForm
 {
@@ -87,12 +88,164 @@ namespace IFForm
         private bool FlagTMand4DP = true;
         private bool FlagTMand4DQC = true;
 
+        private IFTemplates innerTemplates = new IFTemplates();
         private ConsoleColor DefaultFore;
         public MainWindow()
         {
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
             DefaultFore = Console.ForegroundColor;
             InitializeComponent();
+            // XML Innner Reading
+            try
+            {
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.Load("inner.xml");
+                XmlElement xRoot = xDoc.DocumentElement;
+                foreach (XmlNode xNode in xRoot)
+                {
+                    if (xNode is XmlElement)
+                    {
+                        XmlElement xfractal = (XmlElement)xNode;
+                        string type = xfractal.Attributes.GetNamedItem("type").Value;
+                        if (type == "TMand2D")
+                        {
+                            TemplateTMand2D template = new TemplateTMand2D
+                            {
+                                Name = xfractal.Attributes.GetNamedItem("name").Value,
+                                Power = float.Parse(xfractal.GetElementsByTagName("power")[0].InnerText)
+                            };
+                            Console.WriteLine($"Added [{type}] '{template.Name}'");
+                            Console.WriteLine($"| Power = {template.Power}");
+                        }
+                        if (type == "Julia2D")
+                        {
+                            TemplateJulia2D template = new TemplateJulia2D
+                            {
+                                Name = xfractal.Attributes.GetNamedItem("name").Value,
+                                CX = float.Parse(xfractal.GetElementsByTagName("cx")[0].InnerText),
+                                CY = float.Parse(xfractal.GetElementsByTagName("cy")[0].InnerText)
+                            };
+                            Console.WriteLine($"Added [{type}] '{template.Name}'");
+                            Console.WriteLine($"| CX = {template.CX}");
+                            Console.WriteLine($"| CY = {template.CY}");
+                        }
+                        if (type == "TJulia2D")
+                        {
+                            TemplateTJulia2D template = new TemplateTJulia2D
+                            {
+                                Name = xfractal.Attributes.GetNamedItem("name").Value,
+                                Power = float.Parse(xfractal.GetElementsByTagName("power")[0].InnerText),
+                                CX = float.Parse(xfractal.GetElementsByTagName("cx")[0].InnerText),
+                                CY = float.Parse(xfractal.GetElementsByTagName("cy")[0].InnerText)
+                            };
+                            Console.WriteLine($"Added [{type}] '{template.Name}'");
+                            Console.WriteLine($"| Power = {template.Power}");
+                            Console.WriteLine($"| CX = {template.CX}");
+                            Console.WriteLine($"| CY = {template.CY}");
+                        }
+                        if (type == "Mand3D")
+                        {
+                            TemplateMand3D template = new TemplateMand3D
+                            {
+                                Name = xfractal.Attributes.GetNamedItem("name").Value,
+                                Power = float.Parse(xfractal.GetElementsByTagName("power")[0].InnerText)
+                            };
+                            Console.WriteLine($"Added [{type}] '{template.Name}'");
+                            Console.WriteLine($"| Power = {template.Power}");
+                        }
+                        if (type == "TJulia3D")
+                        {
+                            TemplateTJulia3D template = new TemplateTJulia3D
+                            {
+                                Name = xfractal.Attributes.GetNamedItem("name").Value,
+                                Power = float.Parse(xfractal.GetElementsByTagName("power")[0].InnerText),
+                                CX = float.Parse(xfractal.GetElementsByTagName("cx")[0].InnerText),
+                                CY = float.Parse(xfractal.GetElementsByTagName("cy")[0].InnerText),
+                                CZ = float.Parse(xfractal.GetElementsByTagName("cz")[0].InnerText)
+                            };
+                            Console.WriteLine($"Added [{type}] '{template.Name}'");
+                            Console.WriteLine($"| Power = {template.Power}");
+                            Console.WriteLine($"| CX = {template.CX}");
+                            Console.WriteLine($"| CY = {template.CY}");
+                            Console.WriteLine($"| CZ = {template.CZ}");
+                        }
+                        if (type == "Julia4D")
+                        {
+                            char ch = char.Parse(xfractal.GetElementsByTagName("h")[0].InnerText);
+                            int ih = 0;
+                            switch (ch)
+                            {
+                                case 'R': ih = 0; break;
+                                case 'X': ih = 1; break;
+                                case 'Y': ih = 2; break;
+                                case 'Z': ih = 3; break;
+                            }
+                            TemplateJulia4D template = new TemplateJulia4D
+                            {
+                                Name = xfractal.Attributes.GetNamedItem("name").Value,
+                                Hidden = ih,
+                                CR = float.Parse(xfractal.GetElementsByTagName("cr")[0].InnerText),
+                                CX = float.Parse(xfractal.GetElementsByTagName("cx")[0].InnerText),
+                                CY = float.Parse(xfractal.GetElementsByTagName("cy")[0].InnerText),
+                                CZ = float.Parse(xfractal.GetElementsByTagName("cz")[0].InnerText)
+                            };
+                            Console.WriteLine($"Added [{type}] '{template.Name}'");
+                            Console.WriteLine($"| CR = {template.CR}");
+                            Console.WriteLine($"| CX = {template.CX}");
+                            Console.WriteLine($"| CY = {template.CY}");
+                            Console.WriteLine($"| CZ = {template.CZ}");
+                            Console.WriteLine($"| Hidden = {ch} [{template.Hidden}]");
+                        }
+                        if (type == "TJulia4D")
+                        {
+                            char ch = char.Parse(xfractal.GetElementsByTagName("h")[0].InnerText);
+                            int ih = 0;
+                            switch (ch)
+                            {
+                                case 'R': ih = 0; break;
+                                case 'X': ih = 1; break;
+                                case 'Y': ih = 2; break;
+                                case 'Z': ih = 3; break;
+                            }
+                            TemplateTJulia4D template = new TemplateTJulia4D
+                            {
+                                Name = xfractal.Attributes.GetNamedItem("name").Value,
+                                Power = int.Parse(xfractal.GetElementsByTagName("power")[0].InnerText),
+                                Hidden = ih,
+                                CR = float.Parse(xfractal.GetElementsByTagName("cr")[0].InnerText),
+                                CX = float.Parse(xfractal.GetElementsByTagName("cx")[0].InnerText),
+                                CY = float.Parse(xfractal.GetElementsByTagName("cy")[0].InnerText),
+                                CZ = float.Parse(xfractal.GetElementsByTagName("cz")[0].InnerText)
+                            };
+                            Console.WriteLine($"Added [{type}] '{template.Name}'");
+                            Console.WriteLine($"| Power = {template.Power}");
+                            Console.WriteLine($"| CR = {template.CR}");
+                            Console.WriteLine($"| CX = {template.CX}");
+                            Console.WriteLine($"| CY = {template.CY}");
+                            Console.WriteLine($"| CZ = {template.CZ}");
+                            Console.WriteLine($"| Hidden = {ch} [{template.Hidden}]");
+                        }
+                        if (type == "TMand4D")
+                        {
+                            TemplateTMand4D template = new TemplateTMand4D
+                            {
+                                Name = xfractal.Attributes.GetNamedItem("name").Value,
+                                Power = int.Parse(xfractal.GetElementsByTagName("power")[0].InnerText),
+                                CZ = float.Parse(xfractal.GetElementsByTagName("cz")[0].InnerText)
+                            };
+                            Console.WriteLine($"Added [{type}] '{template.Name}'");
+                            Console.WriteLine($"| Power = {template.Power}");
+                            Console.WriteLine($"| CZ = {template.CZ}");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при чтении встроенных шаблонов:\n{ex}",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             // Left Panel
             ComboType.SelectedIndex = (int)(FractalType.Mand2D);
             BoxWinSize.Text = "500";
